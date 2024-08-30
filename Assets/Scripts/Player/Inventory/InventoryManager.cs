@@ -63,4 +63,58 @@ public class InventoryManager : MonoBehaviour
             Debug.Log("Item: " + keys[i] + ", Quantity: " + values[i]);
         }
     }
+
+    // 레시피에 필요한 모든 재료가 인벤토리에 있는지 확인하는 메서드
+    public string CanCraftRecipe(Recipe recipe)
+    {
+        // 레시피의 재료를 리스트로 변환
+        List<Item> keys = new List<Item>(recipe.Ingredients.Keys);
+        List<int> values = new List<int>(recipe.Ingredients.Values);
+
+        bool hasAllItems = true;
+        bool hasPartialItems = false;
+
+        for (int i = 0; i < keys.Count; i++)
+        {
+            Item item = keys[i];
+            int requiredQuantity = values[i];
+            int currentQuantity = inventory.ContainsKey(item) ? inventory[item] : 0;
+
+            // 현재 보유 수량과 필요한 수량을 출력
+            Debug.Log(item + ": 현재 수량 = " + currentQuantity + ", 필요한 수량 = " + requiredQuantity);
+
+            if (currentQuantity == 0)
+            {
+                // 하나라도 없는 재료가 있다면 "실패"
+                hasAllItems = false;
+            }
+            else if (currentQuantity < requiredQuantity)
+            {
+                // 재료는 있지만 필요한 수량보다 적은 경우
+                hasAllItems = false;
+                hasPartialItems = true;
+            }
+            else
+            {
+                // 재료가 충분한 경우
+                hasPartialItems = true;
+            }
+        }
+
+        if (hasAllItems)
+        {
+            Debug.Log("레시피를 만드는데 필요한 모든 재료가 충분히 있습니다.");
+            return "성공";
+        }
+        else if (hasPartialItems)
+        {
+            Debug.Log("레시피를 만드는데 필요한 재료들이 일부 부족하지만, 몇 가지 재료는 보유하고 있습니다.");
+            return "부분성공";
+        }
+        else
+        {
+            Debug.Log("레시피를 만드는데 필요한 재료 중 하나 이상이 부족합니다.");
+            return "실패";
+        }
+    }
 }
