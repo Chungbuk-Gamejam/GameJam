@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.UIElements;
 using static ItemInfo;
-using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
-using static Unity.Burst.Intrinsics.Arm;
+
 
 public class InventoryManager : MonoBehaviour
 {
@@ -18,6 +16,9 @@ public class InventoryManager : MonoBehaviour
     [SerializeField] private Transform gridParent; // GridLayoutGroup이 있는 부모 오브젝트
     [Tooltip("각 아이템에 해당하는 이미지 스프라이트 배열")]
     [SerializeField] private Sprite[] itemSprites; // 각 아이템에 해당하는 이미지 스프라이트 배열
+    [Tooltip("스탬프")]
+    [SerializeField] private Sprite badStamp;
+    [SerializeField] private Sprite goodStamp;
 
     private void Start()
     {
@@ -151,22 +152,18 @@ public class InventoryManager : MonoBehaviour
             GameObject slot = Instantiate(slotPrefab, gridParent);
 
             // Image 컴포넌트 설정
-            //Image itemImage = slot.transform.Find("Image").GetComponent<Image>();
-            //itemImage.sprite = GetItemSprite(item); // 아이템에 맞는 스프라이트 할당
+            Image itemImage = slot.transform.Find("Image").GetComponent<Image>();
+            itemImage.sprite = GetItemSprite(item); // 아이템에 맞는 스프라이트 할당
 
-            // Result 텍스트 설정
-            TextMeshProUGUI resultText = slot.transform.Find("Result").GetComponent<TextMeshProUGUI>();
+            Image resultImage = slot.transform.Find("Result").GetComponent<Image>();
+
             if (currentQuantity >= requiredQuantity)
             {
-                resultText.text = "충분";
-            }
-            else if (currentQuantity > 0)
-            {
-                resultText.text = "부족";
+                resultImage.sprite = goodStamp;
             }
             else
             {
-                resultText.text = "없음";
+                resultImage.sprite = badStamp;
             }
 
             // Count 텍스트 설정
