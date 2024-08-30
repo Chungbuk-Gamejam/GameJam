@@ -1,11 +1,25 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 using static ItemInfo;
 
 public class InventoryManager : MonoBehaviour
 {
     private Dictionary<Item, int> inventory = new Dictionary<Item, int>();
+
+    [Tooltip("요리하기에서 보여줄 프리팹")]
+    [SerializeField] private GameObject slotPrefab; // 슬롯 프리팹
+    [Tooltip("GridLayoutGroup이 있는 부모 오브젝트")]
+    [SerializeField] private Transform gridParent; // GridLayoutGroup이 있는 부모 오브젝트
+    [Tooltip("각 아이템에 해당하는 이미지 스프라이트 배열")]
+    [SerializeField] private Sprite[] itemSprites; // 각 아이템에 해당하는 이미지 스프라이트 배열
+
+    private void Start()
+    {
+        CreateRecipeSlots(RecipeManager.instance.soupRecipe);
+    }
 
     public void AddItem(Item itemName)
     {
@@ -115,6 +129,65 @@ public class InventoryManager : MonoBehaviour
         {
             Debug.Log("레시피를 만드는데 필요한 재료 중 하나 이상이 부족합니다.");
             return "실패";
+        }
+    }
+
+    void CreateRecipeSlots(Recipe recipe)
+    {
+        // 레시피의 재료를 리스트로 변환
+        List<Item> keys = new List<Item>(recipe.Ingredients.Keys);
+        List<int> values = new List<int>(recipe.Ingredients.Values);
+
+        for (int i = 0; i < keys.Count; i++)
+        {
+            Item item = keys[i];
+            int requiredQuantity = values[i];
+            int currentQuantity = inventory.ContainsKey(item) ? inventory[item] : 0;
+
+            // 슬롯을 인스턴스화
+            GameObject slot = Instantiate(slotPrefab, gridParent);
+
+            // Image 컴포넌트 설정
+            //Image itemImage = slot.transform.Find("Image").GetComponent<Image>();
+            //itemImage.sprite = GetItemSprite(item); // 아이템에 맞는 스프라이트 할당
+
+            // Result 텍스트 설정
+            TextMeshProUGUI resultText = slot.transform.Find("Result").GetComponent<TextMeshProUGUI>();
+            if (currentQuantity >= requiredQuantity)
+            {
+                resultText.text = "충분";
+            }
+            else if (currentQuantity > 0)
+            {
+                resultText.text = "부족";
+            }
+            else
+            {
+                resultText.text = "없음";
+            }
+
+            // Count 텍스트 설정
+            TextMeshProUGUI countText = slot.transform.Find("Count").GetComponent<TextMeshProUGUI>();
+            countText.text = currentQuantity + "/" + requiredQuantity;
+        }
+    }
+
+    // 아이템에 맞는 스프라이트를 반환하는 메서드
+    private Sprite GetItemSprite(Item item)
+    {
+        // itemSprites 배열에 스프라이트가 각 아이템에 맞게 순서대로 배치되었다고 가정
+        // 예를 들어, Carrot은 itemSprites[0], Potato는 itemSprites[1], Tomato는 itemSprites[2] 등에 해당한다고 가정
+
+        switch (item)
+        {
+            case Item.Carrot:
+                return itemSprites[0];
+            case Item.Potato:
+                return itemSprites[1];
+            case Item.Tomato:
+                return itemSprites[2];
+            default:
+                return null; // 아이템에 맞는 스프라이트가 없을 경우 null 반환
         }
     }
 }
