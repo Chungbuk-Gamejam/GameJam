@@ -26,6 +26,11 @@ public class PlayerIdleState : MonoBehaviour, IPlayerState
             _playerController.Interact();
         }
 
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            _playerController._uiController.ControllInventory();
+        }
+
     }
 
     public void OnStateExit()

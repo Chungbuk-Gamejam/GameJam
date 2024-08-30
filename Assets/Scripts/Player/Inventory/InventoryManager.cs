@@ -22,7 +22,7 @@ public class InventoryManager : MonoBehaviour
 
     private void Start()
     {
-        CreateRecipeSlots(RecipeManager.instance.jjaggle);
+        CreateRecipeSlots(RecipeManager.instance.mushroomSoup);
     }
 
     public void AddItem(Item itemName)

@@ -25,6 +25,8 @@ public class PlayerController : MonoBehaviour
     [Tooltip("뛰는 속도")]
     public float runSpeed = 8f;
 
+    [Header("UIController")]
+    public UIController _uiController;
     public static PlayerController Instance { get; private set; } // Singleton 인스턴스
 
 
@@ -56,6 +58,10 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
+        if(_uiController == null)
+        {
+            _uiController = FindFirstObjectByType<UIController>();
+        }
         DirectionUtils.Initialize(this); // 플레이어 Direction 체크하는 함수 초기화
 
         _waitState = gameObject.AddComponent<PlayerWaitState>();
