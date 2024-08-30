@@ -61,11 +61,11 @@ public class PlayerRunningState : MonoBehaviour, IPlayerState
                 _playerController.anim.SetFloat("DirX", 0.0f);
                 _playerController.anim.SetFloat("DirY", 1.0f);
             }
-            else if (firstInputDirection.y < 0)
+            /*else if (firstInputDirection.y < 0)
             {
                 _playerController.anim.SetFloat("DirX", 0.0f);
                 _playerController.anim.SetFloat("DirY", -1.0f);
-            }
+            }*/
 
             // 선입력된 방향의 키가 떼어지면 새 방향 설정
             if (firstInputDirection.x != 0 && _playerController.movement.x == 0)

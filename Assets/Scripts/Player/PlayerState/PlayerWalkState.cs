@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -27,7 +27,7 @@ public class PlayerWalkState : MonoBehaviour, IPlayerState
             _playerController.movement.x = Input.GetAxisRaw("Horizontal");
             _playerController.movement.y = Input.GetAxisRaw("Vertical");
 
-            // Ã¹ ÀÔ·Â ¹æÇâ ¼³Á¤ (¼±ÀÔ·Â ¹æÇâÀÌ ¿©ÀüÈ÷ È°¼ºÈ­µÇ¾î ÀÖÁö ¾ÊÀ» ¶§¸¸ ¾÷µ¥ÀÌÆ®)
+            // ì²« ìž…ë ¥ ë°©í–¥ ì„¤ì • (ì„ ìž…ë ¥ ë°©í–¥ì´ ì—¬ì „ížˆ í™œì„±í™”ë˜ì–´ ìžˆì§€ ì•Šì„ ë•Œë§Œ ì—…ë°ì´íŠ¸)
             if (firstInputDirection == Vector2.zero)
             {
                 if (_playerController.movement.x != 0)
@@ -40,13 +40,13 @@ public class PlayerWalkState : MonoBehaviour, IPlayerState
                 }
             }
 
-            // ÀÔ·ÂÀÌ ¾ø´Â °æ¿ì ¹æÇâ ÃÊ±âÈ­
+            // ìž…ë ¥ì´ ì—†ëŠ” ê²½ìš° ë°©í–¥ ì´ˆê¸°í™”
             if (_playerController.movement == Vector2.zero)
             {
                 firstInputDirection = Vector2.zero;
             }
 
-            // ¼±ÀÔ·ÂµÈ ¹æÇâÀÇ ¾Ö´Ï¸ÞÀÌ¼Ç Àç»ý
+            // ì„ ìž…ë ¥ëœ ë°©í–¥ì˜ ì• ë‹ˆë©”ì´ì…˜ ìž¬ìƒ
             if (firstInputDirection.x > 0)
             {
                 _playerController.anim.SetFloat("DirX", 1.0f);
@@ -62,13 +62,13 @@ public class PlayerWalkState : MonoBehaviour, IPlayerState
                 _playerController.anim.SetFloat("DirX", 0.0f);
                 _playerController.anim.SetFloat("DirY", 1.0f);
             }
-            else if (firstInputDirection.y < 0)
+            /*else if (firstInputDirection.y < 0)
             {
                 _playerController.anim.SetFloat("DirX", 0.0f);
                 _playerController.anim.SetFloat("DirY", -1.0f);
-            }
+            }*/
 
-            // ¼±ÀÔ·ÂµÈ ¹æÇâÀÇ Å°°¡ ¶¼¾îÁö¸é »õ ¹æÇâ ¼³Á¤
+            // ì„ ìž…ë ¥ëœ ë°©í–¥ì˜ í‚¤ê°€ ë–¼ì–´ì§€ë©´ ìƒˆ ë°©í–¥ ì„¤ì •
             if (firstInputDirection.x != 0 && _playerController.movement.x == 0)
             {
                 firstInputDirection = Vector2.zero;
@@ -93,7 +93,7 @@ public class PlayerWalkState : MonoBehaviour, IPlayerState
                 _playerController.ChangeState(_playerController._idleState);
             }
 
-            if (Input.GetKeyDown(KeyCode.F)) // 'E' Å°·Î »óÈ£ÀÛ¿ë
+            if (Input.GetKeyDown(KeyCode.F)) // 'E' í‚¤ë¡œ ìƒí˜¸ìž‘ìš©
             {
                 _playerController.Interact();
             }

@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,14 +14,14 @@ public class PlayerIdleState : MonoBehaviour, IPlayerState
     public void OnStateUpdate()
     {
         //Debug.Log("Player Idle");
-        // ¹æÇâÅ° ÀÔ·Â½Ã WalkingÀ¸·Î »óÅÂ ÀüÀÌ
+        // ë°©í–¥í‚¤ ì…ë ¥ì‹œ Walkingìœ¼ë¡œ ìƒíƒœ ì „ì´
 
         if (Input.GetAxisRaw("Vertical") != 0 || Input.GetAxisRaw("Horizontal") != 0)
         {
             _playerController.ChangeState(_playerController._walkState);
         }
 
-        if (Input.GetKeyDown(KeyCode.F)) // 'E' Å°·Î »óÈ£ÀÛ¿ë
+        if (Input.GetKeyDown(KeyCode.F)) // 'E' í‚¤ë¡œ ìƒí˜¸ì‘ìš©
         {
             _playerController.Interact();
         }
