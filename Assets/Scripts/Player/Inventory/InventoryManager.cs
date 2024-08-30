@@ -14,9 +14,12 @@ public class InventoryManager : MonoBehaviour
     [SerializeField] private GameObject slotPrefab; // 슬롯 프리팹
     [Tooltip("GridLayoutGroup이 있는 부모 오브젝트")]
     [SerializeField] private Transform slotGridParent; // GridLayoutGroup이 있는 부모 오브젝트
+    [Tooltip("슬롯 패널")]
+    [SerializeField] private GameObject slotPanel;
     [Tooltip("각 아이템에 해당하는 이미지 스프라이트 배열")]
     [SerializeField] private Sprite[] itemSprites; // 각 아이템에 해당하는 이미지 스프라이트 배열
     [Space(10)]
+
     [Tooltip("인벤토리에서 보여줄 프리팹")]
     [SerializeField] private GameObject invenPrefab;
     [Tooltip("GridLayoutGroup이 있는 부모 오브젝트")]
@@ -24,11 +27,13 @@ public class InventoryManager : MonoBehaviour
     [Header("스탬프")]
     [SerializeField] private Sprite badStamp;
     [SerializeField] private Sprite goodStamp;
+    [Header("결과")]
+    [SerializeField] private Image result;
 
     private void Start()
     {
-        CreateRecipeSlots(RecipeManager.instance.mushroomSoup);
-        AddItem(Item.Meat);
+        //CreateRecipeSlots(RecipeManager.instance.mushroomSoup);
+        //AddItem(Item.Meat);
     }
 
     public void AddItem(Item itemName)
@@ -103,7 +108,7 @@ public class InventoryManager : MonoBehaviour
 
             // Count 텍스트 설정
             TextMeshProUGUI countText = inven.transform.Find("Count").GetComponent<TextMeshProUGUI>();
-            countText.text = requiredQuantity.ToString();
+            countText.text = requiredQuantity.ToString() + "개";
         }
     }
 
@@ -161,11 +166,15 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
-    void CreateRecipeSlots(Recipe recipe)
+    public void CreateRecipeSlots(Recipe recipe)
     {
+        slotPanel.SetActive(true);
         // 레시피의 재료를 리스트로 변환
         List<Item> keys = new List<Item>(recipe.Ingredients.Keys);
         List<int> values = new List<int>(recipe.Ingredients.Values);
+
+        bool hasAllItems = true;
+        bool hasPartialItems = false;
 
         for (int i = 0; i < keys.Count; i++)
         {
@@ -191,9 +200,36 @@ public class InventoryManager : MonoBehaviour
                 resultImage.sprite = badStamp;
             }
 
+            if (currentQuantity == 0)
+            {
+                // 하나라도 없는 재료가 있다면 "실패"
+                hasAllItems = false;
+            }
+            else if (currentQuantity < requiredQuantity)
+            {
+                // 재료는 있지만 필요한 수량보다 적은 경우
+                hasAllItems = false;
+                hasPartialItems = true;
+            }
+            else
+            {
+                // 재료가 충분한 경우
+                hasPartialItems = true;
+            }
             // Count 텍스트 설정
             TextMeshProUGUI countText = slot.transform.Find("Count").GetComponent<TextMeshProUGUI>();
             countText.text = currentQuantity + "/" + requiredQuantity;
+        }
+
+        if (hasAllItems)
+        {
+            Debug.Log("레시피를 만드는데 필요한 모든 재료가 충분히 있습니다.");
+            result.sprite = goodStamp;
+        }
+        else
+        {
+            Debug.Log("레시피를 만드는데 필요한 재료 중 하나 이상이 부족합니다.");
+            result.sprite = badStamp;
         }
     }
 
