@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a37fed8297de2f840841d47596b50e33, type: 3}
+  m_Name: MiniGame2_ScriptableData
+  m_EditorClassIdentifier: 
+  _listData:
+  - {fileID: 11400000, guid: 507c4175398918a4b82a386dcdc73d5b, type: 2}
+  - {fileID: 11400000, guid: 76b0baafd763e3c4984797c78cdb3a90, type: 2}
+  - {fileID: 11400000, guid: e71424cbc8e691c4b88ed9ddbb2c6ddc, type: 2}
