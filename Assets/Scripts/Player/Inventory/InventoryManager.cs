@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
 using static ItemInfo;
+using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
+using static Unity.Burst.Intrinsics.Arm;
 
 public class InventoryManager : MonoBehaviour
 {
@@ -18,7 +21,7 @@ public class InventoryManager : MonoBehaviour
 
     private void Start()
     {
-        CreateRecipeSlots(RecipeManager.instance.soupRecipe);
+        CreateRecipeSlots(RecipeManager.instance.jjaggle);
     }
 
     public void AddItem(Item itemName)
@@ -180,13 +183,32 @@ public class InventoryManager : MonoBehaviour
 
         switch (item)
         {
-            case Item.Carrot:
+            case Item.Soy:
                 return itemSprites[0];
-            case Item.Potato:
+            case Item.Radish:
                 return itemSprites[1];
-            case Item.Tomato:
+            case Item.Fish:
                 return itemSprites[2];
+            case Item.Salt:
+                return itemSprites[3];
+            case Item.Sugar:
+                return itemSprites[4];
+            case Item.Onion:
+                return itemSprites[5];
+            case Item.Garlic:
+                return itemSprites[6];
+            case Item.Meat:
+                return itemSprites[7];
+            case Item.Potato:
+                return itemSprites[8];
+            case Item.ChiliPepper:
+                return itemSprites[8];
+            case Item.Mushroom:
+                return itemSprites[9];
+            case Item.GreenOnion:
+                return itemSprites[10];
             default:
+        
                 return null; // 아이템에 맞는 스프라이트가 없을 경우 null 반환
         }
     }

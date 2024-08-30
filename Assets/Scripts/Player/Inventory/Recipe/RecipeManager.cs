@@ -21,12 +21,13 @@ public class RecipeManager : MonoBehaviour
         }
     }
 
-    [SerializeField] public Recipe soupRecipe;
-    [SerializeField] public Recipe recipe2;
-    [SerializeField] public Recipe recipe3;
-    [SerializeField] public Recipe recipe4;
+    [SerializeField] public Recipe jjaggle;
+    [SerializeField] public Recipe mushroomSoup;
+    [SerializeField] public Recipe skewers;
+    [SerializeField] public Recipe steamedFish;
 
 
+/*
     void Start()
     {
         if (soupRecipe != null)
@@ -41,5 +42,5 @@ public class RecipeManager : MonoBehaviour
                 Debug.Log(keys[i] + " : " + values[i]);
             }
         }
-    }
+    }*/
 }

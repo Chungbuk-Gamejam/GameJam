@@ -6,8 +6,17 @@ public class ItemInfo : MonoBehaviour
 {
     public enum Item
     {
-        Carrot,
+        Soy,
+        Radish,
+        Fish,
+        Salt,
+        Sugar,
+        Onion,
+        Garlic,
+        Meat,
         Potato,
-        Tomato
+        ChiliPepper,
+        Mushroom,
+        GreenOnion
     }
 }
