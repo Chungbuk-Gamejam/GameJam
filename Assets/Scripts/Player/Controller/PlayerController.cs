@@ -16,6 +16,9 @@ public class PlayerController : MonoBehaviour
     public LayerMask interactableLayer;
     [Tooltip("상호작용 영역의 크기")]
     public Vector2 interactionAreaSize = new(2f, 1f);
+    [Tooltip("상호작용 가능 횟수")]
+    public int interactCounter = 12;
+
 
     [Header("Movement")]
     [Tooltip("방향을 나타내는 변수")]
@@ -27,6 +30,12 @@ public class PlayerController : MonoBehaviour
 
     [Header("UIController")]
     public UIController _uiController;
+
+    [Tooltip("인벤토리")]
+    public InventoryManager inventoryManager;
+
+    [Tooltip("몇 일차인지에 대한 변수")]
+    public int dayCount = 1;
     public static PlayerController Instance { get; private set; } // Singleton 인스턴스
 
 
@@ -62,6 +71,11 @@ public class PlayerController : MonoBehaviour
         {
             _uiController = FindFirstObjectByType<UIController>();
         }
+        if(inventoryManager== null)
+        {
+            inventoryManager = GetComponent<InventoryManager>();
+        }
+
         DirectionUtils.Initialize(this); // 플레이어 Direction 체크하는 함수 초기화
 
         _waitState = gameObject.AddComponent<PlayerWaitState>();
@@ -77,6 +91,28 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         UpdateState();
+        if(interactCounter == 0)
+        {
+            switch (dayCount)
+            {
+                case 1:
+                    inventoryManager.CreateRecipeSlots(RecipeManager.instance.skewers);
+                    break;
+                case 2:
+                    inventoryManager.CreateRecipeSlots(RecipeManager.instance.steamedFish);
+                    break;
+                case 3:
+                    inventoryManager.CreateRecipeSlots(RecipeManager.instance.mushroomSoup);
+                    break;
+                case 4:
+                    inventoryManager.CreateRecipeSlots(RecipeManager.instance.jjaggle);
+                    break;
+
+            }
+            _uiController.ControllInventory();
+            CurrentState = _waitState;
+            interactCounter = 12;
+        }
     }
 
     public void ChangeState(IPlayerState playerState)
@@ -102,16 +138,16 @@ public class PlayerController : MonoBehaviour
         // X축으로 이동중일 때에 이동하는 방향에 따라 왼쪽, 오른쪽 영역 적용
         if (CurrentDirection.x != 0)
         {
-            Vector2 location = new(anim.GetFloat("DirX"), 0.35f);
-            interactionAreaSize = new(2.5f, 2.0f);
+            Vector2 location = new(anim.GetFloat("DirX"), 0.0f);
+            interactionAreaSize = new(0.4f, 0.3f);
             centerPosition = (Vector2)transform.position + location * (interactionAreaSize);
         }
         //Y축으로 이동중일 때에 이동하는 방향에 따라 위, 아래 영역 적용
         else if (CurrentDirection.y != 0)
         {
             Vector2 location = new(0.0f, anim.GetFloat("DirY"));
-            interactionAreaSize = new(5.5f, 1.5f);
-            centerPosition = (Vector2)transform.position + CurrentDirection * (interactionAreaSize);
+            interactionAreaSize = new(0.5f, 0.3f);
+            centerPosition = (Vector2)transform.position + location * (interactionAreaSize);
         }
 
 
@@ -136,6 +172,13 @@ public class PlayerController : MonoBehaviour
         Vector2 location = new(0.0f, 1f);
         Gizmos.color = Color.yellow;
         Vector2 centerPosition = (Vector2)transform.position + location * (interactionAreaSize);
+        Gizmos.DrawWireCube(centerPosition, interactionAreaSize);
+        centerPosition = (Vector2)transform.position + (-1) * location * (interactionAreaSize);
+        Gizmos.DrawWireCube(centerPosition, interactionAreaSize);
+        location = new(anim.GetFloat("DirX"), 0.0f);
+        centerPosition = (Vector2)transform.position + (-1) * location * (interactionAreaSize);
+        Gizmos.DrawWireCube(centerPosition, interactionAreaSize);
+        centerPosition = (Vector2)transform.position + location * (interactionAreaSize);
         Gizmos.DrawWireCube(centerPosition, interactionAreaSize);
     }
 }
