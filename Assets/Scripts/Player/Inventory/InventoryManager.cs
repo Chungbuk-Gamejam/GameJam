@@ -13,16 +13,22 @@ public class InventoryManager : MonoBehaviour
     [Tooltip("요리하기에서 보여줄 프리팹")]
     [SerializeField] private GameObject slotPrefab; // 슬롯 프리팹
     [Tooltip("GridLayoutGroup이 있는 부모 오브젝트")]
-    [SerializeField] private Transform gridParent; // GridLayoutGroup이 있는 부모 오브젝트
+    [SerializeField] private Transform slotGridParent; // GridLayoutGroup이 있는 부모 오브젝트
     [Tooltip("각 아이템에 해당하는 이미지 스프라이트 배열")]
     [SerializeField] private Sprite[] itemSprites; // 각 아이템에 해당하는 이미지 스프라이트 배열
-    [Tooltip("스탬프")]
+    [Space(10)]
+    [Tooltip("인벤토리에서 보여줄 프리팹")]
+    [SerializeField] private GameObject invenPrefab;
+    [Tooltip("GridLayoutGroup이 있는 부모 오브젝트")]
+    [SerializeField] private Transform invenGridParent; // GridLayoutGroup이 있는 부모 오브젝트
+    [Header("스탬프")]
     [SerializeField] private Sprite badStamp;
     [SerializeField] private Sprite goodStamp;
 
     private void Start()
     {
-        CreateRecipeSlots(RecipeManager.instance.jjaggle);
+        CreateRecipeSlots(RecipeManager.instance.mushroomSoup);
+        AddItem(Item.Meat);
     }
 
     public void AddItem(Item itemName)
@@ -39,6 +45,7 @@ public class InventoryManager : MonoBehaviour
             inventory[itemName] = 1; // 처음 추가될 때 0으로 초기화 후 1을 더함
             PrintInventory();
         }
+
     }
 
     public void RemoveItem(Item itemName)
@@ -75,10 +82,28 @@ public class InventoryManager : MonoBehaviour
         List<Item> keys = new List<Item>(inventory.Keys);
         List<int> values = new List<int>(inventory.Values);
 
-        // for문을 사용하여 모든 아이템 정보 출력
+        // 자식 오브젝트들을 순회하면서 제거
+        for (int i = invenGridParent.childCount - 1; i >= 0; i--)
+        {
+            GameObject child = invenGridParent.GetChild(i).gameObject;
+            Destroy(child);
+        }
+
         for (int i = 0; i < keys.Count; i++)
         {
-            Debug.Log("Item: " + keys[i] + ", Quantity: " + values[i]);
+            Item item = keys[i];
+            int requiredQuantity = values[i];
+
+            // 슬롯을 인스턴스화
+            GameObject inven = Instantiate(invenPrefab, invenGridParent);
+
+            // Image 컴포넌트 설정
+            Image itemImage = inven.transform.Find("Image").GetComponent<Image>();
+            itemImage.sprite = GetItemSprite(item); // 아이템에 맞는 스프라이트 할당
+
+            // Count 텍스트 설정
+            TextMeshProUGUI countText = inven.transform.Find("Count").GetComponent<TextMeshProUGUI>();
+            countText.text = requiredQuantity.ToString();
         }
     }
 
@@ -149,7 +174,7 @@ public class InventoryManager : MonoBehaviour
             int currentQuantity = inventory.ContainsKey(item) ? inventory[item] : 0;
 
             // 슬롯을 인스턴스화
-            GameObject slot = Instantiate(slotPrefab, gridParent);
+            GameObject slot = Instantiate(slotPrefab, slotGridParent);
 
             // Image 컴포넌트 설정
             Image itemImage = slot.transform.Find("Image").GetComponent<Image>();
