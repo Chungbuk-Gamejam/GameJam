@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 277302228}
   - component: {fileID: 277302227}
   m_Layer: 6
-  m_Name: Circle
+  m_Name: Carrot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -155,7 +155,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventoryManager: {fileID: 825344746}
-  itemName: "\uB2F9"
+  itemInfo: 0
 --- !u!61 &277302228
 BoxCollider2D:
   m_ObjectHideFlags: 0
