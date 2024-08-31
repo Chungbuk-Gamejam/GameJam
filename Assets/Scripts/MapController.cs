@@ -11,6 +11,9 @@ public class MapController : MonoBehaviour
     [SerializeField] List<TMP_Text> region;
     [SerializeField] int counter = 0;
     [SerializeField] PlayerController playerController;
+    [SerializeField] private List<GameObject> fadeObject;
+    [SerializeField] private List<GameObject> lockObject;
+
 
     [Header("ûȭ")]
     [SerializeField] List<Sprite> sprites;
@@ -44,6 +47,30 @@ public class MapController : MonoBehaviour
                 break;
         }
 
+        switch (playerController.dayCount)
+        {
+            case 1:
+                fadeObject[0].SetActive(true);
+                fadeObject[1].SetActive(true);
+                fadeObject[2].SetActive(true);
+                lockObject[0].SetActive(true);
+                lockObject[1].SetActive(true);
+                lockObject[2].SetActive(true);
+                break;
+            case 2:
+                fadeObject[1].SetActive(true);
+                fadeObject[2].SetActive(true);
+                lockObject[1].SetActive(true);
+                lockObject[2].SetActive(true);
+                break;
+            case 3:
+                fadeObject[2].SetActive(true);
+                lockObject[2].SetActive(true);
+                break;
+            case 4:
+                break;
+        }
+
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
             if (counter >= region.Count - 1)
@@ -71,16 +98,8 @@ public class MapController : MonoBehaviour
         {
             if (!isActivated)
             {
-                if (ProjectManager.Instance.isLocked)
-                {
-                    if(counter == 0)
-                    {
-                        isActivated = true;
-                        playerController.dayCount = counter + 1;
-                        StartCoroutine(StartChangeScene());
-                    }
-                }
-                else
+
+                if (counter < playerController.dayCount)
                 {
                     isActivated = true;
                     playerController.dayCount = counter + 1;

@@ -221,7 +221,12 @@ public class InventoryManager : MonoBehaviour
         // 레시피의 재료를 리스트로 변환
         List<Item> keys = new List<Item>(recipe.Ingredients.Keys);
         List<int> values = new List<int>(recipe.Ingredients.Values);
-
+        // 자식 오브젝트들을 순회하면서 제거
+        for (int i = slotGridParent.childCount - 1; i >= 0; i--)
+        {
+            GameObject child = slotGridParent.GetChild(i).gameObject;
+            Destroy(child);
+        }
         int hasAllItems = 0;
         int hasPartialItems = 0;
         int noItems = 0;
