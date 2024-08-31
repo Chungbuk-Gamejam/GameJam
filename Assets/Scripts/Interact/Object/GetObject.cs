@@ -124,8 +124,8 @@ public class GetObject : MonoBehaviour, IInteractable
                         AddSelectedItem(Item.Soy);
                         break;
                 }
-                spiceGame.SetActive(false);
             }
+                spiceGame.SetActive(false);
         });
         miniGameObject3.ChangeState();
     }
@@ -138,8 +138,8 @@ public class GetObject : MonoBehaviour, IInteractable
             if (x == true)
             {
                 AddSelectedItem(Item.Meat);
-                meatGame.SetActive(false);
             }
+            meatGame.SetActive(false);
         });
         miniGameObject2.ChangeState();
     }
