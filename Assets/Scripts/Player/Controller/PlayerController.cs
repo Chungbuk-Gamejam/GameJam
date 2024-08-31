@@ -36,6 +36,10 @@ public class PlayerController : MonoBehaviour
 
     [Tooltip("몇 일차인지에 대한 변수")]
     public int dayCount = 1;
+
+    [Header("Monologue")]
+    [Tooltip("독백 스크립트")]
+    public GameObject monologuePanel;
     public static PlayerController Instance { get; private set; } // Singleton 인스턴스
 
 
@@ -62,7 +66,7 @@ public class PlayerController : MonoBehaviour
         get; set;
     }
 
-    public IPlayerState _idleState, _walkState, _waitState, _runState;
+    public IPlayerState _idleState, _walkState, _waitState, _runState, _monoState;
 
 
     private void Start()
@@ -82,6 +86,7 @@ public class PlayerController : MonoBehaviour
         _idleState = gameObject.AddComponent<PlayerIdleState>();
         _walkState = gameObject.AddComponent<PlayerWalkState>();
         _runState = gameObject.AddComponent<PlayerRunningState>();
+        _monoState = gameObject.AddComponent<PlayerMonoState>();
 
         _rigidbody = GetComponent<Rigidbody2D>();
 
