@@ -10,6 +10,14 @@ public class UIController : MonoBehaviour
     [Tooltip("플레이어 상태를 알기위한 컨트롤러")]
     [SerializeField] private PlayerController playerController;
 
+    [Header("가마솥 UI")]
+    [SerializeField] GameObject cookingUI;
+    [SerializeField] GameObject cookingResultUI;
+    [SerializeField] List<GameObject> image;
+    [SerializeField] Animator cookAnimator;
+    private WaitForSeconds gap = new WaitForSeconds(0.4f);
+    private bool isActivated = false;
+
 
     public void ControllInventory()
     {
@@ -26,4 +34,33 @@ public class UIController : MonoBehaviour
         }
     }
 
+    public void ControllCooking()
+    {
+        if (!isActivated)
+        {
+            if (!cookingUI.activeSelf)
+            {
+                cookingResultUI.SetActive(false);
+                cookingUI.SetActive(true);
+                StartCoroutine(StartAnimation());
+            }
+            else
+            {
+                cookingUI.SetActive(false);
+                isActivated = true;
+            }
+        }
+    }
+
+    IEnumerator StartAnimation()
+    {
+        yield return new WaitForSeconds(2.0f);
+        for(int i =0; i < image.Count; i++)
+        {
+            image[i].gameObject.SetActive(true);
+            yield return gap;
+        }
+        yield return new WaitForSeconds(1.0f);
+        cookAnimator.SetBool("Off", true);
+    }
 }
