@@ -10,19 +10,20 @@ public class MiniGame3_LockPinObject : MonoBehaviour
     [SerializeField] GameObject _objSuccess;
     [SerializeField] GameObject _objFail;
 
-    [SerializeField] float _InitHeight;
+    float _InitHeight;
     [SerializeField] float _pinHeightDown;
 
     bool _isSuccess;
     public bool Success => _isSuccess;
-
-    public void Start()
+    public void Awake()
     {
-        _InitHeight = this.transform.position.y;
-        _isSuccess = false;
+        _InitHeight = 0.72f;
     }
+
     public void OnEnable()
     {
+        _isSuccess = false;
+        this.transform.localPosition = new Vector3(this.transform.localPosition.x, _InitHeight,0f);
         OnUpdate(); 
     }
 
@@ -57,8 +58,8 @@ public class MiniGame3_LockPinObject : MonoBehaviour
 
     public void SetHeightDown()
     {
-        Vector3 pos = new Vector3(transform.position.x, Mathf.Clamp(transform.position.y - _pinHeightDown, _InitHeight, float.MaxValue), transform.position.z);
-        transform.position = pos;
+        Vector3 pos = new Vector3(transform.localPosition.x, Mathf.Clamp(transform.localPosition.y - _pinHeightDown, _InitHeight, float.MaxValue), transform.localPosition.z);
+        transform.localPosition = pos;
     }
 }
 

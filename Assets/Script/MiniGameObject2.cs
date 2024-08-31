@@ -10,14 +10,18 @@ public class MiniGameObject2 : MonoBehaviour
         Ready,
         InProgress,
         Success,
-        Fail
+        Fail,
+        CloseTime,
     }
 
     [SerializeField] MiniGameState _eCompleteState;
 
     Action<bool> _onCompleteGame;
 
+    [SerializeField] Vector3 _initializePointerPos;
+
     [SerializeField] RectTransform _point;
+    [SerializeField] Animator _pointAnim;
     [SerializeField] Vector3 _goalLine;
 
     [SerializeField] RectTransform _topLimitLine;
@@ -28,6 +32,16 @@ public class MiniGameObject2 : MonoBehaviour
     [SerializeField] int _successedCount;
     [SerializeField] public int _currentSuccessCount;
 
+    Coroutine _closeCoroutine;
+    [SerializeField] bool _isClosing;
+
+    [SerializeField] PlayerController playerController;
+
+    // anim
+    [SerializeField] Animator[] _targetPointAnimator;
+
+    // stamp_Success,Fail
+    [SerializeField] GameObject[] _stampAnimator;
 
     private void OnEnable()
     {
@@ -35,10 +49,10 @@ public class MiniGameObject2 : MonoBehaviour
     }
     private void Update()
     {
-        if(_eCompleteState == MiniGameState.Ready)
-        {
+        if (_eCompleteState == MiniGameState.CloseTime ||
+            _eCompleteState == MiniGameState.Ready)
             return;
-        }
+
         _eCompleteState = CheckCompleteProgress();
 
         if (_eCompleteState == MiniGameState.InProgress)
@@ -108,8 +122,27 @@ public class MiniGameObject2 : MonoBehaviour
 
     public void ResetGame()
     {
+        _point.localPosition = _initializePointerPos;
         _eCompleteState = MiniGameState.Ready;
         _currentSuccessCount = 0;
+        _isClosing = false;
+        _pointAnim.Play($"MiniGame3_Point_Ani");
+
+        for(int i = 0; i < _targetPointAnimator.Length; ++i)
+        {
+            var _animator = _targetPointAnimator[i];
+            if (_animator == null) continue;
+
+            _animator.Play($"MiniGame3_TargetPoint_Idle");
+        }
+
+        for (int i = 0; i < _stampAnimator.Length; ++i)
+        {
+            var _animator = _stampAnimator[i];
+            if (_animator == null) continue;
+
+            _animator.SetActive(false);
+        }
     }
     public void SetCompleteCallback(Action<bool> callback)
     {
@@ -118,26 +151,61 @@ public class MiniGameObject2 : MonoBehaviour
 
     public void SuccessGame()
     {
-        _onCompleteGame?.Invoke(true);
-        _onCompleteGame = null;
+        if(_isClosing == false)
+        {
+            if (_closeCoroutine != null)
+                _closeCoroutine = null;
+
+            _closeCoroutine = StartCoroutine(CloseTime(2));
+
+            if (_stampAnimator[0] != null)
+                _stampAnimator[0].SetActive(true);
+
+            _isClosing = true;
+        }
     }
 
     public void FailGame()
     {
-        _onCompleteGame?.Invoke(false);
+        if (_isClosing == false)
+        {
+            if (_closeCoroutine != null)
+                _closeCoroutine = null;
+
+            _closeCoroutine = StartCoroutine(CloseTime(2));
+
+            if (_stampAnimator[1] != null)
+                _stampAnimator[1].SetActive(true);
+
+            _isClosing = true;
+        }
+    }
+
+    public IEnumerator CloseTime(float _time)
+    {
+        yield return new WaitForSeconds(_time);
+
+        if (_eCompleteState == MiniGameState.Success)
+            _onCompleteGame?.Invoke(true);
+        else if (_eCompleteState == MiniGameState.Fail)
+            _onCompleteGame?.Invoke(false);
+        else { }
+
         _onCompleteGame = null;
+        if(playerController != null)
+            playerController.ChangeState(playerController._idleState);
     }
 
     public MiniGameState CheckCompleteProgress()
     {
-        // true : ÁøÇà , false : Á¾·á
+        // true : ÃÃ¸Ã‡Ã  , false : ÃÂ¾Â·Ã¡
         if(_point == null)
         {
             Debug.LogError($"[MiniGameObject2]CheckCompleteProgress _point is NULL");
             return MiniGameState.Fail;
         }
 
-        float pointPosX = _point.position.x;
+        float pointPosX = _point.localPosition.x;
         if (pointPosX > _goalLine.x)
         {
             if (_successedCount <= _currentSuccessCount)
@@ -151,30 +219,18 @@ public class MiniGameObject2 : MonoBehaviour
 
         return MiniGameState.InProgress;
     }
-
-    public bool CheckisSuccess()
-    {
-        Vector3 vDown = Vector3.down;
-        Vector3 vOrigin = Vector3.zero;
-        if (_point != null)
-            vOrigin = _point.transform.position;
-
-
-
-        return false;
-    }
-
     private void OnDrawGizmos()
     {
         Color color = Color.magenta;
-        Vector3 to = _goalLine + Vector3.down * 5000f;
-        Gizmos.DrawLine(_goalLine, to);
+        Vector3 origin = _goalLine + Vector3.right * 640f;
+        Vector3 to =   _goalLine + Vector3.down * 5000f + Vector3.right * 640f;
+        Gizmos.DrawLine(origin, to);
 
         color = Color.blue;
-        to = _topLimitLine.position + Vector3.right * 5000f;
+        to = _topLimitLine.position + Vector3.right * 2000f;
         Gizmos.DrawLine(_topLimitLine.position, to);
 
-        to = _botLimitLine.position + Vector3.right * 5000f;
+        to = _botLimitLine.position + Vector3.right * 2000f;
         Gizmos.DrawLine(_botLimitLine.position, to);
     }
 }

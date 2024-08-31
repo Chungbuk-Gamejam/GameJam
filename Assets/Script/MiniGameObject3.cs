@@ -17,18 +17,18 @@ public class MiniGameObject3 : MonoBehaviour
         Ready,
         InProgress,
         Success,
-        Fail
+        Fail,
+        CloseTime,
     }
 
     Action<bool> _onCompleteGame;
 
     // lockpicker
     [SerializeField] Transform _lockpicker;
+    [SerializeField] Transform _world;
     [SerializeField] Vector3 _pickerShootRayPos;
     [SerializeField] MiniGame3State _eState = MiniGame3State.PointerMoveHorizontal;
     [SerializeField] MiniGameState _eCompleteState;
-
-
 
     [SerializeField] float _horizontalSpeed;
     [SerializeField] float _verticalSpeed;
@@ -61,20 +61,39 @@ public class MiniGameObject3 : MonoBehaviour
     [SerializeField] float _currentTime;
     [SerializeField] float _maxTime;
 
-    [SerializeField] int _goalCount; // º∫∞¯ ∏Ò«• ∞πºˆ
+    [SerializeField] int _goalCount; // ÏÑ±Í≥µ Î™©Ìëú Í∞ØÏàò
 
+    Coroutine _closeCoroutine;
+    [SerializeField] bool _isClosing;
+
+    [SerializeField] PlayerController playerController;
+
+    // stamp_Success,Fail
+    [SerializeField] GameObject[] _stampAnimator;
 
     private void OnEnable()
     {
-        Reset();
+        ResetGame();
+        OnPositionByCamera();
+    }
+
+    public void OnPositionByCamera()
+    {
+        var cam = GameObject.Find($"Main Camera");
+        Vector3 camPos = Vector3.zero;
+        if (cam != null)
+            camPos = cam.transform.position;
+
+        camPos.z = 0f;
+
+        this.gameObject.transform.position = camPos;
     }
 
     private void Update()
     {
-        if(_eCompleteState == MiniGameState.Ready)
-        {
+        if (_eCompleteState == MiniGameState.CloseTime ||
+            _eCompleteState == MiniGameState.Ready)
             return;
-        }
 
         _eCompleteState = CheckCompleteProgress();
 
@@ -99,11 +118,14 @@ public class MiniGameObject3 : MonoBehaviour
         _eCompleteState = MiniGameState.InProgress;
     }
 
-    public void Reset()
+    public void ResetGame()
     {
-        _vInitializeEdgePos = _barEdge.position;
+        _vInitializeEdgePos = _barEdge.localPosition;
 
-        _vInitializeScale = _barInner.localScale;
+        _lockpicker.localPosition = new Vector3(-0.99f, -0.92f, 0f);
+
+        _vInitializeScale = new Vector3(1f, 0.85f, 0f);
+        _barInner.localScale = new Vector3(1f,0.85f,0f);
         _currentTime = _maxTime;
 
         _eState = MiniGame3State.PointerMoveHorizontal;
@@ -113,6 +135,15 @@ public class MiniGameObject3 : MonoBehaviour
         _moveUpVertical = true;
 
         _verticalSpeed = UnityEngine.Random.Range(1, 10);
+        _isClosing = false;
+
+        for (int i = 0; i < _stampAnimator.Length; ++i)
+        {
+            var _animator = _stampAnimator[i];
+            if (_animator == null) continue;
+
+            _animator.SetActive(false);
+        }
     }
 
     public void SetCompleteCallback(Action<bool> callback)
@@ -122,14 +153,49 @@ public class MiniGameObject3 : MonoBehaviour
 
     public void SuccessGame()
     {
-        _onCompleteGame?.Invoke(true);
-        _onCompleteGame = null;
+        if (_isClosing == false)
+        {
+            if (_closeCoroutine != null)
+                _closeCoroutine = null;
+
+            _closeCoroutine = StartCoroutine(CloseTime(2));
+
+            if (_stampAnimator[0] != null)
+                _stampAnimator[0].SetActive(true);
+
+            _isClosing = true;
+        }
     }
 
     public void FailGame()
     {
-        _onCompleteGame?.Invoke(false);
+        if (_isClosing == false)
+        {
+            if (_closeCoroutine != null)
+                _closeCoroutine = null;
+
+            _closeCoroutine = StartCoroutine(CloseTime(2));
+
+            if (_stampAnimator[1] != null)
+                _stampAnimator[1].SetActive(true);
+
+            _isClosing = true;
+        }
+    }
+    public IEnumerator CloseTime(float _time)
+    {
+        yield return new WaitForSeconds(_time);
+
+        if (_eCompleteState == MiniGameState.Success)
+            _onCompleteGame?.Invoke(true);
+        else if (_eCompleteState == MiniGameState.Fail)
+            _onCompleteGame?.Invoke(false);
+        else { }
+
         _onCompleteGame = null;
+
+        if (playerController != null)
+            playerController.ChangeState(playerController._idleState);
     }
 
     public void MiniGame3Input()
@@ -189,7 +255,7 @@ public class MiniGameObject3 : MonoBehaviour
         // - 5.6 / -0.56
 
         if (_lockpicker != null)
-            pointPositionX = _lockpicker.transform.position.x;
+            pointPositionX = _lockpicker.transform.localPosition.x;
 
         if (_moveRightHorizontal == true && _moveHorizontalRightLimit < pointPositionX)
             _moveRightHorizontal = false;
@@ -201,12 +267,12 @@ public class MiniGameObject3 : MonoBehaviour
 
         if (_lockpicker != null)
         {
-            Vector3 P0 = _lockpicker.transform.position;
+            Vector3 P0 = _lockpicker.transform.localPosition;
             Vector3 AT = dir * _horizontalSpeed * Time.deltaTime;
             Vector3 P1 = P0 + AT;
 
-            _lockpicker.transform.position = P1;
-            // µÓº”øÓµø P1 = PO + AT;
+            _lockpicker.transform.localPosition = P1;
+            // Îì±ÏÜçÏö¥Îèô P1 = PO + AT;
         }
     }
 
@@ -216,7 +282,7 @@ public class MiniGameObject3 : MonoBehaviour
         // - 0.95  / -0.41
 
         if (_lockpicker != null)
-            pointPositionY = _lockpicker.transform.position.y;
+            pointPositionY = _lockpicker.transform.localPosition.y;
 
         if (_moveUpVertical == true && _moveVerticalUpLimit < pointPositionY)
             _moveUpVertical = false;
@@ -231,12 +297,12 @@ public class MiniGameObject3 : MonoBehaviour
 
         if (_lockpicker != null)
         {
-            Vector3 P0 = _lockpicker.transform.position;
+            Vector3 P0 = _lockpicker.transform.localPosition;
             Vector3 AT = dir * _verticalSpeed * Time.deltaTime;
             Vector3 P1 = P0 + AT;
 
-            _lockpicker.transform.position = P1;
-            // µÓº”øÓµø P1 = PO + AT;
+            _lockpicker.transform.localPosition = P1;
+            // Îì±ÏÜçÏö¥Îèô P1 = PO + AT;
         }
     }
 
@@ -246,7 +312,7 @@ public class MiniGameObject3 : MonoBehaviour
         // - 0.95  / -0.41
 
         if (_lockpicker != null)
-            pointPositionY = _lockpicker.transform.position.y;
+            pointPositionY = _lockpicker.transform.localPosition.y;
 
         if (_moveUpVertical == true && _moveObsColliderVerticalUpLimit < pointPositionY)
             _moveUpVertical = false;
@@ -262,12 +328,12 @@ public class MiniGameObject3 : MonoBehaviour
 
         if (_lockpicker != null)
         {
-            Vector3 P0 = _lockpicker.transform.position;
+            Vector3 P0 = _lockpicker.transform.localPosition;
             Vector3 AT = dir * _verticalSpeed * Time.deltaTime;
             Vector3 P1 = P0 + AT;
 
-            _lockpicker.transform.position = P1;
-            // µÓº”øÓµø P1 = PO + AT;
+            _lockpicker.transform.localPosition = P1;
+            // Îì±ÏÜçÏö¥Îèô P1 = PO + AT;
         }
     }
 
@@ -283,31 +349,31 @@ public class MiniGameObject3 : MonoBehaviour
 
     public void ProgressTimeBar()
     {
-        // HP πŸ¿« ¿ßƒ°∏¶ ¥ÎªÛ ¿ß∑Œ º≥¡§
-        _barEdge.position = _vInitializeEdgePos;
+        // HP Î∞îÏùò ÏúÑÏπòÎ•º ÎåÄÏÉÅ ÏúÑÎ°ú ÏÑ§Ï†ï
+        _barEdge.localPosition = _vInitializeEdgePos;
 
         DecreaseTime();
 
-        // HP ∫Ò¿≤ ∞ËªÍ
+        // HP ÎπÑÏú® Í≥ÑÏÇ∞
         float _timeRatio = _currentTime / _maxTime;
 
-        // Ω∫ƒ…¿œ ¡∂¡§ (øﬁ¬ ø°º≠ ø¿∏•¬ ¿∏∑Œ ¡ŸæÓµÂ¥¬ πÊΩƒ)
+        // Ïä§ÏºÄÏùº Ï°∞Ï†ï (ÏôºÏ™ΩÏóêÏÑú Ïò§Î•∏Ï™ΩÏúºÎ°ú Ï§ÑÏñ¥ÎìúÎäî Î∞©Ïãù)
         _barInner.transform.localScale = new Vector3(_vInitializeScale.x * _timeRatio, _vInitializeScale.y, _vInitializeScale.z);
     }
     public MiniGameState CheckCompleteProgress()
     {
-        // ≥≤¿∫ Ω√∞£¿Ã 0 √  ¿ÃªÛ¿œ∂ß ¡¯«‡
+        // ÎÇ®ÏùÄ ÏãúÍ∞ÑÏù¥ 0 Ï¥à Ïù¥ÏÉÅÏùºÎïå ÏßÑÌñâ
         int _count = _listLockPin.FindAll(rhs => rhs.Success == true).Count;
         if (_count >= _goalCount)
             return MiniGameState.Success;
-        // Pin¿« Success∞° ƒ´øÓ∆Æ πÃ∏∏¿œ ∂ß ¡¯«‡
+        // PinÏùò SuccessÍ∞Ä Ïπ¥Ïö¥Ìä∏ ÎØ∏ÎßåÏùº Îïå ÏßÑÌñâ
 
-        // true : ¡¯«‡ , false : ¡æ∑·
-        if (_currentTime >= 0)
+        // true : ÏßÑÌñâ , false : Ï¢ÖÎ£å
+        if (_currentTime > 0)
             return MiniGameState.InProgress;
 
         return MiniGameState.Fail;
-        // ¿Ãø‹ ∏µŒ ¡æ∑·
+        // Ïù¥Ïô∏ Î™®Îëê Ï¢ÖÎ£å
     }
 
     public void DecreaseTime()
