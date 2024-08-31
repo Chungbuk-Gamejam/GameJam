@@ -109,7 +109,10 @@ public class PlayerController : MonoBehaviour
                     break;
 
             }
-            _uiController.ControllInventory();
+            if (_uiController.inventory.activeSelf)
+            {
+                _uiController.inventory.SetActive(false);
+            }
             CurrentState = _waitState;
             interactCounter = 12;
         }

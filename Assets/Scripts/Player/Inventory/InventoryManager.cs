@@ -251,14 +251,12 @@ public class InventoryManager : MonoBehaviour
                 return itemSprites[3];
             case Item.Sugar:
                 return itemSprites[4];
-            case Item.Onion:
-                return itemSprites[5];
             case Item.Garlic:
-                return itemSprites[6];
+                return itemSprites[5];
             case Item.Meat:
-                return itemSprites[7];
+                return itemSprites[6];
             case Item.Potato:
-                return itemSprites[8];
+                return itemSprites[7];
             case Item.ChiliPepper:
                 return itemSprites[8];
             case Item.Mushroom:
