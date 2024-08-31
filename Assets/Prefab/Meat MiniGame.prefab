@@ -682,7 +682,7 @@ MonoBehaviour:
   _goalLine: {x: 554, y: 1600, z: 0}
   _topLimitLine: {fileID: 5231900251063013884}
   _botLimitLine: {fileID: 3891630273519474549}
-  _speed: 250
+  _speed: 350
   _successedCount: 3
   _currentSuccessCount: 0
   _isClosing: 0
