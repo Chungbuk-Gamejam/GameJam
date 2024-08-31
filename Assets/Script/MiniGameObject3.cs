@@ -14,6 +14,7 @@ public class MiniGameObject3 : MonoBehaviour
 
     public enum MiniGameState
     {
+        Ready,
         InProgress,
         Success,
         Fail
@@ -63,24 +64,18 @@ public class MiniGameObject3 : MonoBehaviour
     [SerializeField] int _goalCount; // 성공 목표 갯수
 
 
-    private void Start()
+    private void OnEnable()
     {
-        _vInitializeEdgePos = _barEdge.position;
-
-        _vInitializeScale = _barInner.localScale;
-        _currentTime = _maxTime;
-
-        _eState = MiniGame3State.PointerMoveHorizontal;
-        _eCompleteState = MiniGameState.InProgress;
-
-        _moveRightHorizontal = true;
-        _moveUpVertical = true;
-
-        _verticalSpeed = UnityEngine.Random.Range(1, 10);
+        Reset();
     }
 
     private void Update()
     {
+        if(_eCompleteState == MiniGameState.Ready)
+        {
+            return;
+        }
+
         _eCompleteState = CheckCompleteProgress();
 
         if (_eCompleteState == MiniGameState.Success)
@@ -97,6 +92,27 @@ public class MiniGameObject3 : MonoBehaviour
             ProgressMoveLockPicker();
             ProgressTimeBar();
         }
+    }
+
+    public void ChangeState()
+    {
+        _eCompleteState = MiniGameState.InProgress;
+    }
+
+    public void Reset()
+    {
+        _vInitializeEdgePos = _barEdge.position;
+
+        _vInitializeScale = _barInner.localScale;
+        _currentTime = _maxTime;
+
+        _eState = MiniGame3State.PointerMoveHorizontal;
+        _eCompleteState = MiniGameState.Ready;
+
+        _moveRightHorizontal = true;
+        _moveUpVertical = true;
+
+        _verticalSpeed = UnityEngine.Random.Range(1, 10);
     }
 
     public void SetCompleteCallback(Action<bool> callback)

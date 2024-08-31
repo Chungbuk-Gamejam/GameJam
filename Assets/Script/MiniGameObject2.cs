@@ -7,6 +7,7 @@ public class MiniGameObject2 : MonoBehaviour
 {
     public enum MiniGameState
     {
+        Ready,
         InProgress,
         Success,
         Fail
@@ -28,12 +29,16 @@ public class MiniGameObject2 : MonoBehaviour
     [SerializeField] public int _currentSuccessCount;
 
 
-    private void Start()
+    private void OnEnable()
     {
         ResetGame();
     }
     private void Update()
     {
+        if(_eCompleteState == MiniGameState.Ready)
+        {
+            return;
+        }
         _eCompleteState = CheckCompleteProgress();
 
         if (_eCompleteState == MiniGameState.InProgress)
@@ -60,6 +65,11 @@ public class MiniGameObject2 : MonoBehaviour
         {
             _onCompleteGame = null;
         }
+    }
+
+    public void ChangeState()
+    {
+        _eCompleteState = MiniGameState.InProgress;
     }
 
     public void CheckOnPressFlyObject()
@@ -98,8 +108,8 @@ public class MiniGameObject2 : MonoBehaviour
 
     public void ResetGame()
     {
+        _eCompleteState = MiniGameState.Ready;
         _currentSuccessCount = 0;
-        _eCompleteState = MiniGameState.InProgress;
     }
     public void SetCompleteCallback(Action<bool> callback)
     {
