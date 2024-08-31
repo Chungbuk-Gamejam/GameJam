@@ -10489,13 +10489,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _eCompleteState: 0
+  _initializePointerPos: {x: 0, y: 0, z: 0}
   _point: {fileID: 1185868389}
+  _pointAnim: {fileID: 0}
   _goalLine: {x: 1250, y: 1600, z: 0}
   _topLimitLine: {fileID: 550134064}
   _botLimitLine: {fileID: 1783743932}
   _speed: 250
   _successedCount: 3
   _currentSuccessCount: 0
+  _isClosing: 0
+  playerController: {fileID: 0}
+  _targetPointAnimator: []
+  _stampAnimator: []
 --- !u!1 &1461027091
 GameObject:
   m_ObjectHideFlags: 0
@@ -11307,9 +11313,9 @@ MonoBehaviour:
   IllustPanel: {fileID: 1182721246}
   failIllust: {fileID: 21300000, guid: c87740a2828b04341aa3d9b09f6a6b72, type: 3}
   successIllust: {fileID: 21300000, guid: c59482401eb33e2469d5f0bb6adf08ab, type: 3}
-  character: {fileID: 1545260025}
-  telescope: {fileID: 539195380}
-  map: {fileID: 2099052324}
+  character: {fileID: 0}
+  telescope: {fileID: 0}
+  map: {fileID: 0}
 --- !u!1 &1570776499
 GameObject:
   m_ObjectHideFlags: 0
@@ -14878,6 +14884,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _lockpicker: {fileID: 1862895911687206129}
+  _world: {fileID: 0}
   _pickerShootRayPos: {x: 3.62, y: 0, z: 0}
   _eState: 0
   _eCompleteState: 0
@@ -14905,6 +14912,9 @@ MonoBehaviour:
   _currentTime: 0
   _maxTime: 15
   _goalCount: 6
+  _isClosing: 0
+  playerController: {fileID: 0}
+  _stampAnimator: []
 --- !u!1 &39108531852965945
 GameObject:
   m_ObjectHideFlags: 0
@@ -15254,7 +15264,6 @@ MonoBehaviour:
   _minigame3Object: {fileID: 38300999739513913}
   _objSuccess: {fileID: 6873780998104652366}
   _objFail: {fileID: 8934671365691954583}
-  _InitHeight: 0
   _pinHeightDown: 0.08
 --- !u!114 &955051282513121440
 MonoBehaviour:
@@ -15271,7 +15280,6 @@ MonoBehaviour:
   _minigame3Object: {fileID: 38300999739513913}
   _objSuccess: {fileID: 791967779565965939}
   _objFail: {fileID: 6376529580045832555}
-  _InitHeight: 0
   _pinHeightDown: 0.08
 --- !u!1 &1140418883524528667
 GameObject:
@@ -16730,7 +16738,6 @@ MonoBehaviour:
   _minigame3Object: {fileID: 38300999739513913}
   _objSuccess: {fileID: 4041999990305914924}
   _objFail: {fileID: 39108531852965945}
-  _InitHeight: 0
   _pinHeightDown: 0.08
 --- !u!68 &4285708573431085537
 EdgeCollider2D:
@@ -17321,7 +17328,6 @@ MonoBehaviour:
   _minigame3Object: {fileID: 38300999739513913}
   _objSuccess: {fileID: 3986603160167327570}
   _objFail: {fileID: 8135827403994616820}
-  _InitHeight: 0
   _pinHeightDown: 0.08
 --- !u!212 &5977876616351540697
 SpriteRenderer:
@@ -17986,7 +17992,6 @@ MonoBehaviour:
   _minigame3Object: {fileID: 38300999739513913}
   _objSuccess: {fileID: 3343604218830486519}
   _objFail: {fileID: 7702035005615989333}
-  _InitHeight: 0
   _pinHeightDown: 0.08
 --- !u!61 &7594161389541179788
 BoxCollider2D:
@@ -18112,7 +18117,6 @@ MonoBehaviour:
   _minigame3Object: {fileID: 38300999739513913}
   _objSuccess: {fileID: 344382562076447158}
   _objFail: {fileID: 8245108980941450304}
-  _InitHeight: 0
   _pinHeightDown: 0.08
 --- !u!212 &7918075446993701879
 SpriteRenderer:

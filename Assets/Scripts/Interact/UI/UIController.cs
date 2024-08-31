@@ -30,6 +30,9 @@ public class UIController : MonoBehaviour
     [SerializeField] private Image IllustPanel;
     [SerializeField] private Sprite failIllust;
     [SerializeField] private Sprite successIllust;
+    [SerializeField] private GameObject character;
+    [SerializeField] private GameObject telescope;
+    [SerializeField] private GameObject map;
 
     public void ControllInventory()
     {
@@ -70,7 +73,22 @@ public class UIController : MonoBehaviour
         campBtn.SetActive(false);
         cookingResultUI.SetActive(false);
         isActivated = false;
-        playerController.ChangeState(playerController._seeState);
+        FadeManager.Instance.StartFadeIn();
+        StartCoroutine(StartChangeState());
+    }
+
+    IEnumerator StartChangeState()
+    {
+        yield return new WaitForSeconds(2.0f);
+        playerController.ChangeState(playerController._waitState);
+        character.SetActive(true);
+        telescope.SetActive(true);
+
+        yield return new WaitForSeconds(6.0f);
+        character.SetActive(false); 
+        telescope.SetActive(false);
+        FadeManager.Instance.StartFadeOut();
+        map.SetActive(true);
     }
 
     IEnumerator StartAnimation()
