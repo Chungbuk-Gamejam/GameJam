@@ -149,7 +149,10 @@ public class GetObject : MonoBehaviour, IInteractable
                         break;
                 }
             }
-                spiceGame.SetActive(false);
+            SoundManager.instance.TurnOffBackGroundMusic();
+            SoundManager.instance.PlayBackgroundMusicForMainGame();
+
+            spiceGame.SetActive(false);
         });
         miniGameObject3.ChangeState();
     }
@@ -164,6 +167,9 @@ public class GetObject : MonoBehaviour, IInteractable
                 AddSelectedItem(Item.Meat);
             }
             meatGame.SetActive(false);
+
+            SoundManager.instance.TurnOffBackGroundMusic();
+            SoundManager.instance.PlayBackgroundMusicForMainGame();
         });
         miniGameObject2.ChangeState();
     }
@@ -177,6 +183,9 @@ public class GetObject : MonoBehaviour, IInteractable
     }
     private IEnumerator StartFishGame()
     {
+        SoundManager.instance.TurnOffBackGroundMusic();
+        SoundManager.instance.PlayBackgroundMusicForMiniGame();
+
         yield return new WaitForSeconds(3.0f);
         barMove.IsAble = true;
     }

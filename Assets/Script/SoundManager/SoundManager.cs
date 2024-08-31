@@ -10,6 +10,7 @@ public class SoundManager : MonoBehaviour
     // AudioClip을 저장할 변수들
     public AudioClip _backgroundMusicForTitle;
     public AudioClip _backgroundMusicForMainGame;
+    public AudioClip _backgroundMusicMiniGameMusic;
     public AudioClip _backgroundMusicForGoAurora;
     public AudioClip _backgroundMusicForGoConstellation;
     public AudioClip _backgroundMusicForGoMeteorShower;
@@ -50,7 +51,7 @@ public class SoundManager : MonoBehaviour
         audioSource.Play();
     }
 
-    public void TurnOffBackGroundMusicFor()
+    public void TurnOffBackGroundMusic()
     {
         audioSource.Stop();
         audioSource.clip = null;
@@ -62,6 +63,15 @@ public class SoundManager : MonoBehaviour
         audioSource.volume = 0.3f; // 볼륨
         audioSource.Play();
     }
+
+    public void PlayBackgroundMusicForMiniGame()
+    {
+        audioSource.clip = _backgroundMusicMiniGameMusic;
+        audioSource.loop = true; // 반복 재생
+        audioSource.volume = 0.3f; // 볼륨
+        audioSource.Play();
+    }
+
 
     public void TurnOffBackGroundMusicForMainGame()
     {

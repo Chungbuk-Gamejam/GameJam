@@ -3102,6 +3102,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _backgroundMusicForTitle: {fileID: 8300000, guid: afb04e42fa8d7904db40a5fcf7ab36aa, type: 3}
   _backgroundMusicForMainGame: {fileID: 8300000, guid: b644438424d18b74d8decdfc1141e01e, type: 3}
+  _backgroundMusicMiniGameMusic: {fileID: 8300000, guid: e294c1ec632659141b3f3d46fe1daaca, type: 3}
   _backgroundMusicForGoAurora: {fileID: 8300000, guid: d6f6535221642fb4c86c8ffe02ebebb3, type: 3}
   _backgroundMusicForGoConstellation: {fileID: 8300000, guid: afb04e42fa8d7904db40a5fcf7ab36aa, type: 3}
   _backgroundMusicForGoMeteorShower: {fileID: 8300000, guid: a36b9178ee2f1234cb2845f1999f82d7, type: 3}

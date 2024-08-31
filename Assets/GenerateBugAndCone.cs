@@ -18,6 +18,15 @@ public class GenerateBugAndCone : MonoBehaviour
         stack = 0;
         MaxGenerateDistance = 330f;
         BugProbability = 20;
+
+        SoundManager.instance.TurnOffBackGroundMusic();
+        SoundManager.instance.PlayBackgroundMusicForMiniGame();
+    }
+
+    private void OnDisable()
+    {
+        SoundManager.instance.TurnOffBackGroundMusic();
+        SoundManager.instance.PlayBackgroundMusicForMainGame();
     }
     private void FixedUpdate()
     {

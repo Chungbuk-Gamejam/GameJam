@@ -75,6 +75,9 @@ public class MiniGameObject3 : MonoBehaviour
     {
         ResetGame();
         OnPositionByCamera();
+
+        SoundManager.instance.TurnOffBackGroundMusic();
+        SoundManager.instance.PlayBackgroundMusicForMiniGame();
     }
 
     public void OnPositionByCamera()
