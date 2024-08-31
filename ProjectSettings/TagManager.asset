@@ -12,6 +12,7 @@ TagManager:
   - FishGame
   - MiniGame3_PinCollider
   - MiniGame3_ObsCollider
+  - Map
   layers:
   - Default
   - TransparentFX
