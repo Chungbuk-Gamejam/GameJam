@@ -11,12 +11,12 @@ public class ItemInfo : MonoBehaviour
         Fish,
         Salt,
         Sugar,
-        Onion,
         Garlic,
         Meat,
         Potato,
         ChiliPepper,
         Mushroom,
-        GreenOnion
+        GreenOnion,
+        Pinecone
     }
 }

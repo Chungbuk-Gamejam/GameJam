@@ -50,7 +50,7 @@ public class CameraManager : MonoBehaviour
         Collider2D[] colliders = Physics2D.OverlapPointAll(target.transform.position);
         foreach (var collider in colliders)
         {
-            if (collider is BoxCollider2D && collider.CompareTag("MainCamera"))
+            if (collider is BoxCollider2D && collider.CompareTag("Camera"))
             {
                 SetBound(collider as BoxCollider2D);
                 break;
