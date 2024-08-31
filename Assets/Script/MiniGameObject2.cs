@@ -179,7 +179,7 @@ public class MiniGameObject2 : MonoBehaviour
 
     public MiniGameState CheckCompleteProgress()
     {
-        // true : ÁøÇà , false : Á¾·á
+        // true : ÃÃ¸Ã‡Ã  , false : ÃÂ¾Â·Ã¡
         if(_point == null)
         {
             Debug.LogError($"[MiniGameObject2]CheckCompleteProgress _point is NULL");
