@@ -52,7 +52,26 @@ public class PlayerController : MonoBehaviour
 
     public void Reset()
     {
-        
+        interactCounter = 12;
+        cookCount = 0;
+        inventoryManager.ShowCurrentRecipe(ReturnRecipeType());
+    }
+
+    public Recipe ReturnRecipeType()
+    {
+        switch (dayCount)
+        {
+            case 1:
+                return RecipeManager.instance.skewers;
+            case 2:
+                return RecipeManager.instance.steamedFish;
+            case 3:
+                return RecipeManager.instance.mushroomSoup;
+            case 4:
+                return RecipeManager.instance.jjaggle;
+            default:
+                return RecipeManager.instance.skewers;
+        }
     }
 
     private void Awake()
@@ -83,11 +102,11 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
-        if(_uiController == null)
+        if (_uiController == null)
         {
             _uiController = FindFirstObjectByType<UIController>();
         }
-        if(inventoryManager== null)
+        if (inventoryManager == null)
         {
             inventoryManager = GetComponent<InventoryManager>();
         }
@@ -104,12 +123,15 @@ public class PlayerController : MonoBehaviour
         _rigidbody = GetComponent<Rigidbody2D>();
 
         ChangeState(_idleState);
+
+        Reset();
     }
+
 
     private void Update()
     {
         UpdateState();
-        if(interactCounter == 0)
+        if (interactCounter == 0)
         {
             CurrentState = _waitState;
             interactCounter = 12;
@@ -127,7 +149,6 @@ public class PlayerController : MonoBehaviour
                 case 4:
                     inventoryManager.CreateRecipeSlots(RecipeManager.instance.jjaggle);
                     break;
-
             }
             if (_uiController.inventory.activeSelf)
             {
@@ -159,14 +180,14 @@ public class PlayerController : MonoBehaviour
         // X축으로 이동중일 때에 이동하는 방향에 따라 왼쪽, 오른쪽 영역 적용
         if (CurrentDirection.x != 0)
         {
-            Vector2 location = new(anim.GetFloat("DirX"), 0.0f);
+            Vector2 location = new(CurrentDirection.x, 0.0f);
             interactionAreaSize = new(0.4f, 0.3f);
             centerPosition = (Vector2)transform.position + location * (interactionAreaSize);
         }
         //Y축으로 이동중일 때에 이동하는 방향에 따라 위, 아래 영역 적용
         else if (CurrentDirection.y != 0)
         {
-            Vector2 location = new(0.0f, anim.GetFloat("DirY"));
+            Vector2 location = new(0.0f, CurrentDirection.y);
             interactionAreaSize = new(0.5f, 0.3f);
             centerPosition = (Vector2)transform.position + location * (interactionAreaSize);
         }

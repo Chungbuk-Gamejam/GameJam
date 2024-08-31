@@ -36,6 +36,14 @@ public class PlayerRunningState : MonoBehaviour, IPlayerState
                 _playerController.anim.SetFloat("DirX", -1.0f);
                 _playerController.anim.SetFloat("DirY", 0.0f);
             }
+            else if (_playerController.movement.y < 0)
+            {
+                _playerController.anim.SetFloat("DirY", -1.0f);
+            }
+            else if (_playerController.movement.y > 0)
+            {
+                _playerController.anim.SetFloat("DirY", 1.0f);
+            }
 
             if (_playerController.movement.x != 0 || _playerController.movement.y != 0)
             {

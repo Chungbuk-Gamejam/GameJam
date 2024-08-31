@@ -77,7 +77,6 @@ public class GetObject : MonoBehaviour, IInteractable
     //상호작용 카운터 1 감소
     public void Interact()
     {
-        playerController.ChangeState(playerController._waitState);
         CheckGameType();
         //AddItem();
         //Destroy(gameObject);
@@ -89,19 +88,44 @@ public class GetObject : MonoBehaviour, IInteractable
         {
             case ItemType.Fish:
                 fishGame.SetActive(true);
+                playerController.ChangeState(playerController._waitState);
                 StartCoroutine(StartFishGame());
                 break;
             case ItemType.Pinecone:
                 pineGame.SetActive(true);
+                playerController.ChangeState(playerController._waitState);
                 StartCoroutine(StartPineGame());
                 break;
             case ItemType.Meat:
                 meatGame.SetActive(true);
+                playerController.ChangeState(playerController._waitState);
                 StartCoroutine(StartMeatGame());
                 break;
             case ItemType.Spice:
+                playerController.ChangeState(playerController._waitState);
                 spiceGame.SetActive(true);
                 StartCoroutine(StartSpiceGame());
+                break;
+            case ItemType.Vegetable:
+                int randNum = Random.Range(0, 6);
+                switch (randNum)
+                {
+                    case 0:
+                        AddSelectedItem(Item.Radish);
+                        break;
+                    case 1:
+                        AddSelectedItem(Item.Garlic);
+                        break;
+                    case 2:
+                        AddSelectedItem(Item.GreenOnion);
+                        break;
+                    case 3:
+                        AddSelectedItem(Item.Potato);
+                        break;
+                    case 4:
+                        AddSelectedItem(Item.Mushroom);
+                        break;
+                }
                 break;
 
         }
@@ -233,7 +257,7 @@ public class GetObject : MonoBehaviour, IInteractable
         rectTransform.localEulerAngles = new Vector3(
                 rectTransform.localEulerAngles.x,
                 rectTransform.localEulerAngles.y,
-                rectTransform.localEulerAngles.z - 15f
+                rectTransform.localEulerAngles.z + 15f
             );
     }
 }
