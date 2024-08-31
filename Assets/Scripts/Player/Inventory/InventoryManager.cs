@@ -95,7 +95,7 @@ public class InventoryManager : MonoBehaviour
 
     IEnumerator StartFlyingObject(SpriteRenderer image)
     {
-        Vector3 dest = new(image.gameObject.transform.position.x, image.gameObject.transform.position.y + 3f, image.gameObject.transform.position.z);
+        Vector3 dest = new(image.gameObject.transform.position.x, image.gameObject.transform.position.y + 10f, image.gameObject.transform.position.z);
         while (image.gameObject.transform.position != dest)
         {
             image.gameObject.transform.position = Vector3.MoveTowards(image.gameObject.transform.position, dest, 2f * Time.deltaTime);
