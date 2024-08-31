@@ -39,10 +39,12 @@ public class PlayerWalkState : MonoBehaviour, IPlayerState
             }
             else if (_playerController.movement.y < 0)
             {
+                _playerController.anim.SetFloat("DirX", 0.0f);
                 _playerController.anim.SetFloat("DirY", -1.0f);
             }
             else if (_playerController.movement.y > 0)
             {
+                _playerController.anim.SetFloat("DirX", 0.0f);
                 _playerController.anim.SetFloat("DirY", 1.0f);
             }
 
