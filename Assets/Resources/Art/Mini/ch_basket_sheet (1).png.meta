@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 52d27bf65fad50148b687405bbeba9da
+guid: 585f3dc7f9b266c4d9e5e960377d32c1
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -94,7 +94,20 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
-    buildTarget: WebGL
+    buildTarget: iPhone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -110,169 +123,169 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: ch_walk_0
+      name: ch_basket_sheet (1)_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 300
         height: 300
-      alignment: 9
-      pivot: {x: 0.5, y: 0.25}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 13f0ed32ac44061449bfcce823ff9662
-      internalID: -129553695
+      spriteID: e48628ee5cbf70f4d82528a7935ab1df
+      internalID: 721977323
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ch_walk_1
+      name: ch_basket_sheet (1)_1
       rect:
         serializedVersion: 2
         x: 300
         y: 0
         width: 300
         height: 300
-      alignment: 9
-      pivot: {x: 0.5, y: 0.25}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 43d3231ab5e8e014b983a070329d045f
-      internalID: 126162155
+      spriteID: 92799f98fa6e50448bc9dc3939f02d5a
+      internalID: -1999255471
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ch_walk_2
+      name: ch_basket_sheet (1)_2
       rect:
         serializedVersion: 2
         x: 600
         y: 0
         width: 300
         height: 300
-      alignment: 9
-      pivot: {x: 0.5, y: 0.25}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bc42798c479206b4dae6ddf3a1602a48
-      internalID: 881970992
+      spriteID: 2e24facd7c53b7c4797d9eb225311457
+      internalID: -1226460572
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ch_walk_3
+      name: ch_basket_sheet (1)_3
       rect:
         serializedVersion: 2
         x: 900
         y: 0
         width: 300
         height: 300
-      alignment: 9
-      pivot: {x: 0.5, y: 0.25}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b450a69935506014397a6d9034d2dd87
-      internalID: 2146679344
+      spriteID: 409bb6e03fab18c47be3f6d18b9b7eb5
+      internalID: 2005163652
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ch_walk_4
+      name: ch_basket_sheet (1)_4
       rect:
         serializedVersion: 2
         x: 1200
         y: 0
         width: 300
         height: 300
-      alignment: 9
-      pivot: {x: 0.5, y: 0.25}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c59926cc2b32c244fbd03f531da9d2fc
-      internalID: 425498036
+      spriteID: a9a763834cc526e4887f0a66b9e50c77
+      internalID: -1621331195
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ch_walk_5
+      name: ch_basket_sheet (1)_5
       rect:
         serializedVersion: 2
         x: 1500
         y: 0
         width: 300
         height: 300
-      alignment: 9
-      pivot: {x: 0.5, y: 0.25}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ecf5dd706d03be94393eef3f6c8e37f9
-      internalID: -272967087
+      spriteID: 433548968d9320347a7bf8aed0a0d8e9
+      internalID: 1591608162
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ch_walk_6
+      name: ch_basket_sheet (1)_6
       rect:
         serializedVersion: 2
         x: 1800
         y: 0
         width: 300
         height: 300
-      alignment: 9
-      pivot: {x: 0.5, y: 0.25}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 66536e3f9e41b4445bc153eed2aea9c6
-      internalID: 474325115
+      spriteID: d9eb73d0b699cda46ba4a98c17f344fb
+      internalID: 1260262621
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ch_walk_7
+      name: ch_basket_sheet (1)_7
       rect:
         serializedVersion: 2
         x: 2100
         y: 0
         width: 300
         height: 300
-      alignment: 9
-      pivot: {x: 0.5, y: 0.25}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 38c6cc7c603b3954ca60dfa8a291d773
-      internalID: -1473987545
+      spriteID: 504dd3f33bb7bf5408e1efe3ffc83d66
+      internalID: 1886622781
       vertices: []
       indices: 
       edges: []
@@ -288,14 +301,14 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      ch_walk_0: -129553695
-      ch_walk_1: 126162155
-      ch_walk_2: 881970992
-      ch_walk_3: 2146679344
-      ch_walk_4: 425498036
-      ch_walk_5: -272967087
-      ch_walk_6: 474325115
-      ch_walk_7: -1473987545
+      ch_basket_sheet (1)_0: 721977323
+      ch_basket_sheet (1)_1: -1999255471
+      ch_basket_sheet (1)_2: -1226460572
+      ch_basket_sheet (1)_3: 2005163652
+      ch_basket_sheet (1)_4: -1621331195
+      ch_basket_sheet (1)_5: 1591608162
+      ch_basket_sheet (1)_6: 1260262621
+      ch_basket_sheet (1)_7: 1886622781
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

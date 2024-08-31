@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: f3057144bc1e4c14d9e8a2ed541849f4
+guid: 57e8e9119840aa94282e7ad94b280762
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -94,7 +94,20 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
-    buildTarget: WebGL
+    buildTarget: iPhone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -110,169 +123,64 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: ch_walk 1_0
+      name: minigame_frame-Sheet_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 300
-        height: 300
-      alignment: 9
-      pivot: {x: 0.5, y: 0.25}
+        width: 888
+        height: 492
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2a0aca5703de3f44ba8a901f619f8edf
-      internalID: 867916163
+      spriteID: c49c24112b71d634dacf43e61feb768b
+      internalID: -172937074
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ch_walk 1_1
+      name: minigame_frame-Sheet_1
       rect:
         serializedVersion: 2
-        x: 300
+        x: 888
         y: 0
-        width: 300
-        height: 300
-      alignment: 9
-      pivot: {x: 0.5, y: 0.25}
+        width: 888
+        height: 492
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 163b7daef016b5445872152b9409fcbf
-      internalID: -20473670
+      spriteID: 9c8336e9ffcc076459c2f123f1a4b403
+      internalID: -386318860
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ch_walk 1_2
+      name: minigame_frame-Sheet_2
       rect:
         serializedVersion: 2
-        x: 600
+        x: 1776
         y: 0
-        width: 300
-        height: 300
-      alignment: 9
-      pivot: {x: 0.5, y: 0.25}
+        width: 888
+        height: 492
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bdf9b962c464d914887f10c75f9888ef
-      internalID: 790491590
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch_walk 1_3
-      rect:
-        serializedVersion: 2
-        x: 900
-        y: 0
-        width: 300
-        height: 300
-      alignment: 9
-      pivot: {x: 0.5, y: 0.25}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 922bb51cd3b010e4d80dbf3fa7a10729
-      internalID: -886167621
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch_walk 1_4
-      rect:
-        serializedVersion: 2
-        x: 1200
-        y: 0
-        width: 300
-        height: 300
-      alignment: 9
-      pivot: {x: 0.5, y: 0.25}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 76c09fb6f7bc5b9458722a9db11673f8
-      internalID: -1569610202
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch_walk 1_5
-      rect:
-        serializedVersion: 2
-        x: 1500
-        y: 0
-        width: 300
-        height: 300
-      alignment: 9
-      pivot: {x: 0.5, y: 0.25}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a05da97a14583824c9a66058667428ac
-      internalID: 544579929
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch_walk 1_6
-      rect:
-        serializedVersion: 2
-        x: 1800
-        y: 0
-        width: 300
-        height: 300
-      alignment: 9
-      pivot: {x: 0.5, y: 0.25}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 5a2692926c765804cb205afc9e428184
-      internalID: -1673244558
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch_walk 1_7
-      rect:
-        serializedVersion: 2
-        x: 2100
-        y: 0
-        width: 300
-        height: 300
-      alignment: 9
-      pivot: {x: 0.5, y: 0.25}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 6dd7a9a0ce655304a84aaa96bc69d4a3
-      internalID: -1852243509
+      spriteID: ed9054bfadb640a49a6329e371c6a38c
+      internalID: 310946838
       vertices: []
       indices: 
       edges: []
@@ -288,14 +196,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      ch_walk 1_0: 867916163
-      ch_walk 1_1: -20473670
-      ch_walk 1_2: 790491590
-      ch_walk 1_3: -886167621
-      ch_walk 1_4: -1569610202
-      ch_walk 1_5: 544579929
-      ch_walk 1_6: -1673244558
-      ch_walk 1_7: -1852243509
+      minigame_frame-Sheet_0: -172937074
+      minigame_frame-Sheet_1: -386318860
+      minigame_frame-Sheet_2: 310946838
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -6,6 +6,10 @@ TagManager:
   tags:
   - Clock
   - MiniGame2_Point
+  - bug
+  - cone
+  - Camera
+  - FishGame
   - MiniGame3_PinCollider
   - MiniGame3_ObsCollider
   layers:
@@ -16,7 +20,7 @@ TagManager:
   - Water
   - UI
   - Interactable
-  - 
+  - Wall
   - 
   - SuccessCollider
   - 

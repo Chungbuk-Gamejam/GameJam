@@ -33,6 +33,7 @@ public class MiniGameObject : MonoBehaviour
             _isPlayGame = false;
 
             if (CheckisSuccess())
+
                 SuccessGame();
             else
                 FailGame();
@@ -107,7 +108,7 @@ public class MiniGameObject : MonoBehaviour
             Vector3 P1 = P0 + AT;
 
             _point.GetComponent<RectTransform>().localPosition = P1;
-            // ��ӿ P1 = PO + AT;
+            // µî¼Ó¿îµ¿ P1 = PO + AT;
         }
     }
 

@@ -6,7 +6,7 @@ public class PlayerController : MonoBehaviour
     [Header("Animator")]
     [Tooltip("플레이어의 애니메이션을 조정하기위한 Animator")]
     public Animator anim;
-    
+
     [HideInInspector]
     [Tooltip("플레이어의 움직임을 조정하기위한 Rigidbody")]
     public Rigidbody2D _rigidbody;
@@ -36,6 +36,13 @@ public class PlayerController : MonoBehaviour
 
     [Tooltip("몇 일차인지에 대한 변수")]
     public int dayCount = 1;
+
+    [Tooltip("요리 성공에 대한 플래그")]
+    public int cookCount = 0; //3이면 성공, 2이면 부분 성공 1이면 실패
+
+    [Header("Monologue")]
+    [Tooltip("독백 스크립트")]
+    public GameObject monologuePanel;
     public static PlayerController Instance { get; private set; } // Singleton 인스턴스
 
 
@@ -62,7 +69,7 @@ public class PlayerController : MonoBehaviour
         get; set;
     }
 
-    public IPlayerState _idleState, _walkState, _waitState, _runState;
+    public IPlayerState _idleState, _walkState, _waitState, _runState, _monoState;
 
 
     private void Start()
@@ -82,6 +89,7 @@ public class PlayerController : MonoBehaviour
         _idleState = gameObject.AddComponent<PlayerIdleState>();
         _walkState = gameObject.AddComponent<PlayerWalkState>();
         _runState = gameObject.AddComponent<PlayerRunningState>();
+        _monoState = gameObject.AddComponent<PlayerMonoState>();
 
         _rigidbody = GetComponent<Rigidbody2D>();
 
@@ -93,6 +101,8 @@ public class PlayerController : MonoBehaviour
         UpdateState();
         if(interactCounter == 0)
         {
+            CurrentState = _waitState;
+            interactCounter = 12;
             switch (dayCount)
             {
                 case 1:
@@ -109,9 +119,10 @@ public class PlayerController : MonoBehaviour
                     break;
 
             }
-            _uiController.ControllInventory();
-            CurrentState = _waitState;
-            interactCounter = 12;
+            if (_uiController.inventory.activeSelf)
+            {
+                _uiController.inventory.SetActive(false);
+            }
         }
     }
 
