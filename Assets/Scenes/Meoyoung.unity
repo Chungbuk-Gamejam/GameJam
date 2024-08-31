@@ -5164,9 +5164,9 @@ MonoBehaviour:
   normalCookingStamp: {fileID: 21300000, guid: 9f76011ecb689f8489c410926a86bb07, type: 3}
   badCookingStamp: {fileID: 21300000, guid: 71c57c77a299df8419fb5ba35f1af11b, type: 3}
   result: {fileID: 1491450866}
-  bottomPrefab: {fileID: 0}
-  bottomGridParent: {fileID: 0}
-  flyingPrefab: {fileID: 0}
+  bottomPrefab: {fileID: 101472564028067464, guid: 9262c5a5d0fdf764bb8bb9bf75e2c928, type: 3}
+  bottomGridParent: {fileID: 470042067}
+  flyingPrefab: {fileID: 7651823791655781063, guid: 012273a07b517a949842208e7b95a078, type: 3}
 --- !u!61 &825344747
 BoxCollider2D:
   m_ObjectHideFlags: 0
