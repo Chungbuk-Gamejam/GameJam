@@ -123,6 +123,9 @@ public class MapController : MonoBehaviour
         yield return new WaitForSeconds(1.0f);
         FadeManager.Instance.StartFadeIn();
         yield return new WaitForSeconds(1.5f);
+
+        
+
         if (playerController.cookCount == 1)
         {
             character.sprite = characterSprites[0];
@@ -137,6 +140,27 @@ public class MapController : MonoBehaviour
         }
 
         chunghwaImage.sprite = sprites[counter];
+
+        //Bgm
+        SoundManager.instance.TurnOffBackGroundMusic();
+
+        if (counter == 0)
+        {
+            SoundManager.instance.PlayBackgroundMusicForGoMilkyWay();
+        }
+        else if (counter == 1)
+        {
+            SoundManager.instance.PlayBackgroundMusicForGoAurora();
+        }
+        else if (counter == 2)
+        {
+            SoundManager.instance.PlayBackgroundMusicForGoConstellation();
+        }
+        else
+        {
+            SoundManager.instance.PlayBackgroundMusicForGoMeteorShower();
+        }
+
         playerController.dayCount++;
 
         chunghwa.SetActive(true);
@@ -151,6 +175,17 @@ public class MapController : MonoBehaviour
         playerController.Reset();
         playerController.ChangeState(playerController._idleState);
         map.SetActive(false);
+
+        if(playerController.dayCount >= 2)
+        {
+            // 종료 로직
+            SceneLoader.Instance.AsyncSceneLoader($"EndingCredit");
+        }
+        else
+        {
+            SoundManager.instance.TurnOffBackGroundMusic();
+            SoundManager.instance.PlayBackgroundMusicForMainGame();
+        }
     }
 
     private void SetFontSize(int focus)
