@@ -48,6 +48,12 @@ public class InventoryManager : MonoBehaviour
     [Header("결과")]
     [SerializeField] private Image result;
 
+    [Tooltip("하단 바에서 보여줄 프리팹")]
+    [SerializeField] private GameObject bottomPrefab;
+    [Tooltip("GridLayoutGroup이 있는 부모 오브젝트")]
+    [SerializeField] private Transform bottomGridParent; // GridLayoutGroup이 있는 부모 오브젝트
+
+
     private void Start()
     {
         if (playerController == null)
@@ -75,6 +81,7 @@ public class InventoryManager : MonoBehaviour
             inventory[itemName] = 1; // 처음 추가될 때 0으로 초기화 후 1을 더함
             PrintInventory();
         }
+        ShowCurrentRecipe(playerController.ReturnRecipeType());
 
     }
 
@@ -137,6 +144,37 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
+    public void ShowCurrentRecipe(Recipe recipe)
+    {
+        List<Item> keys = new List<Item>(recipe.Ingredients.Keys);
+        List<int> values = new List<int>(recipe.Ingredients.Values);
+
+        // 자식 오브젝트들을 순회하면서 제거
+        for (int i = bottomGridParent.childCount - 1; i >= 0; i--)
+        {
+            GameObject child = bottomGridParent.GetChild(i).gameObject;
+            Destroy(child);
+        }
+
+        for (int i = 0; i < keys.Count; i++)
+        {
+            Item item = keys[i];
+            int requiredQuantity = values[i];
+            int currentQuantity = inventory.ContainsKey(item) ? inventory[item] : 0;
+
+            // 슬롯을 인스턴스화
+            GameObject slot = Instantiate(bottomPrefab, bottomGridParent);
+
+            // Image 컴포넌트 설정
+            Image itemImage = slot.transform.Find("Image").GetComponent<Image>();
+            itemImage.sprite = GetItemSprite(item); // 아이템에 맞는 스프라이트 할당
+
+            // Count 텍스트 설정
+            TextMeshProUGUI countText = slot.transform.Find("Count").GetComponent<TextMeshProUGUI>();
+            countText.text = currentQuantity + "/" + requiredQuantity;
+        }
+    }
+
     public void CreateRecipeSlots(Recipe recipe)
     {
         slotPanel.SetActive(true);
@@ -162,8 +200,6 @@ public class InventoryManager : MonoBehaviour
             itemImage.sprite = GetItemSprite(item); // 아이템에 맞는 스프라이트 할당
 
             Image resultImage = slot.transform.Find("Result").GetComponent<Image>();
-
-
 
             menuImage.sprite = GetMenuItemSprite(recipe.name);
 
