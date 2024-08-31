@@ -85,17 +85,17 @@ public class InventoryManager : MonoBehaviour
             PrintInventory();
         }
         GameObject flyingObject = Instantiate(flyingPrefab);
-        flyingObject.transform.position = this.transform.position;
+        flyingObject.transform.position = new (this.transform.position.x ,this.transform.position.y + 1.5f, this.transform.position.z);
         SpriteRenderer itemImage = flyingObject.GetComponent<SpriteRenderer>();
         itemImage.sprite = GetItemSprite(itemName); // 아이템에 맞는 스프라이트 할당
-        StartFlyingObject(itemImage);
+        StartCoroutine(StartFlyingObject(itemImage));
 
         ShowCurrentRecipe(playerController.ReturnRecipeType());
     }
 
     IEnumerator StartFlyingObject(SpriteRenderer image)
     {
-        Vector3 dest = new(image.gameObject.transform.position.x, image.gameObject.transform.position.y + 10f, image.gameObject.transform.position.z);
+        Vector3 dest = new(image.gameObject.transform.position.x, image.gameObject.transform.position.y + 1.0f, image.gameObject.transform.position.z);
         while (image.gameObject.transform.position != dest)
         {
             image.gameObject.transform.position = Vector3.MoveTowards(image.gameObject.transform.position, dest, 2f * Time.deltaTime);
