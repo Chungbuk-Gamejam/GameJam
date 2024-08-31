@@ -92,6 +92,10 @@ public class GaugeMove : MonoBehaviour
     IEnumerator StartFadeOut()
     {
         yield return new WaitForSeconds(3.0f);
+        if (barMove.targetObject.activeSelf)
+        {
+            barMove.targetObject.SetActive(false);
+        }
         barMove.Init();
         Init();
         getObject.RotateClock();
