@@ -54,6 +54,11 @@ public class InventoryManager : MonoBehaviour
         {
             playerController = GetComponent<PlayerController>();
         }
+
+        if (result.gameObject.activeSelf)
+        {
+            result.gameObject.SetActive(false);
+        }
     }
 
     public void AddItem(Item itemName)
@@ -157,6 +162,8 @@ public class InventoryManager : MonoBehaviour
 
             Image resultImage = slot.transform.Find("Result").GetComponent<Image>();
 
+
+
             menuImage.sprite = GetMenuItemSprite(recipe.name);
 
             if (currentQuantity >= requiredQuantity)
@@ -197,19 +204,35 @@ public class InventoryManager : MonoBehaviour
         {
             Debug.Log("레시피를 만드는데 필요한 모든 재료가 충분히 있습니다.");
             playerController.cookCount = 3;
-            result.sprite = goodCookingStamp;
+           //result.sprite = goodCookingStamp;
         }
         else if (hasPartialItems)
         {
             Debug.Log("레시피를 만드는데 필요한 재료들이 일부 부족하지만, 몇 가지 재료는 보유하고 있습니다.");
             playerController.cookCount = 2;
-            result.sprite = normalCookingStamp;
+            //result.sprite = normalCookingStamp;
         }
         else
         {
             Debug.Log("레시피를 만드는데 필요한 재료 중 하나 이상이 부족합니다.");
             playerController.cookCount = 1;
-            result.sprite = badCookingStamp;
+            //result.sprite = badCookingStamp;
+        }
+    }
+
+    public void GetResultStamp()
+    {
+        switch (playerController.cookCount)
+        {
+            case 1:
+                result.sprite = badCookingStamp;
+                break;
+            case 2:
+                result.sprite = normalCookingStamp;
+                break;
+            case 3:
+                result.sprite = goodCookingStamp;
+                break;
         }
     }
 

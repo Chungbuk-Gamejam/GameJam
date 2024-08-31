@@ -5,7 +5,16 @@ using System;
 
 public class MiniGameObject2 : MonoBehaviour
 {
-    Action _onCompleteGame;
+    public enum MiniGameState
+    {
+        InProgress,
+        Success,
+        Fail
+    }
+
+    [SerializeField] MiniGameState _eCompleteState;
+
+    Action<bool> _onCompleteGame;
 
     [SerializeField] RectTransform _point;
     [SerializeField] Vector3 _goalLine;
@@ -14,7 +23,6 @@ public class MiniGameObject2 : MonoBehaviour
     [SerializeField] RectTransform _botLimitLine;
 
     [SerializeField] float _speed;
-    [SerializeField] bool _isPlayGame;
 
     [SerializeField] int _successedCount;
     [SerializeField] public int _currentSuccessCount;
@@ -26,16 +34,23 @@ public class MiniGameObject2 : MonoBehaviour
     }
     private void Update()
     {
-        _isPlayGame = CheckCompleteProgress();
+        _eCompleteState = CheckCompleteProgress();
 
-        if (_isPlayGame)
+        if (_eCompleteState == MiniGameState.InProgress)
         {
             CheckOnPressFlyObject();
         }
+        else
+        {
+            if (_eCompleteState == MiniGameState.Success)
+                SuccessGame();
+            else if (_eCompleteState == MiniGameState.Fail)
+                FailGame();
 
-        if (Input.GetKeyDown(KeyCode.R))
-        {   // Reset
-            ResetGame();
+            if (Input.GetKeyDown(KeyCode.R))
+            {   // Reset
+                ResetGame();
+            }
         }
     }
 
@@ -83,36 +98,48 @@ public class MiniGameObject2 : MonoBehaviour
 
     public void ResetGame()
     {
-        _isPlayGame = true;
         _currentSuccessCount = 0;
+        _eCompleteState = MiniGameState.InProgress;
     }
-    public void SetCompleteCallback(Action callback)
+    public void SetCompleteCallback(Action<bool> callback)
     {
         _onCompleteGame = callback;
     }
 
-    public void CompleteGame()
+    public void SuccessGame()
     {
-        _onCompleteGame?.Invoke();
+        _onCompleteGame?.Invoke(true);
+        _onCompleteGame = null;
     }
 
-    public bool CheckCompleteProgress()
+    public void FailGame()
+    {
+        _onCompleteGame?.Invoke(false);
+        _onCompleteGame = null;
+    }
+
+    public MiniGameState CheckCompleteProgress()
     {
         // true : 진행 , false : 종료
         if(_point == null)
         {
             Debug.LogError($"[MiniGameObject2]CheckCompleteProgress _point is NULL");
-            return false;
+            return MiniGameState.Fail;
         }
 
         float pointPosX = _point.position.x;
         if (pointPosX > _goalLine.x)
-            return false;
+        {
+            if (_successedCount <= _currentSuccessCount)
+                return MiniGameState.Success;
+            else
+                return MiniGameState.Fail;
+        }
 
         if (_successedCount <= _currentSuccessCount)
-            return false;
+            return MiniGameState.Success;
 
-        return true;
+        return MiniGameState.InProgress;
     }
 
     public bool CheckisSuccess()
