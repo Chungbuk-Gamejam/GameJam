@@ -6,6 +6,8 @@ public class PlayerController : MonoBehaviour
     [Header("Animator")]
     [Tooltip("플레이어의 애니메이션을 조정하기위한 Animator")]
     public Animator anim;
+    [Tooltip("망원경 애니메이션을 위한 망원경")]
+    public GameObject telescope;
 
     [HideInInspector]
     [Tooltip("플레이어의 움직임을 조정하기위한 Rigidbody")]
@@ -69,7 +71,7 @@ public class PlayerController : MonoBehaviour
         get; set;
     }
 
-    public IPlayerState _idleState, _walkState, _waitState, _runState, _monoState;
+    public IPlayerState _idleState, _walkState, _waitState, _runState, _monoState, _seeState;
 
 
     private void Start()
@@ -90,6 +92,7 @@ public class PlayerController : MonoBehaviour
         _walkState = gameObject.AddComponent<PlayerWalkState>();
         _runState = gameObject.AddComponent<PlayerRunningState>();
         _monoState = gameObject.AddComponent<PlayerMonoState>();
+        _seeState = gameObject.AddComponent<PlayerSeeState>();
 
         _rigidbody = GetComponent<Rigidbody2D>();
 

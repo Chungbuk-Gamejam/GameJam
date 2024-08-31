@@ -13,35 +13,39 @@ public class MiniGameObject : MonoBehaviour
     [SerializeField] bool _isPlayGame;
     [SerializeField] bool _MoveRight;
 
+    [Tooltip("게임시작 여부 Flag")]
+    public bool isActivated = false;
+
     int _layerMask;
 
     private void Start()
     {
-        _isPlayGame = true;
-        _MoveRight = true;
-        _layerMask = _layerMask = 1 << 7;
+        Reset();
     }
     private void Update()
     {
-        if (_isPlayGame)
+        if ((isActivated))
         {
-            MovePointer();
-        }
+            if (_isPlayGame)
+            {
+                MovePointer();
+            }
 
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            _isPlayGame = false;
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                _isPlayGame = false;
 
-            if (CheckisSuccess())
+                if (CheckisSuccess())
 
-                SuccessGame();
-            else
-                FailGame();
-        }
+                    SuccessGame();
+                else
+                    FailGame();
+            }
 
-        if (Input.GetKeyDown(KeyCode.R))
-        {   // Reset
-            _isPlayGame = true;
+           /* if (Input.GetKeyDown(KeyCode.R))
+            {   // Reset
+                _isPlayGame = true;
+            }*/
         }
     }
 
@@ -51,6 +55,13 @@ public class MiniGameObject : MonoBehaviour
         {
             _onCompleteGame = null;
         }
+    }
+
+    public void Reset()
+    {
+        _isPlayGame = true;
+        _MoveRight = true;
+        _layerMask = _layerMask = 1 << 7;
     }
 
     public void SetCompleteCallback(Action<bool> callback)
