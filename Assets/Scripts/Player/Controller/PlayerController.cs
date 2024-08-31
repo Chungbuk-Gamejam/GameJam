@@ -37,6 +37,9 @@ public class PlayerController : MonoBehaviour
     [Tooltip("몇 일차인지에 대한 변수")]
     public int dayCount = 1;
 
+    [Tooltip("요리 성공에 대한 플래그")]
+    public int cookCount = 0; //3이면 성공, 2이면 부분 성공 1이면 실패
+
     [Header("Monologue")]
     [Tooltip("독백 스크립트")]
     public GameObject monologuePanel;

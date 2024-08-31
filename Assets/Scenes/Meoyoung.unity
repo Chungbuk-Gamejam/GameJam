@@ -1682,6 +1682,7 @@ MonoBehaviour:
   _uiController: {fileID: 1548982780}
   inventoryManager: {fileID: 825344746}
   dayCount: 1
+  cookCount: 0
   monologuePanel: {fileID: 1452441315}
 --- !u!50 &825344745
 Rigidbody2D:
@@ -1722,6 +1723,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e8b7914e7269034a9f96c90eb754180, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerController: {fileID: 0}
   slotPrefab: {fileID: 6198493998883955621, guid: 0064debc803093946a9520653ae71002, type: 3}
   slotGridParent: {fileID: 424798595}
   slotPanel: {fileID: 1576543381}
@@ -1753,8 +1755,12 @@ MonoBehaviour:
   - "\uC9DC\uAE00\uC774 \uC88B\uC9C0 ~"
   invenPrefab: {fileID: 5013124737844660133, guid: 6d5b9ade1b7e4184c9aca4ccca9a18ba, type: 3}
   invenGridParent: {fileID: 1797960256}
-  badStamp: {fileID: 21300000, guid: 5c0bbc98a1b3aef42ba538e32e7ef4e5, type: 3}
   goodStamp: {fileID: 21300000, guid: 2b6c537f8128a9e4b97c5f71bad2c1e5, type: 3}
+  normalStamp: {fileID: 21300000, guid: 486363007d68a434186509745617e7ae, type: 3}
+  badStamp: {fileID: 21300000, guid: 5c0bbc98a1b3aef42ba538e32e7ef4e5, type: 3}
+  goodCookingStamp: {fileID: 21300000, guid: 8f20ea529ad8ebb4cac20f55c85ee175, type: 3}
+  normalCookingStamp: {fileID: 21300000, guid: 9f76011ecb689f8489c410926a86bb07, type: 3}
+  badCookingStamp: {fileID: 21300000, guid: 71c57c77a299df8419fb5ba35f1af11b, type: 3}
   result: {fileID: 1491450866}
 --- !u!61 &825344747
 BoxCollider2D:
