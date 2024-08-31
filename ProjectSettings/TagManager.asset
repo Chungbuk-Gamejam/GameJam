@@ -9,6 +9,7 @@ TagManager:
   - bug
   - cone
   - Camera
+  - FishGame
   layers:
   - Default
   - TransparentFX

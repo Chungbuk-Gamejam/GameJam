@@ -2,17 +2,36 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using static ItemInfo;
+
 public class GaugeMove : MonoBehaviour
 {
 
     public RectTransform uiElement; // UI 요소의 RectTransform을 참조합니다.
+    public RectTransform BarRight;
+
     public static float Power=1;
-    public float weight = 3f;
+    public float weight = 2f;
     public static bool Active=false;
     private float initHeight; //실제로는 width 값 (회전했으므로)
     private float initYPos; // 실제로는 x 값(22)
-    public RectTransform BarRight;
-    public float clickPower;
+    public float clickPower = 40;
+
+    [SerializeField] PlayerController playerController;
+    [SerializeField] GetObject getObject;
+    [SerializeField] BarMove barMove;
+    [SerializeField] private GameObject fishGame;
+
+    void Init()
+    {
+        clickPower = 40;
+        weight = 2;
+        Power = 1;
+        uiElement.anchoredPosition = new Vector2(initYPos, uiElement.anchoredPosition.y);
+        uiElement.sizeDelta = new Vector2(initHeight, uiElement.sizeDelta.y);
+        BarRight.anchoredPosition = new Vector2(initYPos, BarRight.anchoredPosition.y);
+        BarRight.sizeDelta = new Vector2(initHeight, BarRight.sizeDelta.y);
+    }
 
     void DecreseNpx(float N)
     {
@@ -26,7 +45,10 @@ public class GaugeMove : MonoBehaviour
     {
         initHeight = uiElement.sizeDelta.x;
         initYPos= uiElement.anchoredPosition.x;
-       
+       if(fishGame == null)
+        {
+            fishGame = GameObject.FindWithTag("FishGame");
+        }
     }
     
 
@@ -53,6 +75,8 @@ public class GaugeMove : MonoBehaviour
             FishingBackground.IsActive = false;
 
             //성공 로직
+            getObject.AddSelectedItem(Item.Fish);
+            StartCoroutine(StartFadeOut());
         }
 
         else if(uiElement.sizeDelta.x < 0.1f){
@@ -61,7 +85,16 @@ public class GaugeMove : MonoBehaviour
             BarRight.sizeDelta = new Vector2(0, 0);
             FishingBackground.IsActive = false;
             //실패로직
-
+            StartCoroutine(StartFadeOut());
         }
+    }
+
+    IEnumerator StartFadeOut()
+    {
+        yield return new WaitForSeconds(3.0f);
+        barMove.Init();
+        Init();
+        fishGame.SetActive(false);
+        playerController.ChangeState(playerController._idleState);
     }
 }

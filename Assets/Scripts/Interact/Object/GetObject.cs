@@ -24,6 +24,10 @@ public class GetObject : MonoBehaviour, IInteractable
     [Tooltip("미니게임 컨트롤러")]
     [SerializeField] UIController _uiController;
 
+    [Header("미니게임1")]
+    [SerializeField] private GameObject fishGame;
+    [SerializeField] private BarMove barMove;
+
 
     private void Start()
     {
@@ -46,6 +50,11 @@ public class GetObject : MonoBehaviour, IInteractable
         {
             _uiController = FindFirstObjectByType<UIController>();
         }
+
+        if(fishGame == null)
+        {
+            fishGame = GameObject.FindWithTag("FishGame");
+        }
     }
     //인벤토리에 아이템을 추가한 후 필드에서 아이템 삭제
     //상호작용 카운터 1 감소
@@ -53,8 +62,32 @@ public class GetObject : MonoBehaviour, IInteractable
     {
         RotateClock();
         playerController.interactCounter--;
-        AddItem();
+        playerController.ChangeState(playerController._waitState);
+        CheckGameType();
+        //AddItem();
         //Destroy(gameObject);
+    }
+
+    public void CheckGameType()
+    {
+        switch (itemTypeInfo)
+        {
+            case ItemType.Fish:
+                fishGame.SetActive(true);
+                StartCoroutine(StartFishGame());
+                break;
+        }
+    }
+
+    private IEnumerator StartFishGame()
+    {
+        yield return new WaitForSeconds(3.0f);
+        barMove.IsAble = true;
+    }
+
+    public void AddSelectedItem(Item item)
+    {
+        inventoryManager.AddItem(item);
     }
 
     public void AddItem()
