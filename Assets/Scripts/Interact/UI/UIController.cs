@@ -9,6 +9,8 @@ public class UIController : MonoBehaviour
     [SerializeField] public GameObject inventory;
     [Tooltip("플레이어 상태를 알기위한 컨트롤러")]
     [SerializeField] private PlayerController playerController;
+    [Tooltip("인벤토리 매니저")]
+    [SerializeField] private InventoryManager inventoryManager;
 
     [Header("가마솥 UI")]
     [SerializeField] GameObject cookingUI;
@@ -17,6 +19,10 @@ public class UIController : MonoBehaviour
     [SerializeField] Animator cookAnimator;
     private WaitForSeconds gap = new WaitForSeconds(0.4f);
     private bool isActivated = false;
+
+    [Header("메인 게임")]
+    [SerializeField] private GameObject mainGame;
+    [SerializeField] private MiniGameObject miniGameObject;
 
 
     public void ControllInventory()
@@ -55,12 +61,51 @@ public class UIController : MonoBehaviour
     IEnumerator StartAnimation()
     {
         yield return new WaitForSeconds(2.0f);
-        for(int i =0; i < image.Count; i++)
+        for (int i = 0; i < image.Count; i++)
         {
             image[i].gameObject.SetActive(true);
             yield return gap;
         }
         yield return new WaitForSeconds(1.0f);
         cookAnimator.SetBool("Off", true);
+
+        yield return new WaitForSeconds(3.0f);
+
+        miniGameObject.SetCompleteCallback((x) =>
+        {
+            if (x == false)
+            {
+                playerController.cookCount--;
+            }
+            StartCoroutine(ShowRecipeSlot());
+        });
+        mainGame.SetActive(true);
+
+        yield return new WaitForSeconds(1.0f);
+        miniGameObject.isActivated = true;
+    }
+
+    IEnumerator ShowRecipeSlot()
+    {
+        yield return new WaitForSeconds(2.0f);
+        miniGameObject.isActivated = false;
+        cookingUI.SetActive(false);
+        mainGame.SetActive(false);
+        switch (playerController.dayCount)
+        {
+            case 1:
+                inventoryManager.CreateRecipeSlots(RecipeManager.instance.skewers);
+                break;
+            case 2:
+                inventoryManager.CreateRecipeSlots(RecipeManager.instance.steamedFish);
+                break;
+            case 3:
+                inventoryManager.CreateRecipeSlots(RecipeManager.instance.mushroomSoup);
+                break;
+            case 4:
+                inventoryManager.CreateRecipeSlots(RecipeManager.instance.jjaggle);
+                break;
+        }
+        inventoryManager.GetResultStamp();
     }
 }

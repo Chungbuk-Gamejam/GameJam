@@ -222,6 +222,7 @@ public class InventoryManager : MonoBehaviour
 
     public void GetResultStamp()
     {
+        result.gameObject.SetActive(true);
         switch (playerController.cookCount)
         {
             case 1:
