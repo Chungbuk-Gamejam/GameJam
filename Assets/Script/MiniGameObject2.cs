@@ -37,6 +37,9 @@ public class MiniGameObject2 : MonoBehaviour
 
     [SerializeField] PlayerController playerController;
 
+    // anim
+    [SerializeField] Animator[] _targetPointAnimator;
+
     private void OnEnable()
     {
         ResetGame();
@@ -121,6 +124,14 @@ public class MiniGameObject2 : MonoBehaviour
         _currentSuccessCount = 0;
         _isClosing = false;
         _pointAnim.Play($"MiniGame3_Point_Ani");
+
+        for(int i = 0; i < _targetPointAnimator.Length; ++i)
+        {
+            var _animator = _targetPointAnimator[i];
+            if (_animator == null) continue;
+
+            _animator.Play($"MiniGame3_TargetPoint_Idle");
+        }
     }
     public void SetCompleteCallback(Action<bool> callback)
     {
@@ -162,14 +173,13 @@ public class MiniGameObject2 : MonoBehaviour
         else { }
 
         _onCompleteGame = null;
-
         if(playerController != null)
             playerController.ChangeState(playerController._idleState);
     }
 
     public MiniGameState CheckCompleteProgress()
     {
-        // true : ¡¯«‡ , false : ¡æ∑·
+        // true : √Å√∏√á√† , false : √Å¬æ¬∑√°
         if(_point == null)
         {
             Debug.LogError($"[MiniGameObject2]CheckCompleteProgress _point is NULL");

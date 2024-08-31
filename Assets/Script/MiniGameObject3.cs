@@ -61,7 +61,7 @@ public class MiniGameObject3 : MonoBehaviour
     [SerializeField] float _currentTime;
     [SerializeField] float _maxTime;
 
-    [SerializeField] int _goalCount; // ¼º°ø ¸ñÇ¥ °¹¼ö
+    [SerializeField] int _goalCount; // ì„±ê³µ ëª©í‘œ ê°¯ìˆ˜
 
     Coroutine _closeCoroutine;
     [SerializeField] bool _isClosing;
@@ -253,7 +253,7 @@ public class MiniGameObject3 : MonoBehaviour
             Vector3 P1 = P0 + AT;
 
             _lockpicker.transform.localPosition = P1;
-            // µî¼Ó¿îµ¿ P1 = PO + AT;
+            // ë“±ì†ìš´ë™ P1 = PO + AT;
         }
     }
 
@@ -283,7 +283,7 @@ public class MiniGameObject3 : MonoBehaviour
             Vector3 P1 = P0 + AT;
 
             _lockpicker.transform.localPosition = P1;
-            // µî¼Ó¿îµ¿ P1 = PO + AT;
+            // ë“±ì†ìš´ë™ P1 = PO + AT;
         }
     }
 
@@ -314,7 +314,7 @@ public class MiniGameObject3 : MonoBehaviour
             Vector3 P1 = P0 + AT;
 
             _lockpicker.transform.localPosition = P1;
-            // µî¼Ó¿îµ¿ P1 = PO + AT;
+            // ë“±ì†ìš´ë™ P1 = PO + AT;
         }
     }
 
@@ -330,31 +330,31 @@ public class MiniGameObject3 : MonoBehaviour
 
     public void ProgressTimeBar()
     {
-        // HP ¹ÙÀÇ À§Ä¡¸¦ ´ë»ó À§·Î ¼³Á¤
+        // HP ë°”ì˜ ìœ„ì¹˜ë¥¼ ëŒ€ìƒ ìœ„ë¡œ ì„¤ì •
         _barEdge.localPosition = _vInitializeEdgePos;
 
         DecreaseTime();
 
-        // HP ºñÀ² °è»ê
+        // HP ë¹„ìœ¨ ê³„ì‚°
         float _timeRatio = _currentTime / _maxTime;
 
-        // ½ºÄÉÀÏ Á¶Á¤ (¿ŞÂÊ¿¡¼­ ¿À¸¥ÂÊÀ¸·Î ÁÙ¾îµå´Â ¹æ½Ä)
+        // ìŠ¤ì¼€ì¼ ì¡°ì • (ì™¼ìª½ì—ì„œ ì˜¤ë¥¸ìª½ìœ¼ë¡œ ì¤„ì–´ë“œëŠ” ë°©ì‹)
         _barInner.transform.localScale = new Vector3(_vInitializeScale.x * _timeRatio, _vInitializeScale.y, _vInitializeScale.z);
     }
     public MiniGameState CheckCompleteProgress()
     {
-        // ³²Àº ½Ã°£ÀÌ 0 ÃÊ ÀÌ»óÀÏ¶§ ÁøÇà
+        // ë‚¨ì€ ì‹œê°„ì´ 0 ì´ˆ ì´ìƒì¼ë•Œ ì§„í–‰
         int _count = _listLockPin.FindAll(rhs => rhs.Success == true).Count;
         if (_count >= _goalCount)
             return MiniGameState.Success;
-        // PinÀÇ Success°¡ Ä«¿îÆ® ¹Ì¸¸ÀÏ ¶§ ÁøÇà
+        // Pinì˜ Successê°€ ì¹´ìš´íŠ¸ ë¯¸ë§Œì¼ ë•Œ ì§„í–‰
 
-        // true : ÁøÇà , false : Á¾·á
+        // true : ì§„í–‰ , false : ì¢…ë£Œ
         if (_currentTime > 0)
             return MiniGameState.InProgress;
 
         return MiniGameState.Fail;
-        // ÀÌ¿Ü ¸ğµÎ Á¾·á
+        // ì´ì™¸ ëª¨ë‘ ì¢…ë£Œ
     }
 
     public void DecreaseTime()
