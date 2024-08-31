@@ -167,8 +167,11 @@ public class MiniGameObject3 : MonoBehaviour
     {
         yield return new WaitForSeconds(_time);
 
-        _onCompleteGame?.Invoke(false);
-        _onCompleteGame = null;
+        if (_eCompleteState == MiniGameState.Success)
+            _onCompleteGame?.Invoke(true);
+        else if (_eCompleteState == MiniGameState.Fail)
+            _onCompleteGame?.Invoke(false);
+        else { }
 
         if (playerController != null)
             playerController.ChangeState(playerController._idleState);
