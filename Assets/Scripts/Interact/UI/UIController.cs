@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIController : MonoBehaviour
 {
@@ -23,7 +24,12 @@ public class UIController : MonoBehaviour
     [Header("메인 게임")]
     [SerializeField] private GameObject mainGame;
     [SerializeField] private MiniGameObject miniGameObject;
-
+    [SerializeField] private GameObject illust;
+    [SerializeField] private GameObject cookBtn;
+    [SerializeField] private GameObject campBtn;
+    [SerializeField] private Image IllustPanel;
+    [SerializeField] private Sprite failIllust;
+    [SerializeField] private Sprite successIllust;
 
     public void ControllInventory()
     {
@@ -76,6 +82,11 @@ public class UIController : MonoBehaviour
             if (x == false)
             {
                 playerController.cookCount--;
+                IllustPanel.sprite = failIllust;
+            }
+            else
+            {
+                IllustPanel.sprite = successIllust;
             }
             StartCoroutine(ShowRecipeSlot());
         });
@@ -106,6 +117,11 @@ public class UIController : MonoBehaviour
                 inventoryManager.CreateRecipeSlots(RecipeManager.instance.jjaggle);
                 break;
         }
+        cookBtn.SetActive(false);
         inventoryManager.GetResultStamp();
+        yield return new WaitForSeconds(1.0f);
+        illust.SetActive(true);
+        yield return new WaitForSeconds(3.0f);
+        campBtn.SetActive(true);
     }
 }
