@@ -33,6 +33,16 @@ public class GetObject : MonoBehaviour, IInteractable
     [SerializeField] private GenerateBugAndCone generateBugAndCone;
     [SerializeField] private PineconeMove pineconeMove;
 
+    [Header("미니게임3 (고기)")]
+    [SerializeField] private GameObject meatGame;
+    [SerializeField] private MiniGameObject2 miniGameObject2;
+
+    [Header("미니게임4 (향신료)")]
+    [SerializeField] private GameObject spiceGame;
+    [SerializeField] private MiniGameObject3 miniGameObject3;
+
+
+
 
     private void Start()
     {
@@ -85,8 +95,55 @@ public class GetObject : MonoBehaviour, IInteractable
                 pineGame.SetActive(true);
                 StartCoroutine(StartPineGame());
                 break;
+            case ItemType.Meat:
+                meatGame.SetActive(true);
+                StartCoroutine(StartMeatGame());
+                break;
+            case ItemType.Spice:
+                spiceGame.SetActive(true);
+                StartCoroutine(StartSpiceGame());
+                break;
+
         }
     }
+
+    private IEnumerator StartSpiceGame()
+    {
+        yield return new WaitForSeconds(3.0f);
+        miniGameObject3.SetCompleteCallback((x) =>
+        {
+            if (x == true)
+            {
+                int randNum = Random.Range(0, 2);
+                switch (randNum)
+                {
+                    case 0:
+                        AddSelectedItem(Item.ChiliPepper);
+                        break;
+                    case 1:
+                        AddSelectedItem(Item.Soy);
+                        break;
+                }
+                spiceGame.SetActive(false);
+            }
+        });
+        miniGameObject3.ChangeState();
+    }
+
+    private IEnumerator StartMeatGame()
+    {
+        yield return new WaitForSeconds(3.0f);
+        miniGameObject2.SetCompleteCallback((x) =>
+        {
+            if (x == true)
+            {
+                AddSelectedItem(Item.Meat);
+                meatGame.SetActive(false);
+            }
+        });
+        miniGameObject2.ChangeState();
+    }
+
 
     private IEnumerator StartPineGame()
     {
