@@ -85,7 +85,7 @@ public class InventoryManager : MonoBehaviour
             PrintInventory();
         }
         GameObject flyingObject = Instantiate(flyingPrefab);
-        flyingObject.transform.position = new (this.transform.position.x ,this.transform.position.y + 1.5f, this.transform.position.z);
+        flyingObject.transform.position = new(this.transform.position.x, this.transform.position.y + 1.5f, this.transform.position.z);
         SpriteRenderer itemImage = flyingObject.GetComponent<SpriteRenderer>();
         itemImage.sprite = GetItemSprite(itemName); // 아이템에 맞는 스프라이트 할당
         StartCoroutine(StartFlyingObject(itemImage));
@@ -222,8 +222,9 @@ public class InventoryManager : MonoBehaviour
         List<Item> keys = new List<Item>(recipe.Ingredients.Keys);
         List<int> values = new List<int>(recipe.Ingredients.Values);
 
-        bool hasAllItems = true;
-        bool hasPartialItems = false;
+        int hasAllItems = 0;
+        int hasPartialItems = 0;
+        int noItems = 0;
 
         for (int i = 0; i < keys.Count; i++)
         {
@@ -246,53 +247,40 @@ public class InventoryManager : MonoBehaviour
             if (currentQuantity >= requiredQuantity)
             {
                 resultImage.sprite = goodStamp;
+                hasAllItems++;
             }
             else if (currentQuantity < requiredQuantity && currentQuantity > 0)
             {
                 resultImage.sprite = normalStamp;
+                hasPartialItems++;
             }
             else
             {
                 resultImage.sprite = badStamp;
+                noItems++;
             }
 
-            if (currentQuantity == 0)
-            {
-                // 하나라도 없는 재료가 있다면 "실패"
-                hasAllItems = false;
-            }
-            else if (currentQuantity < requiredQuantity)
-            {
-                // 재료는 있지만 필요한 수량보다 적은 경우
-                hasAllItems = false;
-                hasPartialItems = true;
-            }
-            else
-            {
-                // 재료가 충분한 경우
-                hasPartialItems = true;
-            }
             // Count 텍스트 설정
             TextMeshProUGUI countText = slot.transform.Find("Count").GetComponent<TextMeshProUGUI>();
             countText.text = currentQuantity + "/" + requiredQuantity;
         }
 
-        if (hasAllItems)
+        if (noItems > 0)
         {
-            Debug.Log("레시피를 만드는데 필요한 모든 재료가 충분히 있습니다.");
-            playerController.cookCount = 3;
-           //result.sprite = goodCookingStamp;
+            Debug.Log("레시피를 만드는데 필요한 재료 중 하나 이상이 부족합니다.");
+            playerController.cookCount = 1;
+            //result.sprite = goodCookingStamp;
         }
-        else if (hasPartialItems)
+        else if (hasAllItems == keys.Count)
         {
             Debug.Log("레시피를 만드는데 필요한 재료들이 일부 부족하지만, 몇 가지 재료는 보유하고 있습니다.");
-            playerController.cookCount = 2;
+            playerController.cookCount = 3;
             //result.sprite = normalCookingStamp;
         }
         else
         {
-            Debug.Log("레시피를 만드는데 필요한 재료 중 하나 이상이 부족합니다.");
-            playerController.cookCount = 1;
+            Debug.Log("레시피를 만드는데 필요한 모든 재료가 충분히 있습니다");
+            playerController.cookCount = 2;
             //result.sprite = badCookingStamp;
         }
     }
