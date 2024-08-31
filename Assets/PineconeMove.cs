@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PineconeMove : MonoBehaviour
 {
-    private RectTransform m_RectTransform;
+    [SerializeField] private RectTransform m_RectTransform;
     private Vector2 initTransform;
     public float speed = 50;
     float maxDistance=350;
