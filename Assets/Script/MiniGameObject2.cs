@@ -40,6 +40,9 @@ public class MiniGameObject2 : MonoBehaviour
     // anim
     [SerializeField] Animator[] _targetPointAnimator;
 
+    // stamp_Success,Fail
+    [SerializeField] GameObject[] _stampAnimator;
+
     private void OnEnable()
     {
         ResetGame();
@@ -132,6 +135,14 @@ public class MiniGameObject2 : MonoBehaviour
 
             _animator.Play($"MiniGame3_TargetPoint_Idle");
         }
+
+        for (int i = 0; i < _stampAnimator.Length; ++i)
+        {
+            var _animator = _stampAnimator[i];
+            if (_animator == null) continue;
+
+            _animator.SetActive(false);
+        }
     }
     public void SetCompleteCallback(Action<bool> callback)
     {
@@ -146,6 +157,10 @@ public class MiniGameObject2 : MonoBehaviour
                 _closeCoroutine = null;
 
             _closeCoroutine = StartCoroutine(CloseTime(2));
+
+            if (_stampAnimator[0] != null)
+                _stampAnimator[0].SetActive(true);
+
             _isClosing = true;
         }
     }
@@ -158,6 +173,10 @@ public class MiniGameObject2 : MonoBehaviour
                 _closeCoroutine = null;
 
             _closeCoroutine = StartCoroutine(CloseTime(2));
+
+            if (_stampAnimator[1] != null)
+                _stampAnimator[1].SetActive(true);
+
             _isClosing = true;
         }
     }
