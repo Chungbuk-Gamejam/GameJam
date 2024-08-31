@@ -1072,7 +1072,7 @@ MonoBehaviour:
   uiElement: {fileID: 1731128043}
   weight: 2
   BarRight: {fileID: 2064358982}
-  clickPower: 60
+  clickPower: 40
 --- !u!1 &1520911309
 GameObject:
   m_ObjectHideFlags: 0
