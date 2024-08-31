@@ -109,6 +109,7 @@ public class GetObject : MonoBehaviour, IInteractable
                 break;
             case ItemType.Vegetable:
                 int randNum = Random.Range(0, 6);
+                RotateClock();
                 switch (randNum)
                 {
                     case 0:
@@ -150,6 +151,7 @@ public class GetObject : MonoBehaviour, IInteractable
                         break;
                 }
             }
+            RotateClock();
             SoundManager.instance.TurnOffBackGroundMusic();
             SoundManager.instance.PlayBackgroundMusicForMainGame();
 
@@ -168,6 +170,8 @@ public class GetObject : MonoBehaviour, IInteractable
                 AddSelectedItem(Item.Meat);
             }
             meatGame.SetActive(false);
+
+            RotateClock();
 
             SoundManager.instance.TurnOffBackGroundMusic();
             SoundManager.instance.PlayBackgroundMusicForMainGame();
