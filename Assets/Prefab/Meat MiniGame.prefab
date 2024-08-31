@@ -251,7 +251,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 30
+  m_Radius: 20
 --- !u!95 &6685037514934164089
 Animator:
   serializedVersion: 5
@@ -467,7 +467,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 30
+  m_Radius: 20
 --- !u!95 &7660520024828452985
 Animator:
   serializedVersion: 5
@@ -552,6 +552,10 @@ MonoBehaviour:
   _currentSuccessCount: 0
   _isClosing: 0
   playerController: {fileID: 0}
+  _targetPointAnimator:
+  - {fileID: 1634409540560070802}
+  - {fileID: 6685037514934164089}
+  - {fileID: 7660520024828452985}
 --- !u!1 &7339297877197492505
 GameObject:
   m_ObjectHideFlags: 0
@@ -732,7 +736,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -277, y: -128}
+  m_AnchoredPosition: {x: -287, y: -113}
   m_SizeDelta: {x: 75, y: 75}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6996421954248519044
@@ -807,7 +811,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 30
+  m_Radius: 20
 --- !u!95 &1634409540560070802
 Animator:
   serializedVersion: 5
@@ -1013,7 +1017,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 30
+  m_Radius: 20
 --- !u!114 &7557622942346491492
 MonoBehaviour:
   m_ObjectHideFlags: 0
