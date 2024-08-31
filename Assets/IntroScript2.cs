@@ -30,6 +30,7 @@ public class IntroScript2 : MonoBehaviour
             {
                 yield return new WaitForSeconds(1.5f);
                 m_TextMeshProUGUI.text ="";
+                SoundManager.instance.TurnOffBackGroundMusic();
 
                 continue;
             }
