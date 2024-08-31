@@ -17,6 +17,14 @@ public class MapController : MonoBehaviour
     [SerializeField] Image character;
     [SerializeField] Image chunghwaImage;
     [SerializeField] GameObject chunghwa;
+
+    private bool isActivated = false;
+
+    private void OnEnable()
+    {
+        isActivated = false;
+        counter = 0;
+    }
     private void Update()
     {
         switch (counter)
@@ -37,7 +45,7 @@ public class MapController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
-            if(counter >= region.Count-1)
+            if (counter >= region.Count - 1)
             {
                 counter = 0;
             }
@@ -50,7 +58,7 @@ public class MapController : MonoBehaviour
         {
             if (counter == 0)
             {
-                counter = region.Count-1;
+                counter = region.Count - 1;
             }
             else
             {
@@ -60,15 +68,31 @@ public class MapController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            playerController.dayCount = counter + 1;
-            StartCoroutine(StartChangeScene());
+            if (!isActivated)
+            {
+                if (ProjectManager.Instance.isLocked)
+                {
+                    if(counter == 0)
+                    {
+                        isActivated = true;
+                        playerController.dayCount = counter + 1;
+                        StartCoroutine(StartChangeScene());
+                    }
+                }
+                else
+                {
+                    isActivated = true;
+                    playerController.dayCount = counter + 1;
+                    StartCoroutine(StartChangeScene());
+                }
+            }
         }
 
         if (Input.GetKeyDown(KeyCode.R))
         {
             ProjectManager.Instance.UnLock();
         }
-        if(Input.GetKeyDown(KeyCode.T))
+        if (Input.GetKeyDown(KeyCode.T))
         {
             ProjectManager.Instance.Lock();
         }
@@ -79,19 +103,21 @@ public class MapController : MonoBehaviour
         yield return new WaitForSeconds(1.0f);
         FadeManager.Instance.StartFadeIn();
         yield return new WaitForSeconds(1.5f);
-        if(playerController.cookCount == 1)
+        if (playerController.cookCount == 1)
         {
             character.sprite = characterSprites[0];
         }
-        else if(playerController.cookCount == 2)
+        else if (playerController.cookCount == 2)
         {
             character.sprite = characterSprites[1];
         }
-        else if(playerController.cookCount == 3)
+        else if (playerController.cookCount == 3)
         {
             character.sprite = characterSprites[2];
         }
+
         chunghwaImage.sprite = sprites[counter];
+
         chunghwa.SetActive(true);
         FadeManager.Instance.StartFadeOut();
     }
@@ -100,7 +126,7 @@ public class MapController : MonoBehaviour
     {
         for (int i = 0; i < region.Count; i++)
         {
-            if(i == focus)
+            if (i == focus)
             {
                 region[i].fontSize = 42;
             }

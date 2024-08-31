@@ -8,6 +8,7 @@ public class ProjectManager : MonoBehaviour
 
     [SerializeField] private List<GameObject> fadeObject;
     [SerializeField] private GameObject map;
+    [SerializeField] public bool isLocked = true;
 
     private void OnEnable()
     {
@@ -37,6 +38,7 @@ public class ProjectManager : MonoBehaviour
             for (int i = 0; i < fadeObject.Count; i++)
             {
                 fadeObject[i].SetActive(false);
+                isLocked = false;
             }
         }
     }
@@ -48,6 +50,7 @@ public class ProjectManager : MonoBehaviour
             for (int i = 0; i < fadeObject.Count; i++)
             {
                 fadeObject[i].SetActive(true);
+                isLocked = true;
             }
         }
     }
