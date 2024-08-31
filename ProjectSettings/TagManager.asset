@@ -10,6 +10,8 @@ TagManager:
   - cone
   - Camera
   - FishGame
+  - MiniGame3_PinCollider
+  - MiniGame3_ObsCollider
   layers:
   - Default
   - TransparentFX
