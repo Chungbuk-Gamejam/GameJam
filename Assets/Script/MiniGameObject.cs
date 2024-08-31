@@ -5,7 +5,7 @@ using System;
 
 public class MiniGameObject : MonoBehaviour
 {
-    Action _onCompleteGame;
+    Action<bool> _onCompleteGame;
 
     [SerializeField] GameObject _point;
     [SerializeField] float _speed;
@@ -33,16 +33,14 @@ public class MiniGameObject : MonoBehaviour
             _isPlayGame = false;
 
             if (CheckisSuccess())
-                Debug.Log($"Succeess");
+                SuccessGame();
             else
-                Debug.Log($"Fail");
+                FailGame();
         }
 
         if (Input.GetKeyDown(KeyCode.R))
         {   // Reset
             _isPlayGame = true;
-
-
         }
     }
 
@@ -54,14 +52,21 @@ public class MiniGameObject : MonoBehaviour
         }
     }
 
-    public void SetCompleteCallback(Action callback)
+    public void SetCompleteCallback(Action<bool> callback)
     {
         _onCompleteGame = callback;
     }
 
-    public void CompleteGame()
+    public void SuccessGame()
     {
-        _onCompleteGame?.Invoke();
+        _onCompleteGame?.Invoke(true);
+        _onCompleteGame = null;
+    }
+
+    public void FailGame()
+    {
+        _onCompleteGame?.Invoke(false);
+        _onCompleteGame = null;
     }
 
     public bool CheckisSuccess()
@@ -106,7 +111,6 @@ public class MiniGameObject : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        
         if(_point!= null )
         {
             Color color = Color.magenta;
