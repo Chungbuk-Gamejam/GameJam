@@ -33,9 +33,13 @@ public class MiniGameObject : MonoBehaviour
             _isPlayGame = false;
 
             if (CheckisSuccess())
+            {
                 Debug.Log($"Succeess");
+            }
             else
+            {
                 Debug.Log($"Fail");
+            }
         }
 
         if (Input.GetKeyDown(KeyCode.R))
