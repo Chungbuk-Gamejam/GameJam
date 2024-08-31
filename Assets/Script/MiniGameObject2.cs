@@ -131,15 +131,15 @@ public class MiniGameObject2 : MonoBehaviour
         if (pointPosX > _goalLine.x)
         {
             if (_successedCount <= _currentSuccessCount)
-            {
                 return MiniGameState.Success;
-            }
+            else
+                return MiniGameState.Fail;
         }
 
         if (_successedCount <= _currentSuccessCount)
             return MiniGameState.Success;
 
-        return MiniGameState.Fail;
+        return MiniGameState.InProgress;
     }
 
     public bool CheckisSuccess()
