@@ -54,7 +54,6 @@ public class PlayerController : MonoBehaviour
     {
         interactCounter = 12;
         cookCount = 0;
-        inventoryManager.ShowCurrentRecipe(ReturnRecipeType());
         inventoryManager.RemoveAllItems();
     }
 
@@ -134,7 +133,7 @@ public class PlayerController : MonoBehaviour
         UpdateState();
         if (interactCounter == 0)
         {
-            CurrentState = _waitState;
+            ChangeState(_waitState);
             interactCounter = 12;
             switch (dayCount)
             {

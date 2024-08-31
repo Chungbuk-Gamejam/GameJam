@@ -129,6 +129,7 @@ public class MapController : MonoBehaviour
         playerController.gameObject.transform.position = playerController._transform.position;
         chunghwa.SetActive(false);
         FadeManager.Instance.StartFadeOut();
+        playerController.Reset();
         playerController.ChangeState(playerController._idleState);
         map.SetActive(false);
     }
