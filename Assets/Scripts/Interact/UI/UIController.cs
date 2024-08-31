@@ -126,6 +126,12 @@ public class UIController : MonoBehaviour
         mainGame.SetActive(true);
 
         yield return new WaitForSeconds(1.0f);
+        cookAnimator.SetBool("Off", true);
+        for (int i = 0; i < image.Count; i++)
+        {
+            image[i].gameObject.SetActive(false);
+            yield return null;
+        }
         miniGameObject.isActivated = true;
     }
 
