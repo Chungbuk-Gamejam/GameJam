@@ -84,6 +84,7 @@ public class GetObject : MonoBehaviour, IInteractable
 
     public void CheckGameType()
     {
+        playerController.interactCounter--;
         switch (itemTypeInfo)
         {
             case ItemType.Fish:
