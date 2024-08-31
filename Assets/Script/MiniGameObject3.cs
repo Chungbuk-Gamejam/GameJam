@@ -17,18 +17,18 @@ public class MiniGameObject3 : MonoBehaviour
         Ready,
         InProgress,
         Success,
-        Fail
+        Fail,
+        CloseTime,
     }
 
     Action<bool> _onCompleteGame;
 
     // lockpicker
     [SerializeField] Transform _lockpicker;
+    [SerializeField] Transform _world;
     [SerializeField] Vector3 _pickerShootRayPos;
     [SerializeField] MiniGame3State _eState = MiniGame3State.PointerMoveHorizontal;
     [SerializeField] MiniGameState _eCompleteState;
-
-
 
     [SerializeField] float _horizontalSpeed;
     [SerializeField] float _verticalSpeed;
@@ -63,18 +63,34 @@ public class MiniGameObject3 : MonoBehaviour
 
     [SerializeField] int _goalCount; // 성공 목표 갯수
 
+    Coroutine _closeCoroutine;
+    [SerializeField] bool _isClosing;
+
+    [SerializeField] PlayerController playerController;
 
     private void OnEnable()
     {
-        Reset();
+        ResetGame();
+        OnPositionByCamera();
+    }
+
+    public void OnPositionByCamera()
+    {
+        var cam = GameObject.Find($"Main Camera");
+        Vector3 camPos = Vector3.zero;
+        if (cam != null)
+            camPos = cam.transform.position;
+
+        camPos.z = 0f;
+
+        this.gameObject.transform.position = camPos;
     }
 
     private void Update()
     {
-        if(_eCompleteState == MiniGameState.Ready)
-        {
+        if (_eCompleteState == MiniGameState.CloseTime ||
+            _eCompleteState == MiniGameState.Ready)
             return;
-        }
 
         _eCompleteState = CheckCompleteProgress();
 
@@ -99,11 +115,14 @@ public class MiniGameObject3 : MonoBehaviour
         _eCompleteState = MiniGameState.InProgress;
     }
 
-    public void Reset()
+    public void ResetGame()
     {
-        _vInitializeEdgePos = _barEdge.position;
+        _vInitializeEdgePos = _barEdge.localPosition;
 
-        _vInitializeScale = _barInner.localScale;
+        _lockpicker.localPosition = new Vector3(-0.99f, -0.92f, 0f);
+
+        _vInitializeScale = new Vector3(1f, 0.85f, 0f);
+        _barInner.localScale = new Vector3(1f,0.85f,0f);
         _currentTime = _maxTime;
 
         _eState = MiniGame3State.PointerMoveHorizontal;
@@ -113,6 +132,7 @@ public class MiniGameObject3 : MonoBehaviour
         _moveUpVertical = true;
 
         _verticalSpeed = UnityEngine.Random.Range(1, 10);
+        _isClosing = false;
     }
 
     public void SetCompleteCallback(Action<bool> callback)
@@ -122,14 +142,36 @@ public class MiniGameObject3 : MonoBehaviour
 
     public void SuccessGame()
     {
-        _onCompleteGame?.Invoke(true);
-        _onCompleteGame = null;
+        if (_isClosing == false)
+        {
+            if (_closeCoroutine != null)
+                _closeCoroutine = null;
+
+            _closeCoroutine = StartCoroutine(CloseTime(2));
+            _isClosing = true;
+        }
     }
 
     public void FailGame()
     {
+        if (_isClosing == false)
+        {
+            if (_closeCoroutine != null)
+                _closeCoroutine = null;
+
+            _closeCoroutine = StartCoroutine(CloseTime(2));
+            _isClosing = true;
+        }
+    }
+    public IEnumerator CloseTime(float _time)
+    {
+        yield return new WaitForSeconds(_time);
+
         _onCompleteGame?.Invoke(false);
         _onCompleteGame = null;
+
+        if (playerController != null)
+            playerController.ChangeState(playerController._idleState);
     }
 
     public void MiniGame3Input()
@@ -189,7 +231,7 @@ public class MiniGameObject3 : MonoBehaviour
         // - 5.6 / -0.56
 
         if (_lockpicker != null)
-            pointPositionX = _lockpicker.transform.position.x;
+            pointPositionX = _lockpicker.transform.localPosition.x;
 
         if (_moveRightHorizontal == true && _moveHorizontalRightLimit < pointPositionX)
             _moveRightHorizontal = false;
@@ -201,11 +243,11 @@ public class MiniGameObject3 : MonoBehaviour
 
         if (_lockpicker != null)
         {
-            Vector3 P0 = _lockpicker.transform.position;
+            Vector3 P0 = _lockpicker.transform.localPosition;
             Vector3 AT = dir * _horizontalSpeed * Time.deltaTime;
             Vector3 P1 = P0 + AT;
 
-            _lockpicker.transform.position = P1;
+            _lockpicker.transform.localPosition = P1;
             // 등속운동 P1 = PO + AT;
         }
     }
@@ -216,7 +258,7 @@ public class MiniGameObject3 : MonoBehaviour
         // - 0.95  / -0.41
 
         if (_lockpicker != null)
-            pointPositionY = _lockpicker.transform.position.y;
+            pointPositionY = _lockpicker.transform.localPosition.y;
 
         if (_moveUpVertical == true && _moveVerticalUpLimit < pointPositionY)
             _moveUpVertical = false;
@@ -231,11 +273,11 @@ public class MiniGameObject3 : MonoBehaviour
 
         if (_lockpicker != null)
         {
-            Vector3 P0 = _lockpicker.transform.position;
+            Vector3 P0 = _lockpicker.transform.localPosition;
             Vector3 AT = dir * _verticalSpeed * Time.deltaTime;
             Vector3 P1 = P0 + AT;
 
-            _lockpicker.transform.position = P1;
+            _lockpicker.transform.localPosition = P1;
             // 등속운동 P1 = PO + AT;
         }
     }
@@ -246,7 +288,7 @@ public class MiniGameObject3 : MonoBehaviour
         // - 0.95  / -0.41
 
         if (_lockpicker != null)
-            pointPositionY = _lockpicker.transform.position.y;
+            pointPositionY = _lockpicker.transform.localPosition.y;
 
         if (_moveUpVertical == true && _moveObsColliderVerticalUpLimit < pointPositionY)
             _moveUpVertical = false;
@@ -262,11 +304,11 @@ public class MiniGameObject3 : MonoBehaviour
 
         if (_lockpicker != null)
         {
-            Vector3 P0 = _lockpicker.transform.position;
+            Vector3 P0 = _lockpicker.transform.localPosition;
             Vector3 AT = dir * _verticalSpeed * Time.deltaTime;
             Vector3 P1 = P0 + AT;
 
-            _lockpicker.transform.position = P1;
+            _lockpicker.transform.localPosition = P1;
             // 등속운동 P1 = PO + AT;
         }
     }
@@ -284,7 +326,7 @@ public class MiniGameObject3 : MonoBehaviour
     public void ProgressTimeBar()
     {
         // HP 바의 위치를 대상 위로 설정
-        _barEdge.position = _vInitializeEdgePos;
+        _barEdge.localPosition = _vInitializeEdgePos;
 
         DecreaseTime();
 
@@ -303,7 +345,7 @@ public class MiniGameObject3 : MonoBehaviour
         // Pin의 Success가 카운트 미만일 때 진행
 
         // true : 진행 , false : 종료
-        if (_currentTime >= 0)
+        if (_currentTime > 0)
             return MiniGameState.InProgress;
 
         return MiniGameState.Fail;
