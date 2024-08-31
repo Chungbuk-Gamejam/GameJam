@@ -6,7 +6,7 @@ public class PlayerController : MonoBehaviour
     [Header("Animator")]
     [Tooltip("플레이어의 애니메이션을 조정하기위한 Animator")]
     public Animator anim;
-    
+
     [HideInInspector]
     [Tooltip("플레이어의 움직임을 조정하기위한 Rigidbody")]
     public Rigidbody2D _rigidbody;
@@ -98,6 +98,8 @@ public class PlayerController : MonoBehaviour
         UpdateState();
         if(interactCounter == 0)
         {
+            CurrentState = _waitState;
+            interactCounter = 12;
             switch (dayCount)
             {
                 case 1:
@@ -118,8 +120,6 @@ public class PlayerController : MonoBehaviour
             {
                 _uiController.inventory.SetActive(false);
             }
-            CurrentState = _waitState;
-            interactCounter = 12;
         }
     }
 

@@ -16,8 +16,19 @@ public class InventoryManager : MonoBehaviour
     [SerializeField] private Transform slotGridParent; // GridLayoutGroup이 있는 부모 오브젝트
     [Tooltip("슬롯 패널")]
     [SerializeField] private GameObject slotPanel;
+    [Tooltip("메뉴 이미지")]
+    [SerializeField] private Image menuImage;
     [Tooltip("각 아이템에 해당하는 이미지 스프라이트 배열")]
     [SerializeField] private Sprite[] itemSprites; // 각 아이템에 해당하는 이미지 스프라이트 배열
+    [Tooltip("각 메뉴에 해당하는 이미지 스프라이트 배열")]
+    [SerializeField] private Sprite[] menuItemSprites; // 각 아이템에 해당하는 이미지 스프라이트 배열
+    [Tooltip("메뉴 이름")]
+    [SerializeField] private TMP_Text menuName;
+    [Tooltip("메뉴 설명 텍스트")]
+    [SerializeField] private TMP_Text menuText;
+    [Tooltip("각 메뉴에 해당하는 설명")]
+    [SerializeField] private string[] menuExplan;
+
     [Space(10)]
 
     [Tooltip("인벤토리에서 보여줄 프리팹")]
@@ -191,6 +202,8 @@ public class InventoryManager : MonoBehaviour
 
             Image resultImage = slot.transform.Find("Result").GetComponent<Image>();
 
+            menuImage.sprite = GetMenuItemSprite(recipe.name);
+
             if (currentQuantity >= requiredQuantity)
             {
                 resultImage.sprite = goodStamp;
@@ -264,7 +277,33 @@ public class InventoryManager : MonoBehaviour
             case Item.GreenOnion:
                 return itemSprites[10];
             default:
-        
+
+                return null; // 아이템에 맞는 스프라이트가 없을 경우 null 반환
+        }
+    }
+
+    private Sprite GetMenuItemSprite(string recipe)
+    {
+        switch (recipe)
+        {
+            case "Skewers":
+                menuName.text = "꼬치구이";
+                menuText.text = menuExplan[0];
+                return menuItemSprites[0];
+            case "Steamed fish":
+                menuName.text = "생선찜";
+                menuText.text = menuExplan[1];
+                return menuItemSprites[1];
+            case "Mushroom stew":
+                menuName.text = "버섯찌개";
+                menuText.text = menuExplan[2];
+                return menuItemSprites[2];
+            case "Jjiaggle":
+                menuName.text = "짜글이";
+                menuText.text = menuExplan[3];
+                return menuItemSprites[3];
+            default:
+
                 return null; // 아이템에 맞는 스프라이트가 없을 경우 null 반환
         }
     }

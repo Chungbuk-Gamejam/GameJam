@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Steamed fish
   m_EditorClassIdentifier: 
   RecipeName: Steamed fish
-  ingredientItems: 020000000000000001000000
-  ingredientAmounts: 020000000100000003000000
+  ingredientItems: 0200000000000000010000000b000000
+  ingredientAmounts: 02000000010000000300000001000000
