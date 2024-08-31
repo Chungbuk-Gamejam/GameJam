@@ -27,57 +27,17 @@ public class PlayerWalkState : MonoBehaviour, IPlayerState
             _playerController.movement.x = Input.GetAxisRaw("Horizontal");
             _playerController.movement.y = Input.GetAxisRaw("Vertical");
 
-            // 첫 입력 방향 설정 (선입력 방향이 여전히 활성화되어 있지 않을 때만 업데이트)
-            if (firstInputDirection == Vector2.zero)
-            {
-                if (_playerController.movement.x != 0)
-                {
-                    firstInputDirection = new Vector2(_playerController.movement.x, 0);
-                }
-                else if (_playerController.movement.y != 0)
-                {
-                    firstInputDirection = new Vector2(0, _playerController.movement.y);
-                }
-            }
-
-            // 입력이 없는 경우 방향 초기화
-            if (_playerController.movement == Vector2.zero)
-            {
-                firstInputDirection = Vector2.zero;
-            }
-
-            // 선입력된 방향의 애니메이션 재생
-            if (firstInputDirection.x > 0)
+            if (_playerController.movement.x > 0)
             {
                 _playerController.anim.SetFloat("DirX", 1.0f);
                 _playerController.anim.SetFloat("DirY", 0.0f);
             }
-            else if (firstInputDirection.x < 0)
+            else if (_playerController.movement.x < 0)
             {
                 _playerController.anim.SetFloat("DirX", -1.0f);
                 _playerController.anim.SetFloat("DirY", 0.0f);
             }
-            else if (firstInputDirection.y > 0)
-            {
-                _playerController.anim.SetFloat("DirX", 0.0f);
-                _playerController.anim.SetFloat("DirY", 1.0f);
-            }
-            /*else if (firstInputDirection.y < 0)
-            {
-                _playerController.anim.SetFloat("DirX", 0.0f);
-                _playerController.anim.SetFloat("DirY", -1.0f);
-            }*/
-
-            // 선입력된 방향의 키가 떼어지면 새 방향 설정
-            if (firstInputDirection.x != 0 && _playerController.movement.x == 0)
-            {
-                firstInputDirection = Vector2.zero;
-            }
-            else if (firstInputDirection.y != 0 && _playerController.movement.y == 0)
-            {
-                firstInputDirection = Vector2.zero;
-            }
-
+            
 
             if (_playerController.movement.x != 0 || _playerController.movement.y != 0)
             {

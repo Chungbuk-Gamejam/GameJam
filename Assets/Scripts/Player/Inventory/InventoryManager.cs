@@ -10,14 +10,28 @@ public class InventoryManager : MonoBehaviour
 {
     private Dictionary<Item, int> inventory = new Dictionary<Item, int>();
 
+    [Tooltip("요리 성공 변수를 가져오기 위한 컨트롤러")]
+    [SerializeField] private PlayerController playerController;
+
     [Tooltip("요리하기에서 보여줄 프리팹")]
     [SerializeField] private GameObject slotPrefab; // 슬롯 프리팹
     [Tooltip("GridLayoutGroup이 있는 부모 오브젝트")]
     [SerializeField] private Transform slotGridParent; // GridLayoutGroup이 있는 부모 오브젝트
     [Tooltip("슬롯 패널")]
     [SerializeField] private GameObject slotPanel;
+    [Tooltip("메뉴 이미지")]
+    [SerializeField] private Image menuImage;
     [Tooltip("각 아이템에 해당하는 이미지 스프라이트 배열")]
     [SerializeField] private Sprite[] itemSprites; // 각 아이템에 해당하는 이미지 스프라이트 배열
+    [Tooltip("각 메뉴에 해당하는 이미지 스프라이트 배열")]
+    [SerializeField] private Sprite[] menuItemSprites; // 각 아이템에 해당하는 이미지 스프라이트 배열
+    [Tooltip("메뉴 이름")]
+    [SerializeField] private TMP_Text menuName;
+    [Tooltip("메뉴 설명 텍스트")]
+    [SerializeField] private TMP_Text menuText;
+    [Tooltip("각 메뉴에 해당하는 설명")]
+    [SerializeField] private string[] menuExplan;
+
     [Space(10)]
 
     [Tooltip("인벤토리에서 보여줄 프리팹")]
@@ -25,15 +39,21 @@ public class InventoryManager : MonoBehaviour
     [Tooltip("GridLayoutGroup이 있는 부모 오브젝트")]
     [SerializeField] private Transform invenGridParent; // GridLayoutGroup이 있는 부모 오브젝트
     [Header("스탬프")]
-    [SerializeField] private Sprite badStamp;
     [SerializeField] private Sprite goodStamp;
+    [SerializeField] private Sprite normalStamp;
+    [SerializeField] private Sprite badStamp;
+    [SerializeField] private Sprite goodCookingStamp;
+    [SerializeField] private Sprite normalCookingStamp;
+    [SerializeField] private Sprite badCookingStamp;
     [Header("결과")]
     [SerializeField] private Image result;
 
     private void Start()
     {
-        //CreateRecipeSlots(RecipeManager.instance.mushroomSoup);
-        //AddItem(Item.Meat);
+        if (playerController == null)
+        {
+            playerController = GetComponent<PlayerController>();
+        }
     }
 
     public void AddItem(Item itemName)
@@ -112,60 +132,6 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
-    // 레시피에 필요한 모든 재료가 인벤토리에 있는지 확인하는 메서드
-    public string CanCraftRecipe(Recipe recipe)
-    {
-        // 레시피의 재료를 리스트로 변환
-        List<Item> keys = new List<Item>(recipe.Ingredients.Keys);
-        List<int> values = new List<int>(recipe.Ingredients.Values);
-
-        bool hasAllItems = true;
-        bool hasPartialItems = false;
-
-        for (int i = 0; i < keys.Count; i++)
-        {
-            Item item = keys[i];
-            int requiredQuantity = values[i];
-            int currentQuantity = inventory.ContainsKey(item) ? inventory[item] : 0;
-
-            // 현재 보유 수량과 필요한 수량을 출력
-            Debug.Log(item + ": 현재 수량 = " + currentQuantity + ", 필요한 수량 = " + requiredQuantity);
-
-            if (currentQuantity == 0)
-            {
-                // 하나라도 없는 재료가 있다면 "실패"
-                hasAllItems = false;
-            }
-            else if (currentQuantity < requiredQuantity)
-            {
-                // 재료는 있지만 필요한 수량보다 적은 경우
-                hasAllItems = false;
-                hasPartialItems = true;
-            }
-            else
-            {
-                // 재료가 충분한 경우
-                hasPartialItems = true;
-            }
-        }
-
-        if (hasAllItems)
-        {
-            Debug.Log("레시피를 만드는데 필요한 모든 재료가 충분히 있습니다.");
-            return "성공";
-        }
-        else if (hasPartialItems)
-        {
-            Debug.Log("레시피를 만드는데 필요한 재료들이 일부 부족하지만, 몇 가지 재료는 보유하고 있습니다.");
-            return "부분성공";
-        }
-        else
-        {
-            Debug.Log("레시피를 만드는데 필요한 재료 중 하나 이상이 부족합니다.");
-            return "실패";
-        }
-    }
-
     public void CreateRecipeSlots(Recipe recipe)
     {
         slotPanel.SetActive(true);
@@ -191,9 +157,15 @@ public class InventoryManager : MonoBehaviour
 
             Image resultImage = slot.transform.Find("Result").GetComponent<Image>();
 
+            menuImage.sprite = GetMenuItemSprite(recipe.name);
+
             if (currentQuantity >= requiredQuantity)
             {
                 resultImage.sprite = goodStamp;
+            }
+            else if (currentQuantity < requiredQuantity && currentQuantity > 0)
+            {
+                resultImage.sprite = normalStamp;
             }
             else
             {
@@ -224,12 +196,20 @@ public class InventoryManager : MonoBehaviour
         if (hasAllItems)
         {
             Debug.Log("레시피를 만드는데 필요한 모든 재료가 충분히 있습니다.");
-            result.sprite = goodStamp;
+            playerController.cookCount = 3;
+            result.sprite = goodCookingStamp;
+        }
+        else if (hasPartialItems)
+        {
+            Debug.Log("레시피를 만드는데 필요한 재료들이 일부 부족하지만, 몇 가지 재료는 보유하고 있습니다.");
+            playerController.cookCount = 2;
+            result.sprite = normalCookingStamp;
         }
         else
         {
             Debug.Log("레시피를 만드는데 필요한 재료 중 하나 이상이 부족합니다.");
-            result.sprite = badStamp;
+            playerController.cookCount = 1;
+            result.sprite = badCookingStamp;
         }
     }
 
@@ -264,7 +244,33 @@ public class InventoryManager : MonoBehaviour
             case Item.GreenOnion:
                 return itemSprites[10];
             default:
-        
+
+                return null; // 아이템에 맞는 스프라이트가 없을 경우 null 반환
+        }
+    }
+
+    private Sprite GetMenuItemSprite(string recipe)
+    {
+        switch (recipe)
+        {
+            case "Skewers":
+                menuName.text = "꼬치구이";
+                menuText.text = menuExplan[0];
+                return menuItemSprites[0];
+            case "Steamed fish":
+                menuName.text = "생선찜";
+                menuText.text = menuExplan[1];
+                return menuItemSprites[1];
+            case "Mushroom stew":
+                menuName.text = "버섯찌개";
+                menuText.text = menuExplan[2];
+                return menuItemSprites[2];
+            case "Jjiaggle":
+                menuName.text = "짜글이";
+                menuText.text = menuExplan[3];
+                return menuItemSprites[3];
+            default:
+
                 return null; // 아이템에 맞는 스프라이트가 없을 경우 null 반환
         }
     }
