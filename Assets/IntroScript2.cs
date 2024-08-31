@@ -33,6 +33,7 @@ public class IntroScript2 : MonoBehaviour
             }
             if(letter == 'k')
             {
+
                 yield return new WaitForSeconds(1.5f);
 
                 GetComponent<RectTransform>().anchoredPosition = new Vector2(GetComponent<RectTransform>().anchoredPosition.x - 270, GetComponent<RectTransform>().anchoredPosition.y);
@@ -60,9 +61,10 @@ public class IntroScript2 : MonoBehaviour
                 continue;
             }
 
-           
             yield return null;
             m_TextMeshProUGUI.text += letter;
+            //SoundManager.instance.
+            // jh
             yield return null;
             yield return new WaitForSeconds(0.07f); //출력속도 유저가 저장할 수 있도록 / 배속 모드
 

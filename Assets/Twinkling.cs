@@ -47,6 +47,5 @@ public class Twinkling : MonoBehaviour
         Color colorTmp = myTMP.color;
         colorTmp.a = ZeroToOne;
         myTMP.color = colorTmp;
-
     }
 }
