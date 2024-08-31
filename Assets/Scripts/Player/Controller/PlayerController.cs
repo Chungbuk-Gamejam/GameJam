@@ -55,6 +55,7 @@ public class PlayerController : MonoBehaviour
         interactCounter = 12;
         cookCount = 0;
         inventoryManager.ShowCurrentRecipe(ReturnRecipeType());
+        inventoryManager.RemoveAllItems();
     }
 
     public Recipe ReturnRecipeType()

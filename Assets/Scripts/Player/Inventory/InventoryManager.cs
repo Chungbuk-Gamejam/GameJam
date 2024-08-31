@@ -101,6 +101,27 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
+    public void RemoveAllItems()
+    {
+        // inventory의 모든 키(아이템 종류)를 리스트로 저장
+        List<Item> keys = new List<Item>(inventory.Keys);
+
+        // for 문을 사용하여 모든 아이템의 개수를 0으로 설정
+        for (int i = 0; i < keys.Count; i++)
+        {
+            Item item = keys[i];
+            inventory[item] = 0;
+            Debug.Log(item + "의 수량이 0으로 설정되었습니다.");
+        }
+
+        // 0이 된 모든 아이템을 인벤토리에서 제거
+        inventory.Clear();
+        ShowCurrentRecipe(playerController.ReturnRecipeType());
+
+        Debug.Log("인벤토리에서 모든 아이템이 제거되었습니다.");
+        PrintInventory();
+    }
+
     public bool HasItem(Item itemName)
     {
         if (inventory.ContainsKey(itemName))
