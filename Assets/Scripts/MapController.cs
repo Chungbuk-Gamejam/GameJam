@@ -174,17 +174,19 @@ public class MapController : MonoBehaviour
         FadeManager.Instance.StartFadeOut();
         playerController.Reset();
         playerController.ChangeState(playerController._idleState);
-        map.SetActive(false);
 
-        if(playerController.dayCount >= 2)
+        SoundManager.instance.TurnOffBackGroundMusic();
+
+        if (playerController.dayCount >= 5)
         {
             // 종료 로직
-            SceneLoader.Instance.AsyncSceneLoader($"EndingCredit");
+            StartCoroutine(SceneLoader.Instance.AsyncSceneLoader($"EndingCredit"));
+            SoundManager.instance.PlayBackgroundMusicForGoMeteorShower();
         }
         else
         {
-            SoundManager.instance.TurnOffBackGroundMusic();
             SoundManager.instance.PlayBackgroundMusicForMainGame();
+            map.SetActive(false);
         }
     }
 
