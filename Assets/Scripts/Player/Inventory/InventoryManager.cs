@@ -53,6 +53,9 @@ public class InventoryManager : MonoBehaviour
     [Tooltip("GridLayoutGroup이 있는 부모 오브젝트")]
     [SerializeField] private Transform bottomGridParent; // GridLayoutGroup이 있는 부모 오브젝트
 
+    [Tooltip("바닥에서 올라갈 프리팹")]
+    [SerializeField] private GameObject flyingPrefab;
+
 
     private void Start()
     {
@@ -81,8 +84,24 @@ public class InventoryManager : MonoBehaviour
             inventory[itemName] = 1; // 처음 추가될 때 0으로 초기화 후 1을 더함
             PrintInventory();
         }
-        ShowCurrentRecipe(playerController.ReturnRecipeType());
+        GameObject flyingObject = Instantiate(flyingPrefab);
+        flyingObject.transform.position = this.transform.position;
+        SpriteRenderer itemImage = flyingObject.GetComponent<SpriteRenderer>();
+        itemImage.sprite = GetItemSprite(itemName); // 아이템에 맞는 스프라이트 할당
+        StartFlyingObject(itemImage);
 
+        ShowCurrentRecipe(playerController.ReturnRecipeType());
+    }
+
+    IEnumerator StartFlyingObject(SpriteRenderer image)
+    {
+        Vector3 dest = new(image.gameObject.transform.position.x, image.gameObject.transform.position.y + 3f, image.gameObject.transform.position.z);
+        while (image.gameObject.transform.position != dest)
+        {
+            image.gameObject.transform.position = Vector3.MoveTowards(image.gameObject.transform.position, dest, 2f * Time.deltaTime);
+            yield return null; // 다음 프레임까지 대기
+        }
+        Destroy(image.gameObject);
     }
 
     public void RemoveItem(Item itemName)
