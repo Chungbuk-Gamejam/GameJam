@@ -8,11 +8,12 @@ public class SoundManager : MonoBehaviour
     public static SoundManager instance; // 싱글톤 인스턴스
 
     // AudioClip을 저장할 변수들
-    public AudioClip backgroundMusicForCutScene;
-
-    public AudioClip backgroundMusicForMainGame;
-
-    public AudioClip backgroundMusicForMainMenu;
+    public AudioClip _backgroundMusicForTitle;
+    public AudioClip _backgroundMusicForMainGame;
+    public AudioClip _backgroundMusicForGoAurora;
+    public AudioClip _backgroundMusicForGoConstellation;
+    public AudioClip _backgroundMusicForGoMeteorShower;
+    public AudioClip _backgroundMusicForGoMilkyWay;
 
     public AudioClip[] soundEffects;
 
@@ -41,22 +42,22 @@ public class SoundManager : MonoBehaviour
     }
 
     // 배경 음악 재생 메서드
-    public void PlayBackgroundMusicForCutScene()
+    public void PlayBackgroundMusicForTitle()
     {
-        audioSource.clip = backgroundMusicForCutScene;
+        audioSource.clip = _backgroundMusicForTitle;
         audioSource.loop = true; // 반복 재생
         audioSource.volume = 0.3f; // 볼륨
         audioSource.Play();
     }
 
-    public void TurnOffBackGroundMusicForCutScene()
+    public void TurnOffBackGroundMusicFor()
     {
         audioSource.Stop();
         audioSource.clip = null;
     }
     public void PlayBackgroundMusicForMainGame()
     {
-        audioSource.clip = backgroundMusicForMainGame;
+        audioSource.clip = _backgroundMusicForMainGame;
         audioSource.loop = true; // 반복 재생
         audioSource.volume = 0.3f; // 볼륨
         audioSource.Play();
@@ -68,9 +69,33 @@ public class SoundManager : MonoBehaviour
         audioSource.clip = null;
     }
 
-    public void PlayBackgroundMusicForMainMenu()
+    public void PlayBackgroundMusicForGoAurora()
     {
-        audioSource.clip = backgroundMusicForMainMenu;
+        audioSource.clip = _backgroundMusicForGoAurora;
+        audioSource.loop = true; // 반복 재생
+        audioSource.volume = 0.35f; // 볼륨
+        audioSource.Play();
+    }
+
+    public void PlayBackgroundMusicForGoConstellation()
+    {
+        audioSource.clip = _backgroundMusicForGoConstellation;
+        audioSource.loop = true; // 반복 재생
+        audioSource.volume = 0.35f; // 볼륨
+        audioSource.Play();
+    }
+
+    public void PlayBackgroundMusicForGoMeteorShower()
+    {
+        audioSource.clip = _backgroundMusicForGoMeteorShower;
+        audioSource.loop = true; // 반복 재생
+        audioSource.volume = 0.35f; // 볼륨
+        audioSource.Play();
+    }
+
+    public void PlayBackgroundMusicForGoMilkyWay()
+    {
+        audioSource.clip = _backgroundMusicForGoMilkyWay;
         audioSource.loop = true; // 반복 재생
         audioSource.volume = 0.35f; // 볼륨
         audioSource.Play();
