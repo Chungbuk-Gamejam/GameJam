@@ -6,7 +6,7 @@ public class MapStage : MonoBehaviour
 {
     public void Start()
     {
-        SoundManager.instance.TurnOffBackGroundMusicFor();
+        SoundManager.instance.TurnOffBackGroundMusic();
         SoundManager.instance.PlayBackgroundMusicForMainGame();
     }
 }

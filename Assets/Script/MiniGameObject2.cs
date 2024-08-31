@@ -46,6 +46,9 @@ public class MiniGameObject2 : MonoBehaviour
     private void OnEnable()
     {
         ResetGame();
+
+        SoundManager.instance.TurnOffBackGroundMusic();
+        SoundManager.instance.PlayBackgroundMusicForMiniGame();
     }
     private void Update()
     {

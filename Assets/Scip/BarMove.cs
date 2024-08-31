@@ -30,6 +30,12 @@ public class BarMove : MonoBehaviour
         // Renderer ÄÄÆ÷³ÍÆ®¸¦ °¡Á®¿È
     }
 
+    private void OnDisable()
+    {
+        SoundManager.instance.TurnOffBackGroundMusic();
+        SoundManager.instance.PlayBackgroundMusicForMainGame();
+    }
+
     public void Init()
     {
         IsAble = false;
