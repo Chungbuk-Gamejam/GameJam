@@ -2,13 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MapController : MonoBehaviour
 {
+    [Header("¸Ê")]
     [SerializeField] List<TMP_Text> region;
     [SerializeField] int counter = 0;
     [SerializeField] PlayerController playerController;
 
+    [Header("Ã»È­")]
+    [SerializeField] List<Sprite> sprites;
+    [SerializeField] List<Sprite> characterSprites;
+    [SerializeField] Image character;
+    [SerializeField] Image chunghwaImage;
+    [SerializeField] GameObject chunghwa;
     private void Update()
     {
         switch (counter)
@@ -53,6 +61,16 @@ public class MapController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             playerController.dayCount = counter + 1;
+            StartCoroutine(StartChangeScene());
+        }
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            ProjectManager.Instance.UnLock();
+        }
+        if(Input.GetKeyDown(KeyCode.T))
+        {
+            ProjectManager.Instance.Lock();
         }
     }
 
@@ -60,6 +78,22 @@ public class MapController : MonoBehaviour
     {
         yield return new WaitForSeconds(1.0f);
         FadeManager.Instance.StartFadeIn();
+        yield return new WaitForSeconds(1.5f);
+        if(playerController.cookCount == 1)
+        {
+            character.sprite = characterSprites[0];
+        }
+        else if(playerController.cookCount == 2)
+        {
+            character.sprite = characterSprites[1];
+        }
+        else if(playerController.cookCount == 3)
+        {
+            character.sprite = characterSprites[2];
+        }
+        chunghwaImage.sprite = sprites[counter];
+        chunghwa.SetActive(true);
+        FadeManager.Instance.StartFadeOut();
     }
 
     private void SetFontSize(int focus)
