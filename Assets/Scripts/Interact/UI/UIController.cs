@@ -50,7 +50,7 @@ public class UIController : MonoBehaviour
     {
         if (!isActivated)
         {
-            if (!cookingUI.activeSelf)
+            if (cookingResultUI.activeSelf)
             {
                 cookingResultUI.SetActive(false);
                 cookingUI.SetActive(true);
@@ -62,6 +62,15 @@ public class UIController : MonoBehaviour
                 isActivated = true;
             }
         }
+    }
+
+    public void ControllerCamp()
+    {
+        cookBtn.SetActive(true);
+        campBtn.SetActive(false);
+        cookingResultUI.SetActive(false);
+        isActivated = false;
+        playerController.ChangeState(playerController._seeState);
     }
 
     IEnumerator StartAnimation()
@@ -82,12 +91,18 @@ public class UIController : MonoBehaviour
             if (x == false)
             {
                 playerController.cookCount--;
+                
+            }
+
+            if(playerController.cookCount < 2)
+            {
                 IllustPanel.sprite = failIllust;
             }
             else
             {
                 IllustPanel.sprite = successIllust;
             }
+
             StartCoroutine(ShowRecipeSlot());
         });
         mainGame.SetActive(true);

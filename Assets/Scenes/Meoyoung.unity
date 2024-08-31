@@ -4587,7 +4587,7 @@ Transform:
   m_GameObject: {fileID: 825344740}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 18, y: 2.7, z: 0}
+  m_LocalPosition: {x: -9.9, y: -9.7, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4628,12 +4628,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   anim: {fileID: 825344743}
+  telescope: {fileID: 2007539530}
   _rigidbody: {fileID: 0}
   interactableLayer:
     serializedVersion: 2
     m_Bits: 64
   interactionAreaSize: {x: 0.4, y: 0.3}
-  interactCounter: 12
+  interactCounter: 1
   movement: {x: 0, y: 0}
   walkSpeed: 5
   runSpeed: 8
@@ -4762,7 +4763,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.25}
-    oldSize: {x: 4.5, y: 4.515381}
+    oldSize: {x: 3, y: 3.0058594}
     newSize: {x: 1, y: 2}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -10565,7 +10566,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -11113,7 +11114,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1731184135}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1548982780}
+        m_TargetAssemblyTypeName: UIController, Assembly-CSharp
+        m_MethodName: ControllerCamp
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1731184135
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12041,7 +12054,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2007539531
 Transform:
   m_ObjectHideFlags: 0

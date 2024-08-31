@@ -149,6 +149,7 @@ public class InventoryManager : MonoBehaviour
 
         for (int i = 0; i < keys.Count; i++)
         {
+            playerController.ChangeState(playerController._waitState);
             Item item = keys[i];
             int requiredQuantity = values[i];
             int currentQuantity = inventory.ContainsKey(item) ? inventory[item] : 0;
