@@ -94,6 +94,7 @@ public class GaugeMove : MonoBehaviour
         yield return new WaitForSeconds(3.0f);
         barMove.Init();
         Init();
+        getObject.RotateClock();
         fishGame.SetActive(false);
         playerController.ChangeState(playerController._idleState);
     }

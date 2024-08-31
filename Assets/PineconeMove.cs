@@ -4,14 +4,24 @@ using UnityEngine;
 
 public class PineconeMove : MonoBehaviour
 {
- private RectTransform m_RectTransform;
-    public float speed;
+    private RectTransform m_RectTransform;
+    private Vector2 initTransform;
+    public float speed = 50;
     float maxDistance=350;
-    public static bool IsActive=true;
+    public bool IsActive= false;
     Animator animator;
     BoxCollider2D boxCollider2D;
+
+    private void OnEnable()
+    {
+        IsActive = false;
+        speed = 50;
+        maxDistance = 350;
+        m_RectTransform.anchoredPosition = initTransform;
+    }
     private void Start()
     {
+        initTransform = m_RectTransform.anchoredPosition;
         animator = GetComponent<Animator>();
         m_RectTransform = GetComponent<RectTransform>();
         boxCollider2D = GetComponent<BoxCollider2D>();
