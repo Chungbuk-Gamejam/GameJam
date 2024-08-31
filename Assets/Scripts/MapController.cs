@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class MapController : MonoBehaviour
 {
     [Header("¸Ê")]
+    [SerializeField] GameObject map;
     [SerializeField] List<TMP_Text> region;
     [SerializeField] int counter = 0;
     [SerializeField] PlayerController playerController;
@@ -117,9 +118,19 @@ public class MapController : MonoBehaviour
         }
 
         chunghwaImage.sprite = sprites[counter];
+        playerController.dayCount++;
 
         chunghwa.SetActive(true);
         FadeManager.Instance.StartFadeOut();
+
+        yield return new WaitForSeconds(5.0f);
+        FadeManager.Instance.StartFadeIn();
+        yield return new WaitForSeconds(1.5f);
+        playerController.gameObject.transform.position = playerController._transform.position;
+        chunghwa.SetActive(false);
+        FadeManager.Instance.StartFadeOut();
+        playerController.ChangeState(playerController._idleState);
+        map.SetActive(false);
     }
 
     private void SetFontSize(int focus)
