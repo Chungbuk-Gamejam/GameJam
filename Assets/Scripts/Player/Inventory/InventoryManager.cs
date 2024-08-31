@@ -53,6 +53,9 @@ public class InventoryManager : MonoBehaviour
     [Tooltip("GridLayoutGroup이 있는 부모 오브젝트")]
     [SerializeField] private Transform bottomGridParent; // GridLayoutGroup이 있는 부모 오브젝트
 
+    [Tooltip("바닥에서 올라갈 프리팹")]
+    [SerializeField] private GameObject flyingPrefab;
+
 
     private void Start()
     {
@@ -81,8 +84,24 @@ public class InventoryManager : MonoBehaviour
             inventory[itemName] = 1; // 처음 추가될 때 0으로 초기화 후 1을 더함
             PrintInventory();
         }
-        ShowCurrentRecipe(playerController.ReturnRecipeType());
+        GameObject flyingObject = Instantiate(flyingPrefab);
+        flyingObject.transform.position = this.transform.position;
+        SpriteRenderer itemImage = flyingObject.GetComponent<SpriteRenderer>();
+        itemImage.sprite = GetItemSprite(itemName); // 아이템에 맞는 스프라이트 할당
+        StartFlyingObject(itemImage);
 
+        ShowCurrentRecipe(playerController.ReturnRecipeType());
+    }
+
+    IEnumerator StartFlyingObject(SpriteRenderer image)
+    {
+        Vector3 dest = new(image.gameObject.transform.position.x, image.gameObject.transform.position.y + 3f, image.gameObject.transform.position.z);
+        while (image.gameObject.transform.position != dest)
+        {
+            image.gameObject.transform.position = Vector3.MoveTowards(image.gameObject.transform.position, dest, 2f * Time.deltaTime);
+            yield return null; // 다음 프레임까지 대기
+        }
+        Destroy(image.gameObject);
     }
 
     public void RemoveItem(Item itemName)
@@ -99,6 +118,27 @@ public class InventoryManager : MonoBehaviour
                 inventory.Remove(itemName);
             }
         }
+    }
+
+    public void RemoveAllItems()
+    {
+        // inventory의 모든 키(아이템 종류)를 리스트로 저장
+        List<Item> keys = new List<Item>(inventory.Keys);
+
+        // for 문을 사용하여 모든 아이템의 개수를 0으로 설정
+        for (int i = 0; i < keys.Count; i++)
+        {
+            Item item = keys[i];
+            inventory[item] = 0;
+            Debug.Log(item + "의 수량이 0으로 설정되었습니다.");
+        }
+
+        // 0이 된 모든 아이템을 인벤토리에서 제거
+        inventory.Clear();
+        ShowCurrentRecipe(playerController.ReturnRecipeType());
+
+        Debug.Log("인벤토리에서 모든 아이템이 제거되었습니다.");
+        PrintInventory();
     }
 
     public bool HasItem(Item itemName)
