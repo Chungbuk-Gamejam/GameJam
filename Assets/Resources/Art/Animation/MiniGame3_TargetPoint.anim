@@ -20,9 +20,8 @@ AnimationClip:
   m_PPtrCurves:
   - serializedVersion: 2
     curve:
-    - time: 0
+    - time: 0.016666668
       value: {fileID: -1266201882, guid: aad5d53ec70c1fe40862cb454d53c219, type: 3}
-
     - time: 0.1
       value: {fileID: 1093637174, guid: aad5d53ec70c1fe40862cb454d53c219, type: 3}
     - time: 0.21666667
@@ -59,16 +58,13 @@ AnimationClip:
     - {fileID: 1093637174, guid: aad5d53ec70c1fe40862cb454d53c219, type: 3}
     - {fileID: 317120381, guid: aad5d53ec70c1fe40862cb454d53c219, type: 3}
     - {fileID: 1804932405, guid: aad5d53ec70c1fe40862cb454d53c219, type: 3}
-
     - {fileID: -1186299030, guid: aad5d53ec70c1fe40862cb454d53c219, type: 3}
     - {fileID: 1093637174, guid: aad5d53ec70c1fe40862cb454d53c219, type: 3}
-
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-
     m_StopTime: 0.51666665
     m_OrientationOffsetY: 0
     m_Level: 0

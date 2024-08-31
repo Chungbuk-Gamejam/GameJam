@@ -2,10 +2,7 @@
 
 
 public class PlayerController : MonoBehaviour
-{
-    [Header("초기위치")]
-    public Transform _transform;
-
+{ 
     [Header("Animator")]
     [Tooltip("플레이어의 애니메이션을 조정하기위한 Animator")]
     public Animator anim;
@@ -50,10 +47,6 @@ public class PlayerController : MonoBehaviour
     public GameObject monologuePanel;
     public static PlayerController Instance { get; private set; } // Singleton 인스턴스
 
-    public void Reset()
-    {
-        
-    }
 
     private void Awake()
     {
