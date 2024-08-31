@@ -218,7 +218,9 @@ public class PlayerController : MonoBehaviour
         Gizmos.DrawWireCube(centerPosition, interactionAreaSize);
         centerPosition = (Vector2)transform.position + (-1) * location * (interactionAreaSize);
         Gizmos.DrawWireCube(centerPosition, interactionAreaSize);
-        location = new(anim.GetFloat("DirX"), 0.0f);
+
+
+        location = new(1f, 0.0f);
         centerPosition = (Vector2)transform.position + (-1) * location * (interactionAreaSize);
         Gizmos.DrawWireCube(centerPosition, interactionAreaSize);
         centerPosition = (Vector2)transform.position + location * (interactionAreaSize);
