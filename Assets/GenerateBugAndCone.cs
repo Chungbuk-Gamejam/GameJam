@@ -4,13 +4,21 @@ using UnityEngine;
 
 public class GenerateBugAndCone : MonoBehaviour
 {
-    public float BugProbability;
+    public float BugProbability = 20;
     public GameObject bug;
     public GameObject cone;
-    public static bool IsActive=true;
-    private int stack;
+    public bool IsActive= false;
+    private int stack = 0;
     public GameObject Canvas;
     private float MaxGenerateDistance = 330f;//생성될 수 있는 최대x값
+
+    private void OnEnable()
+    {
+        IsActive = false;
+        stack = 0;
+        MaxGenerateDistance = 330f;
+        BugProbability = 20;
+    }
     private void FixedUpdate()
     {
         if (!IsActive)

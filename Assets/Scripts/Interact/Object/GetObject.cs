@@ -24,9 +24,14 @@ public class GetObject : MonoBehaviour, IInteractable
     [Tooltip("미니게임 컨트롤러")]
     [SerializeField] UIController _uiController;
 
-    [Header("미니게임1")]
+    [Header("미니게임1 (생선)")]
     [SerializeField] private GameObject fishGame;
     [SerializeField] private BarMove barMove;
+
+    [Header("미니게임2 (솔방울)")]
+    [SerializeField] private GameObject pineGame;
+    [SerializeField] private GenerateBugAndCone generateBugAndCone;
+    [SerializeField] private PineconeMove pineconeMove;
 
 
     private void Start()
@@ -55,13 +60,13 @@ public class GetObject : MonoBehaviour, IInteractable
         {
             fishGame = GameObject.FindWithTag("FishGame");
         }
+
+        
     }
     //인벤토리에 아이템을 추가한 후 필드에서 아이템 삭제
     //상호작용 카운터 1 감소
     public void Interact()
     {
-        RotateClock();
-        playerController.interactCounter--;
         playerController.ChangeState(playerController._waitState);
         CheckGameType();
         //AddItem();
@@ -76,9 +81,19 @@ public class GetObject : MonoBehaviour, IInteractable
                 fishGame.SetActive(true);
                 StartCoroutine(StartFishGame());
                 break;
+            case ItemType.Pinecone:
+                pineGame.SetActive(true);
+                StartCoroutine(StartPineGame());
+                break;
         }
     }
 
+    private IEnumerator StartPineGame()
+    {
+        yield return new WaitForSeconds(3.0f);
+        pineconeMove.IsActive = true;
+        generateBugAndCone.IsActive = true;
+    }
     private IEnumerator StartFishGame()
     {
         yield return new WaitForSeconds(3.0f);
@@ -156,6 +171,8 @@ public class GetObject : MonoBehaviour, IInteractable
 
     public void RotateClock()
     {
+        playerController.interactCounter--;
+
         rectTransform.localEulerAngles = new Vector3(
                 rectTransform.localEulerAngles.x,
                 rectTransform.localEulerAngles.y,

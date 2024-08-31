@@ -266,6 +266,8 @@ public class InventoryManager : MonoBehaviour
                 return itemSprites[9];
             case Item.GreenOnion:
                 return itemSprites[10];
+            case Item.Pinecone:
+                return itemSprites[11];
             default:
 
                 return null; // 아이템에 맞는 스프라이트가 없을 경우 null 반환
