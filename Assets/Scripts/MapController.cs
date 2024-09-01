@@ -108,7 +108,7 @@ public class MapController : MonoBehaviour
                 if (counter < playerController.dayCount)
                 {
                     isActivated = true;
-                    ++playerController.dayCount;
+                    playerController.dayCount = counter + 1;
                     StartCoroutine(StartChangeScene());
                 }
             }
@@ -175,7 +175,7 @@ public class MapController : MonoBehaviour
 
         SoundManager.instance.TurnOffBackGroundMusic();
 
-        if (playerController.dayCount >= 4)
+        if (playerController.dayCount >= 5)
         {
             // 종료 로직
             StartCoroutine(SceneLoader.Instance.AsyncSceneLoader($"EndingCredit"));
