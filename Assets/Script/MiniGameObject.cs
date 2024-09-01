@@ -18,10 +18,11 @@ public class MiniGameObject : MonoBehaviour
 
     int _layerMask;
 
-    private void Start()
+    private void OnEnable()
     {
-        Reset();
+        ResetGame();
     }
+
     private void Update()
     {
         if ((isActivated))
@@ -57,7 +58,7 @@ public class MiniGameObject : MonoBehaviour
         }
     }
 
-    public void Reset()
+    public void ResetGame()
     {
         _isPlayGame = true;
         _MoveRight = true;
