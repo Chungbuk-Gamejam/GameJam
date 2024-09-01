@@ -24,6 +24,9 @@ public class PlayerController : MonoBehaviour
     [Tooltip("상호작용 가능 횟수")]
     public int interactCounter = 12;
 
+    [Tooltip("회전 시킬 오브젝트")]
+    [SerializeField] private RectTransform rectTransform;
+
 
     [Header("Movement")]
     [Tooltip("방향을 나타내는 변수")]
@@ -55,6 +58,9 @@ public class PlayerController : MonoBehaviour
         interactCounter = 12;
         cookCount = 0;
         inventoryManager.RemoveAllItems();
+        rectTransform.localEulerAngles = new Vector3(
+                        0f,0f,0f
+                    );
     }
 
     public Recipe ReturnRecipeType()
