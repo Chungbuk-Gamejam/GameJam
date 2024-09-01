@@ -104,11 +104,11 @@ public class MapController : MonoBehaviour
         {
             if (!isActivated)
             {
-
+                Debug.Log($"counter :: {counter} , day :: {playerController.dayCount} ");
                 if (counter < playerController.dayCount)
                 {
                     isActivated = true;
-                    playerController.dayCount = counter + 1;
+                    ++playerController.dayCount;
                     StartCoroutine(StartChangeScene());
                 }
             }
