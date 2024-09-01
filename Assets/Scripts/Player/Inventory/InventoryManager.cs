@@ -186,8 +186,9 @@ public class InventoryManager : MonoBehaviour
 
     public void ShowCurrentRecipe(Recipe recipe)
     {
-        List<Item> keys = new List<Item>(recipe.Ingredients.Keys);
-        List<int> values = new List<int>(recipe.Ingredients.Values);
+        List<Item> keys = recipe.ingredientItems;
+        List<int> values = recipe.ingredientAmounts;
+
 
         // 자식 오브젝트들을 순회하면서 제거
         for (int i = bottomGridParent.childCount - 1; i >= 0; i--)
@@ -196,8 +197,11 @@ public class InventoryManager : MonoBehaviour
             Destroy(child);
         }
 
+        Debug.Log(">>>>>> " + keys.Count);
         for (int i = 0; i < keys.Count; i++)
         {
+            Debug.Log(">>>>>> " + keys[i]);
+
             Item item = keys[i];
             int requiredQuantity = values[i];
             int currentQuantity = inventory.ContainsKey(item) ? inventory[item] : 0;
@@ -219,8 +223,8 @@ public class InventoryManager : MonoBehaviour
     {
         slotPanel.SetActive(true);
         // 레시피의 재료를 리스트로 변환
-        List<Item> keys = new List<Item>(recipe.Ingredients.Keys);
-        List<int> values = new List<int>(recipe.Ingredients.Values);
+        List<Item> keys = recipe.ingredientItems;
+        List<int> values = recipe.ingredientAmounts;
         // 자식 오브젝트들을 순회하면서 제거
         for (int i = slotGridParent.childCount - 1; i >= 0; i--)
         {
@@ -231,8 +235,13 @@ public class InventoryManager : MonoBehaviour
         int hasPartialItems = 0;
         int noItems = 0;
 
+        Debug.Log(">>>>>>Create " + keys.Count);
+
+
         for (int i = 0; i < keys.Count; i++)
         {
+            Debug.Log(">>>>>>Create " + keys[i]);
+
             playerController.ChangeState(playerController._waitState);
             Item item = keys[i];
             int requiredQuantity = values[i];

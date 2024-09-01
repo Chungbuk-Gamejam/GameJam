@@ -17385,7 +17385,6 @@ GameObject:
   - component: {fileID: 1451460619}
   - component: {fileID: 1451460621}
   - component: {fileID: 1451460622}
-  - component: {fileID: 1451460623}
   m_Layer: 0
   m_Name: Script Manager
   m_TagString: Untagged
@@ -17453,27 +17452,6 @@ MonoBehaviour:
   fadeImage: {fileID: 1684667814}
   fadeDuration: 1
   delayBeforeFadeOut: 1
---- !u!114 &1451460623
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1451460618}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ef33fdf8dac81364b916846491d5b92b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fadeObject:
-  - {fileID: 757274900}
-  - {fileID: 1985478394}
-  - {fileID: 1126842683}
-  - {fileID: 1741065021}
-  - {fileID: 1987329873}
-  - {fileID: 1705052253}
-  map: {fileID: 2099052324}
-  isLocked: 1
 --- !u!1 &1452441315
 GameObject:
   m_ObjectHideFlags: 0
