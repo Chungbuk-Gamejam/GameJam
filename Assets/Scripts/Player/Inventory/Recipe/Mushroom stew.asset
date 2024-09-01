@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Mushroom stew
   m_EditorClassIdentifier: 
   RecipeName: Mushroom stew
-  ingredientItems: 0a000000070000000b00000000000000060000000b000000
+  ingredientItems: 09000000060000000a00000000000000050000000b000000
   ingredientAmounts: 030000000100000002000000010000000100000001000000
