@@ -8653,6 +8653,7 @@ MonoBehaviour:
     m_Bits: 64
   interactionAreaSize: {x: 0.5, y: 0.3}
   interactCounter: 1
+  rectTransform: {fileID: 1120639844}
   movement: {x: 0, y: 0}
   walkSpeed: 5
   runSpeed: 8
