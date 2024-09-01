@@ -18,6 +18,7 @@ public class UIController : MonoBehaviour
     [SerializeField] GameObject cookingResultUI;
     [SerializeField] List<GameObject> image;
     [SerializeField] Animator cookAnimator;
+    [SerializeField] Transform _cookCover;
     private WaitForSeconds gap = new WaitForSeconds(0.4f);
     private bool isActivated = false;
 
@@ -62,6 +63,7 @@ public class UIController : MonoBehaviour
             else
             {
                 cookingUI.SetActive(false);
+                _cookCover.localPosition = new Vector3(0f, 167f, 0f); 
                 isActivated = true;
             }
         }
@@ -140,6 +142,7 @@ public class UIController : MonoBehaviour
         yield return new WaitForSeconds(2.0f);
         miniGameObject.isActivated = false;
         cookingUI.SetActive(false);
+        _cookCover.localPosition = new Vector3(0f, 167f, 0f);
         mainGame.SetActive(false);
         switch (playerController.dayCount)
         {

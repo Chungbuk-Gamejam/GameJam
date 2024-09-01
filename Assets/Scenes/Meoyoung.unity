@@ -18653,6 +18653,7 @@ MonoBehaviour:
   - {fileID: 1363640235}
   - {fileID: 1061201673}
   cookAnimator: {fileID: 1977873543}
+  _cookCover: {fileID: 1977873540}
   mainGame: {fileID: 1103126197}
   miniGameObject: {fileID: 962909645}
   illust: {fileID: 443213605}
