@@ -12,16 +12,22 @@ public class PineconeMove : MonoBehaviour
     Animator animator;
     BoxCollider2D boxCollider2D;
 
+    private void Awake()
+    {
+
+        initTransform = m_RectTransform.anchoredPosition;
+    }
+
     private void OnEnable()
     {
         IsActive = false;
         speed = 50;
         maxDistance = 350;
         m_RectTransform.anchoredPosition = initTransform;
+        Debug.Log(initTransform);
     }
     private void Start()
     {
-        initTransform = m_RectTransform.anchoredPosition;
         animator = GetComponent<Animator>();
         m_RectTransform = GetComponent<RectTransform>();
         boxCollider2D = GetComponent<BoxCollider2D>();
