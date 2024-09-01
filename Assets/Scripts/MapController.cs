@@ -58,13 +58,19 @@ public class MapController : MonoBehaviour
                 lockObject[2].SetActive(true);
                 break;
             case 2:
+                fadeObject[0].SetActive(false);
                 fadeObject[1].SetActive(true);
                 fadeObject[2].SetActive(true);
+                lockObject[0].SetActive(false);
                 lockObject[1].SetActive(true);
                 lockObject[2].SetActive(true);
                 break;
             case 3:
+                fadeObject[0].SetActive(false);
+                fadeObject[1].SetActive(false);
                 fadeObject[2].SetActive(true);
+                lockObject[0].SetActive(false);
+                lockObject[1].SetActive(false);
                 lockObject[2].SetActive(true);
                 break;
             case 4:
@@ -108,14 +114,6 @@ public class MapController : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            ProjectManager.Instance.UnLock();
-        }
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            ProjectManager.Instance.Lock();
-        }
     }
 
     IEnumerator StartChangeScene()

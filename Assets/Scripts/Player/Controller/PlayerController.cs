@@ -59,7 +59,7 @@ public class PlayerController : MonoBehaviour
         cookCount = 0;
         inventoryManager.RemoveAllItems();
         rectTransform.localEulerAngles = new Vector3(
-                        0f,0f,0f
+                        0f,0f,-64f
                     );
     }
 
