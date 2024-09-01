@@ -74,6 +74,12 @@ public class MapController : MonoBehaviour
                 lockObject[2].SetActive(true);
                 break;
             case 4:
+                fadeObject[0].SetActive(false);
+                fadeObject[1].SetActive(false);
+                fadeObject[2].SetActive(false);
+                lockObject[0].SetActive(false);
+                lockObject[1].SetActive(false);
+                lockObject[2].SetActive(false);
                 break;
         }
 
@@ -175,7 +181,7 @@ public class MapController : MonoBehaviour
 
         SoundManager.instance.TurnOffBackGroundMusic();
 
-        if (playerController.dayCount >= 4)
+        if (playerController.dayCount >= 5)
         {
             // 종료 로직
             StartCoroutine(SceneLoader.Instance.AsyncSceneLoader($"EndingCredit"));
