@@ -24,6 +24,7 @@ public class Basket : MonoBehaviour
     [SerializeField] private GameObject pineGame;
     [SerializeField] private GenerateBugAndCone generateBugAndCone;
     [SerializeField] private PineconeMove pineconeMove;
+    [SerializeField] private bool flag = false;
 
 
     private void OnEnable()
@@ -31,6 +32,7 @@ public class Basket : MonoBehaviour
         count = 0;
         successNeededCount = 5;
         rayLength = 10f;
+        flag = false;
     }
 
     private void Start()
@@ -85,7 +87,11 @@ public class Basket : MonoBehaviour
 
                     //성공! 로직 추가
                     StartCoroutine(StartFadeOut());
-                    getObject.AddSelectedItem(ItemInfo.Item.Pinecone);
+                    if (!flag)
+                    {
+                        getObject.AddSelectedItem(ItemInfo.Item.Pinecone);
+                        flag = true;
+                    }
                 }
             }
         }

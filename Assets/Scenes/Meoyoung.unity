@@ -20757,6 +20757,7 @@ MonoBehaviour:
   pineGame: {fileID: 643033811}
   generateBugAndCone: {fileID: 1010195816}
   pineconeMove: {fileID: 1716721470}
+  flag: 0
 --- !u!50 &1716721468
 Rigidbody2D:
   serializedVersion: 4

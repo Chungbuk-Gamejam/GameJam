@@ -29,7 +29,7 @@ public class UIController : MonoBehaviour
     [SerializeField] private GameObject cookBtn;
     [SerializeField] private GameObject campBtn;
     [SerializeField] private Image IllustPanel;
-    [SerializeField] private Transform illustTransform;
+    [SerializeField] private RectTransform illustTransform;
     [SerializeField] private Sprite failIllust;
     [SerializeField] private Sprite successIllust;
     [SerializeField] private GameObject character;
@@ -164,8 +164,9 @@ public class UIController : MonoBehaviour
         inventoryManager.GetResultStamp();
         yield return new WaitForSeconds(1.0f);
         illust.SetActive(true);
-        yield return new WaitForSeconds(3.0f);
-        illustTransform.localPosition = new Vector3(1088f, -113, 0f);
+        IllustPanel.gameObject.SetActive(true);
+        yield return new WaitForSeconds(3.6f);
+        illustTransform.anchoredPosition     = new Vector3(1088f, -113f, 0f);
 
         campBtn.SetActive(true);
         }
