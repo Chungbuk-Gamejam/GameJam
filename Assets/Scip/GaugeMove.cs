@@ -22,6 +22,8 @@ public class GaugeMove : MonoBehaviour
     [SerializeField] BarMove barMove;
     [SerializeField] private GameObject fishGame;
 
+    [SerializeField] Animator[] _stampAnim;
+
     void Init()
     {
         clickPower = 40;
@@ -50,7 +52,15 @@ public class GaugeMove : MonoBehaviour
             fishGame = GameObject.FindWithTag("FishGame");
         }
     }
-    
+
+    public void OnEnable()
+    {
+         for(int i = 0; i < _stampAnim.Length; ++i)
+        {
+            _stampAnim[i].gameObject.SetActive(false);
+        }
+    }
+
 
     void Update()
     {
@@ -76,6 +86,14 @@ public class GaugeMove : MonoBehaviour
 
             //성공 로직
             getObject.AddSelectedItem(Item.Fish);
+
+            if (_stampAnim.Length > 0)
+            {
+                _stampAnim[0].gameObject.SetActive(true);
+                _stampAnim[1].gameObject.SetActive(false);
+            }
+
+
             StartCoroutine(StartFadeOut());
         }
 
@@ -85,6 +103,13 @@ public class GaugeMove : MonoBehaviour
             BarRight.sizeDelta = new Vector2(0, 0);
             FishingBackground.IsActive = false;
             //실패로직
+
+            if (_stampAnim.Length > 0)
+            {
+                _stampAnim[0].gameObject.SetActive(false);
+                _stampAnim[1].gameObject.SetActive(true);
+            }
+
             StartCoroutine(StartFadeOut());
         }
     }

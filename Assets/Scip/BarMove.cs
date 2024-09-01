@@ -15,6 +15,8 @@ public class BarMove : MonoBehaviour
     private RectTransform myRectTransform;
     public GameObject targetObject;
 
+    public Animator[] _stampAnims;
+
     private Vector2 initTransform;
     private void Awake()
     {
@@ -28,6 +30,13 @@ public class BarMove : MonoBehaviour
         initTransform = myRectTransform.anchoredPosition;
         // 프레임 레이트를 60으로 설정
         // Renderer 컴포넌트를 가져옴
+    }
+    private void OnEnable()
+    {
+        for(int i = 0; i< _stampAnims.Length; ++i)
+        {
+            _stampAnims[i].gameObject.SetActive(false);
+        }
     }
 
     private void OnDisable()
