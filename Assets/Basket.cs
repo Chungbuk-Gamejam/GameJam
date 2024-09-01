@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 
 public class Basket : MonoBehaviour
@@ -45,38 +46,47 @@ public class Basket : MonoBehaviour
         int tmp= m_boxCollider.OverlapCollider(contactFilter, overlappingColliders);
         if (tmp>=1)
         {
-            GameObject colliderObject = overlappingColliders[0].gameObject;
-            if (colliderObject.tag == "cone")
+            for(int i = 0; i < overlappingColliders.Count; ++i)
             {
-                //대충 점수 추가
-                Debug.Log("1점 추가");
-                count++;
-                Destroy(colliderObject);
-            }
-            else if (colliderObject.tag == "bug")
-            {
+                GameObject colliderObject = overlappingColliders[i].gameObject;
+                Debug.Log(colliderObject.tag);
+                if (colliderObject.tag == "cone")
+                {
 
-                generateBugAndCone.IsActive = false;
-                pineconeMove.IsActive = false;
-                //실패 로직 추가
-                Destroy(colliderObject);
-                StartCoroutine(StartFadeOut());
+                    //대충 점수 추가
+                    Debug.Log("1점 추가");
+                    count++;
+                    Destroy(colliderObject);
+                }
+                else if (colliderObject.tag == "bug")
+                {
 
-            }
-            else
-            {
-                Destroy(colliderObject);
-                Debug.Log("collision error");
-            }
-            //Destroy(overlappingColliders[0].gameObject);
-            if (successNeededCount <= count)
-            {
-                generateBugAndCone.IsActive = false;
-                pineconeMove.IsActive = false;
+                    generateBugAndCone.IsActive = false;
+                    pineconeMove.IsActive = false;
+                    //실패 로직 추가
+                    Destroy(colliderObject);
+                    StartCoroutine(StartFadeOut());
 
-                //성공! 로직 추가
-                StartCoroutine(StartFadeOut());
-                getObject.AddSelectedItem(ItemInfo.Item.Pinecone);
+                }
+                else
+                {
+                    if (colliderObject.tag != "Camera")
+                    {
+                        Destroy(colliderObject);
+
+                    }
+                    Debug.Log("collision error");
+                }
+                //Destroy(overlappingColliders[0].gameObject);
+                if (successNeededCount <= count)
+                {
+                    generateBugAndCone.IsActive = false;
+                    pineconeMove.IsActive = false;
+
+                    //성공! 로직 추가
+                    StartCoroutine(StartFadeOut());
+                    getObject.AddSelectedItem(ItemInfo.Item.Pinecone);
+                }
             }
         }
     }

@@ -175,7 +175,7 @@ public class MapController : MonoBehaviour
 
         SoundManager.instance.TurnOffBackGroundMusic();
 
-        if (playerController.dayCount >= 5)
+        if (playerController.dayCount >= 4)
         {
             // 종료 로직
             StartCoroutine(SceneLoader.Instance.AsyncSceneLoader($"EndingCredit"));

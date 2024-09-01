@@ -42,13 +42,16 @@ public class CameraManager : MonoBehaviour
 
         originalPosition = theCamera.transform.position;
         originalSize = theCamera.orthographicSize;
+
+        UpdateCurrentBound();
+        UpdateCameraPosition();
     }
 
     void LateUpdate()
     {
-        if (target != null && !isActivated)
+        if (target != null)
         {
-            UpdateCurrentBound();
+            //UpdateCurrentBound();
             UpdateCameraPosition();
         }
     }
@@ -70,6 +73,7 @@ public class CameraManager : MonoBehaviour
     //카메라가 목표를 따라 움직이도록 하는 함수
     private void UpdateCameraPosition()
     {
+        Debug.Log(currentBound);
         if (currentBound != null)
         {
             targetPosition.Set(target.transform.position.x, target.transform.position.y, this.transform.position.z);

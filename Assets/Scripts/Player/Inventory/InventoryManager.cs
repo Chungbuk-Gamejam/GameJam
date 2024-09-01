@@ -222,6 +222,7 @@ public class InventoryManager : MonoBehaviour
     public void CreateRecipeSlots(Recipe recipe)
     {
         slotPanel.SetActive(true);
+        result.gameObject.SetActive(false);
         // 레시피의 재료를 리스트로 변환
         List<Item> keys = recipe.ingredientItems;
         List<int> values = recipe.ingredientAmounts;
@@ -235,13 +236,9 @@ public class InventoryManager : MonoBehaviour
         int hasPartialItems = 0;
         int noItems = 0;
 
-        Debug.Log(">>>>>>Create " + keys.Count);
-
 
         for (int i = 0; i < keys.Count; i++)
         {
-            Debug.Log(">>>>>>Create " + keys[i]);
-
             playerController.ChangeState(playerController._waitState);
             Item item = keys[i];
             int requiredQuantity = values[i];

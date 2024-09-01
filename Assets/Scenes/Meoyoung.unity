@@ -4922,7 +4922,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &443213606
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8779,8 +8779,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -2140009817
-  m_SortingLayer: 2
+  m_SortingLayerID: 148400297
+  m_SortingLayer: 3
   m_SortingOrder: 2
   m_Sprite: {fileID: -2143948469, guid: 7706560567ffde54aad8a148b178b649, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -13684,7 +13684,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1182721245
 RectTransform:
   m_ObjectHideFlags: 0
@@ -18877,6 +18877,7 @@ MonoBehaviour:
   cookBtn: {fileID: 1401969717}
   campBtn: {fileID: 1731184132}
   IllustPanel: {fileID: 1182721246}
+  illustTransform: {fileID: 1182721245}
   failIllust: {fileID: 21300000, guid: c87740a2828b04341aa3d9b09f6a6b72, type: 3}
   successIllust: {fileID: 21300000, guid: c59482401eb33e2469d5f0bb6adf08ab, type: 3}
   character: {fileID: 1545260025}
