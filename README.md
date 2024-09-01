@@ -62,3 +62,32 @@
 |---|---|---|---|
 |![스크린샷 2024-09-02 012746](https://github.com/user-attachments/assets/51af89df-71b5-4b36-a85f-1af169d593fc)|![스크린샷 2024-09-02 012806](https://github.com/user-attachments/assets/8435cba9-3478-4746-bb74-c0464b0f11aa)|![스크린샷 2024-09-02 012826](https://github.com/user-attachments/assets/c4cf6592-7e10-4d44-bbd6-2e4fa5761916)|![스크린샷 2024-09-02 012857](https://github.com/user-attachments/assets/cb99c74d-596d-4691-a862-5b89b56319f4)|
 |스팟에 도달하면 체크 포인트 활성|스페이스바로 타이밍을 맞춘 후 마우스 클릭으로 게이지 활성화|락픽으로 자물쇠의 기믹을 해결|미니 캐릭터를 움직이며 솔방울 5개 획득 시 성공, 벌레 1개라도 획득 시 실패|
+
+- 요리하기
+
+  |요리|미니게임|
+  |---|---|
+  |![스크린샷 2024-09-02 012932](https://github.com/user-attachments/assets/459ba94c-d32a-49f7-83ba-4397d8f6deba)|![스크린샷 2024-09-02 012939](https://github.com/user-attachments/assets/57f1f628-92c0-41cf-ba0c-10c7997d975f)|
+
+
+- 요리 결과
+
+  |결과|
+  |---|
+  |![스크린샷 2024-09-02 012949](https://github.com/user-attachments/assets/ad5c14f3-13a5-4741-9481-8a43d7c15a33)|
+  |사용자가 채집한 재료가 요리의 레시피와 일치하는지 판별해주는 장면입니다.|
+
+- 맵 선택
+
+|로딩중|맵 선택|
+|---|---|
+|![스크린샷 2024-09-02 013004](https://github.com/user-attachments/assets/cd2ac9f8-0487-4236-9d37-2927d9b924df)|![스크린샷 2024-09-02 013009](https://github.com/user-attachments/assets/b9a5a286-8c70-4a15-a67d-b4a7ee526bd0)|
+|맵을 선택하러 가기위해 캐릭터가 걸어가는 중입니다.|사용자는 4개의 맵중 하나를 현재 Day에 따라 선택할 수 있습니다.|
+
+- 밤하늘 감상
+
+  |밤하늘|
+  |---|
+  |![스크린샷 2024-09-02 013023](https://github.com/user-attachments/assets/53ae6844-6503-4b4a-82f8-2b8a9226e67c)|
+  |요리를 얼만큼 잘 만들었는지에 따라 캐릭터의 표정이 달라지는 걸 볼 수 있습니다.|
+
